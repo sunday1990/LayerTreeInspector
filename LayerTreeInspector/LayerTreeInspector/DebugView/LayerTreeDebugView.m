@@ -186,14 +186,10 @@ static LayerTreeDebugView *_instance;
     self.LYT_tableview.hidden = NO;
     self.LYT_tableview.alpha = 1;
     [self.LYT_selectNodes removeAllObjects];
-    [LayerTreeInspector layerTreeFindRootNodeAtWindowWithCompletion:^(LayerTreeBaseNode *rootNode) {
-        if (rootNode) {
-            self.LYT_currentNode = rootNode;
-            [self.LYT_selectNodes addObject:self.LYT_currentNode];
-            [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
-        }else{
-            NSLog(@"根节点查找失败");
-        }
+    [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
+        self.LYT_currentNode = currentNode;
+        [self.LYT_selectNodes addObjectsFromArray:node];
+        [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }];
 }
 

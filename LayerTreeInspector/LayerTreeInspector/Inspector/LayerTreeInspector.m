@@ -118,6 +118,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 @end
 
 @implementation LayerTreeInspector
+
 + (void)startMonitor{
     if (LayerTreeFirstInitializeState.startMonitor == 1) {//已经处于开启状态
         NSLog(@"Duplicate start monitor");
@@ -142,6 +143,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     }
 }
 
+#pragma mark 分界线
 + (void)showDebugView{
     [LayerTreeDebugView sharedDebugView];
 }
@@ -158,6 +160,28 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
     if (completion) {
         completion(rootNode);
+    }
+}
+
++ (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *frontNodes))completion{
+    UIViewController *topViewController = [self topViewController];
+    UIWindow *window = RecursiveFindWindow(topViewController.view);
+    LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
+    rootNode.LayerTreeNodeView = window;
+    RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
+    LayerTreeBaseNode *currentNode = RecursiveFindNodeWith(topViewController.view, rootNode);
+    NSMutableArray *frontNodes = [NSMutableArray array];
+    while (currentNode.fatherNode != rootNode) {
+        [frontNodes insertObject:currentNode atIndex:0];
+        currentNode = (LayerTreeBaseNode *)currentNode.fatherNode;
+    }
+    [frontNodes insertObject:rootNode atIndex:0];
+    if (completion) {
+        if (frontNodes.count == 1) {
+            completion(rootNode,frontNodes);
+        }else{
+            completion(currentNode,frontNodes);
+        }
     }
 }
 
@@ -180,6 +204,5 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     }
     return nil;
 }
-
 
 @end

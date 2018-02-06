@@ -11,7 +11,7 @@
 
 @interface LayerTreeInspector : NSObject
 /**
- 开始监控
+ 开始监控,自动刷新树，但是很耗费性能，不建议使用
  */
 + (void)startMonitor;
 /**
@@ -41,4 +41,7 @@
  @param completion completion回调
  */
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion;
+
++ (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *node))completion;
+
 @end

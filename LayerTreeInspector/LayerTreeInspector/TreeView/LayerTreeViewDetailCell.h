@@ -20,6 +20,7 @@
 
 
 @interface LayerTreeViewDetailModel:NSObject
+
 @property (nonatomic, strong) NSString * _Nullable info;
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGFloat x;

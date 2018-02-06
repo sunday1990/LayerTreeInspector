@@ -16,10 +16,7 @@
 #pragma mark ======== Life Cycle ========
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [[NSNull null]performSelector:@selector(length)];
-    [self performSelector:@selector(abc)];
-   
+    // Do any additional setup after loading the view.   
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 40, WIDTH-20, 150)];
     tipLabel.font = [UIFont systemFontOfSize:14];
     tipLabel.textColor = [UIColor darkTextColor];

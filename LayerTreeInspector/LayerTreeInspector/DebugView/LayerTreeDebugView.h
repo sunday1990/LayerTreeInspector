@@ -10,6 +10,11 @@
 
 @interface LayerTreeDebugView : UIView
 
+/**
+ 默认展示普通的面包屑形式
+
+ @return DebugView单例
+ */
 + (instancetype _Nonnull )sharedDebugView;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TestUnrecognizedSelVC.h"
+#import "TestTimerErrorVC.h"
 
 @interface TestUnrecognizedSelVC ()
 
@@ -53,7 +54,10 @@
     NSInteger btnTag = btn.tag;
     if (1000 == btnTag) {
     }else if (1001 == btnTag){
-        [self performSelector:@selector(undefinedVCSelector)];
+//        [self performSelector:@selector(undefinedVCSelector)];
+        TestUnrecognizedSelVC *vc = [[TestUnrecognizedSelVC alloc]init];
+        [self presentViewController:vc animated:YES completion:nil];
+    
     }else if (1002 == btnTag){
         [[NSNull null]performSelector:@selector(length)];
     }else if (1003 == btnTag){

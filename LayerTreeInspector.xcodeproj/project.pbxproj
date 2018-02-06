@@ -40,6 +40,7 @@
 		16B794B620298F3C00D27330 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16B794A920298F3B00D27330 /* SVProgressHUD.bundle */; };
 		16B794B920298FFD00D27330 /* LayerTreeAffineTransFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */; };
 		16B794BC2029907300D27330 /* LayerTreeGraphicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */; };
+		16B794C42029935700D27330 /* LayerTreeBreadcrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,8 @@
 		16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeAffineTransFormView.m; sourceTree = "<group>"; };
 		16B794BA2029907300D27330 /* LayerTreeGraphicsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeGraphicsView.h; sourceTree = "<group>"; };
 		16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeGraphicsView.m; sourceTree = "<group>"; };
+		16B794C22029935700D27330 /* LayerTreeBreadcrumbsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeBreadcrumbsView.h; sourceTree = "<group>"; };
+		16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBreadcrumbsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +398,8 @@
 				16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */,
 				16B794BA2029907300D27330 /* LayerTreeGraphicsView.h */,
 				16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */,
+				16B794C22029935700D27330 /* LayerTreeBreadcrumbsView.h */,
+				16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */,
 				16B79430202986FB00D27330 /* LayerTreeViewDetailCell.h */,
 				16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */,
 			);
@@ -572,6 +577,7 @@
 				16B794AE20298F3C00D27330 /* TestTimerErrorVC.m in Sources */,
 				16B794AF20298F3C00D27330 /* WebViewController.m in Sources */,
 				16B794B320298F3C00D27330 /* TestContainerVC.m in Sources */,
+				16B794C42029935700D27330 /* LayerTreeBreadcrumbsView.m in Sources */,
 				16B794B220298F3C00D27330 /* BaseViewController.m in Sources */,
 				16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */,
 				16B7940C202986C800D27330 /* main.m in Sources */,
