@@ -18,19 +18,6 @@
 		16B7943A202986FC00D27330 /* LayerTreeBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79434202986FB00D27330 /* LayerTreeBaseNode.m */; };
 		16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */; };
 		16B7943D202986FC00D27330 /* LayerTreeDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79439202986FC00D27330 /* LayerTreeDebugView.m */; };
-		16B794652029896C00D27330 /* TestNotificationErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794412029896C00D27330 /* TestNotificationErrorVC.m */; };
-		16B794662029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794452029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.m */; };
-		16B794672029896C00D27330 /* TestUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794462029896C00D27330 /* TestUnrecognizedSelVC.m */; };
-		16B794682029896C00D27330 /* TestKVOErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794492029896C00D27330 /* TestKVOErrorVC.m */; };
-		16B794692029896C00D27330 /* TestTimerErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7944B2029896C00D27330 /* TestTimerErrorVC.m */; };
-		16B7946A2029896C00D27330 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7944F2029896C00D27330 /* WebViewController.m */; };
-		16B7946B2029896C00D27330 /* TestAutoDegradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794522029896C00D27330 /* TestAutoDegradeVC.m */; };
-		16B7946C2029896C00D27330 /* TestManaulDegradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794562029896C00D27330 /* TestManaulDegradeVC.m */; };
-		16B7946D2029896C00D27330 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794582029896C00D27330 /* BaseViewController.m */; };
-		16B7946E2029896C00D27330 /* TestContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7945C2029896C00D27330 /* TestContainerVC.m */; };
-		16B7946F2029896C00D27330 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794622029896C00D27330 /* SVProgressHUD.m */; };
-		16B794702029896C00D27330 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794632029896C00D27330 /* SVIndefiniteAnimatedView.m */; };
-		16B794712029896C00D27330 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16B794642029896C00D27330 /* SVProgressHUD.bundle */; };
 		16B7947520298AC500D27330 /* LayerTreeInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7947420298AC400D27330 /* LayerTreeInspector.m */; };
 		16B7947920298C5000D27330 /* LYT_editIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947720298C5000D27330 /* LYT_editIcon@2x.png */; };
 		16B7947A20298C5000D27330 /* LYT_editIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947820298C5000D27330 /* LYT_editIcon@3x.png */; };
@@ -38,6 +25,19 @@
 		16B7947E20298C5700D27330 /* LYT_eyeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947C20298C5700D27330 /* LYT_eyeIcon@2x.png */; };
 		16B7948120298C5D00D27330 /* LYT_sliderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947F20298C5D00D27330 /* LYT_sliderIcon@2x.png */; };
 		16B7948220298C5D00D27330 /* LYT_sliderIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7948020298C5D00D27330 /* LYT_sliderIcon@3x.png */; };
+		16B794AA20298F3C00D27330 /* TestNotificationErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948620298F3B00D27330 /* TestNotificationErrorVC.m */; };
+		16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948A20298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.m */; };
+		16B794AC20298F3C00D27330 /* TestUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948B20298F3B00D27330 /* TestUnrecognizedSelVC.m */; };
+		16B794AD20298F3C00D27330 /* TestKVOErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948E20298F3B00D27330 /* TestKVOErrorVC.m */; };
+		16B794AE20298F3C00D27330 /* TestTimerErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7949020298F3B00D27330 /* TestTimerErrorVC.m */; };
+		16B794AF20298F3C00D27330 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7949420298F3B00D27330 /* WebViewController.m */; };
+		16B794B020298F3C00D27330 /* TestAutoDegradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7949720298F3B00D27330 /* TestAutoDegradeVC.m */; };
+		16B794B120298F3C00D27330 /* TestManaulDegradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7949B20298F3B00D27330 /* TestManaulDegradeVC.m */; };
+		16B794B220298F3C00D27330 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7949D20298F3B00D27330 /* BaseViewController.m */; };
+		16B794B320298F3C00D27330 /* TestContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794A120298F3B00D27330 /* TestContainerVC.m */; };
+		16B794B420298F3C00D27330 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794A720298F3B00D27330 /* SVProgressHUD.m */; };
+		16B794B520298F3C00D27330 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794A820298F3B00D27330 /* SVIndefiniteAnimatedView.m */; };
+		16B794B620298F3C00D27330 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16B794A920298F3B00D27330 /* SVProgressHUD.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,31 +83,6 @@
 		16B79436202986FB00D27330 /* LayerTreeDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeDebugView.h; sourceTree = "<group>"; };
 		16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeViewDetailCell.m; sourceTree = "<group>"; };
 		16B79439202986FC00D27330 /* LayerTreeDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeDebugView.m; sourceTree = "<group>"; };
-		16B794402029896C00D27330 /* TestNotificationErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNotificationErrorVC.h; sourceTree = "<group>"; };
-		16B794412029896C00D27330 /* TestNotificationErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNotificationErrorVC.m; sourceTree = "<group>"; };
-		16B794432029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewDidloadUnrecognizedSelVC.h; sourceTree = "<group>"; };
-		16B794442029896C00D27330 /* TestUnrecognizedSelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUnrecognizedSelVC.h; sourceTree = "<group>"; };
-		16B794452029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewDidloadUnrecognizedSelVC.m; sourceTree = "<group>"; };
-		16B794462029896C00D27330 /* TestUnrecognizedSelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUnrecognizedSelVC.m; sourceTree = "<group>"; };
-		16B794482029896C00D27330 /* TestKVOErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestKVOErrorVC.h; sourceTree = "<group>"; };
-		16B794492029896C00D27330 /* TestKVOErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestKVOErrorVC.m; sourceTree = "<group>"; };
-		16B7944B2029896C00D27330 /* TestTimerErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTimerErrorVC.m; sourceTree = "<group>"; };
-		16B7944C2029896C00D27330 /* TestTimerErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTimerErrorVC.h; sourceTree = "<group>"; };
-		16B7944F2029896C00D27330 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		16B794502029896C00D27330 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
-		16B794522029896C00D27330 /* TestAutoDegradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAutoDegradeVC.m; sourceTree = "<group>"; };
-		16B794532029896C00D27330 /* TestAutoDegradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAutoDegradeVC.h; sourceTree = "<group>"; };
-		16B794552029896C00D27330 /* TestManaulDegradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestManaulDegradeVC.h; sourceTree = "<group>"; };
-		16B794562029896C00D27330 /* TestManaulDegradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestManaulDegradeVC.m; sourceTree = "<group>"; };
-		16B794582029896C00D27330 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		16B794592029896C00D27330 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		16B7945B2029896C00D27330 /* TestContainerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestContainerVC.h; sourceTree = "<group>"; };
-		16B7945C2029896C00D27330 /* TestContainerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestContainerVC.m; sourceTree = "<group>"; };
-		16B794602029896C00D27330 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		16B794612029896C00D27330 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		16B794622029896C00D27330 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		16B794632029896C00D27330 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		16B794642029896C00D27330 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		16B7947220298A1F00D27330 /* AssistMicros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssistMicros.h; sourceTree = "<group>"; };
 		16B7947320298AC400D27330 /* LayerTreeInspector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspector.h; sourceTree = "<group>"; };
 		16B7947420298AC400D27330 /* LayerTreeInspector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspector.m; sourceTree = "<group>"; };
@@ -117,6 +92,31 @@
 		16B7947C20298C5700D27330 /* LYT_eyeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYT_eyeIcon@2x.png"; sourceTree = "<group>"; };
 		16B7947F20298C5D00D27330 /* LYT_sliderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYT_sliderIcon@2x.png"; sourceTree = "<group>"; };
 		16B7948020298C5D00D27330 /* LYT_sliderIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYT_sliderIcon@3x.png"; sourceTree = "<group>"; };
+		16B7948520298F3B00D27330 /* TestNotificationErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNotificationErrorVC.h; sourceTree = "<group>"; };
+		16B7948620298F3B00D27330 /* TestNotificationErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNotificationErrorVC.m; sourceTree = "<group>"; };
+		16B7948820298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewDidloadUnrecognizedSelVC.h; sourceTree = "<group>"; };
+		16B7948920298F3B00D27330 /* TestUnrecognizedSelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUnrecognizedSelVC.h; sourceTree = "<group>"; };
+		16B7948A20298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewDidloadUnrecognizedSelVC.m; sourceTree = "<group>"; };
+		16B7948B20298F3B00D27330 /* TestUnrecognizedSelVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUnrecognizedSelVC.m; sourceTree = "<group>"; };
+		16B7948D20298F3B00D27330 /* TestKVOErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestKVOErrorVC.h; sourceTree = "<group>"; };
+		16B7948E20298F3B00D27330 /* TestKVOErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestKVOErrorVC.m; sourceTree = "<group>"; };
+		16B7949020298F3B00D27330 /* TestTimerErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTimerErrorVC.m; sourceTree = "<group>"; };
+		16B7949120298F3B00D27330 /* TestTimerErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTimerErrorVC.h; sourceTree = "<group>"; };
+		16B7949420298F3B00D27330 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		16B7949520298F3B00D27330 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		16B7949720298F3B00D27330 /* TestAutoDegradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAutoDegradeVC.m; sourceTree = "<group>"; };
+		16B7949820298F3B00D27330 /* TestAutoDegradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAutoDegradeVC.h; sourceTree = "<group>"; };
+		16B7949A20298F3B00D27330 /* TestManaulDegradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestManaulDegradeVC.h; sourceTree = "<group>"; };
+		16B7949B20298F3B00D27330 /* TestManaulDegradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestManaulDegradeVC.m; sourceTree = "<group>"; };
+		16B7949D20298F3B00D27330 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		16B7949E20298F3B00D27330 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		16B794A020298F3B00D27330 /* TestContainerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestContainerVC.h; sourceTree = "<group>"; };
+		16B794A120298F3B00D27330 /* TestContainerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestContainerVC.m; sourceTree = "<group>"; };
+		16B794A520298F3B00D27330 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		16B794A620298F3B00D27330 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		16B794A720298F3B00D27330 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		16B794A820298F3B00D27330 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		16B794A920298F3B00D27330 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +167,7 @@
 		16B793FB202986C800D27330 /* LayerTreeInspector */ = {
 			isa = PBXGroup;
 			children = (
-				16B7943E2029896C00D27330 /* Examples */,
+				16B7948320298F3B00D27330 /* Examples */,
 				16B7942E202986D700D27330 /* Inspector */,
 				16B793FC202986C800D27330 /* AppDelegate.h */,
 				16B793FD202986C800D27330 /* AppDelegate.m */,
@@ -220,143 +220,6 @@
 			path = Inspector;
 			sourceTree = "<group>";
 		};
-		16B7943E2029896C00D27330 /* Examples */ = {
-			isa = PBXGroup;
-			children = (
-				16B7943F2029896C00D27330 /* NSNotifitication */,
-				16B794422029896C00D27330 /* UnrecognizedSelector */,
-				16B794472029896C00D27330 /* KVO */,
-				16B7944A2029896C00D27330 /* Timer */,
-				16B7944D2029896C00D27330 /* Degrade */,
-				16B794572029896C00D27330 /* Base */,
-				16B7945A2029896C00D27330 /* Containers（Pending） */,
-				16B7945D2029896C00D27330 /* Vender */,
-			);
-			name = Examples;
-			path = "../../未命名文件夹/LayerTree/Examples";
-			sourceTree = "<group>";
-		};
-		16B7943F2029896C00D27330 /* NSNotifitication */ = {
-			isa = PBXGroup;
-			children = (
-				16B794402029896C00D27330 /* TestNotificationErrorVC.h */,
-				16B794412029896C00D27330 /* TestNotificationErrorVC.m */,
-			);
-			path = NSNotifitication;
-			sourceTree = "<group>";
-		};
-		16B794422029896C00D27330 /* UnrecognizedSelector */ = {
-			isa = PBXGroup;
-			children = (
-				16B794432029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.h */,
-				16B794442029896C00D27330 /* TestUnrecognizedSelVC.h */,
-				16B794452029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.m */,
-				16B794462029896C00D27330 /* TestUnrecognizedSelVC.m */,
-			);
-			path = UnrecognizedSelector;
-			sourceTree = "<group>";
-		};
-		16B794472029896C00D27330 /* KVO */ = {
-			isa = PBXGroup;
-			children = (
-				16B794482029896C00D27330 /* TestKVOErrorVC.h */,
-				16B794492029896C00D27330 /* TestKVOErrorVC.m */,
-			);
-			path = KVO;
-			sourceTree = "<group>";
-		};
-		16B7944A2029896C00D27330 /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				16B7944B2029896C00D27330 /* TestTimerErrorVC.m */,
-				16B7944C2029896C00D27330 /* TestTimerErrorVC.h */,
-			);
-			path = Timer;
-			sourceTree = "<group>";
-		};
-		16B7944D2029896C00D27330 /* Degrade */ = {
-			isa = PBXGroup;
-			children = (
-				16B7944E2029896C00D27330 /* Webview */,
-				16B794512029896C00D27330 /* AutoDegrade */,
-				16B794542029896C00D27330 /* ManaulDegrade */,
-			);
-			path = Degrade;
-			sourceTree = "<group>";
-		};
-		16B7944E2029896C00D27330 /* Webview */ = {
-			isa = PBXGroup;
-			children = (
-				16B7944F2029896C00D27330 /* WebViewController.m */,
-				16B794502029896C00D27330 /* WebViewController.h */,
-			);
-			path = Webview;
-			sourceTree = "<group>";
-		};
-		16B794512029896C00D27330 /* AutoDegrade */ = {
-			isa = PBXGroup;
-			children = (
-				16B794522029896C00D27330 /* TestAutoDegradeVC.m */,
-				16B794532029896C00D27330 /* TestAutoDegradeVC.h */,
-			);
-			path = AutoDegrade;
-			sourceTree = "<group>";
-		};
-		16B794542029896C00D27330 /* ManaulDegrade */ = {
-			isa = PBXGroup;
-			children = (
-				16B794552029896C00D27330 /* TestManaulDegradeVC.h */,
-				16B794562029896C00D27330 /* TestManaulDegradeVC.m */,
-			);
-			path = ManaulDegrade;
-			sourceTree = "<group>";
-		};
-		16B794572029896C00D27330 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				16B794582029896C00D27330 /* BaseViewController.m */,
-				16B794592029896C00D27330 /* BaseViewController.h */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		16B7945A2029896C00D27330 /* Containers（Pending） */ = {
-			isa = PBXGroup;
-			children = (
-				16B7945B2029896C00D27330 /* TestContainerVC.h */,
-				16B7945C2029896C00D27330 /* TestContainerVC.m */,
-			);
-			path = "Containers（Pending）";
-			sourceTree = "<group>";
-		};
-		16B7945D2029896C00D27330 /* Vender */ = {
-			isa = PBXGroup;
-			children = (
-				16B7945E2029896C00D27330 /* SVProgressHUD */,
-			);
-			path = Vender;
-			sourceTree = "<group>";
-		};
-		16B7945E2029896C00D27330 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				16B7945F2029896C00D27330 /* SVProgressHUD */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		16B7945F2029896C00D27330 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				16B794602029896C00D27330 /* SVIndefiniteAnimatedView.h */,
-				16B794612029896C00D27330 /* SVProgressHUD.h */,
-				16B794622029896C00D27330 /* SVProgressHUD.m */,
-				16B794632029896C00D27330 /* SVIndefiniteAnimatedView.m */,
-				16B794642029896C00D27330 /* SVProgressHUD.bundle */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
 		16B7947620298C4900D27330 /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +231,142 @@
 				16B7947820298C5000D27330 /* LYT_editIcon@3x.png */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		16B7948320298F3B00D27330 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				16B7948420298F3B00D27330 /* NSNotifitication */,
+				16B7948720298F3B00D27330 /* UnrecognizedSelector */,
+				16B7948C20298F3B00D27330 /* KVO */,
+				16B7948F20298F3B00D27330 /* Timer */,
+				16B7949220298F3B00D27330 /* Degrade */,
+				16B7949C20298F3B00D27330 /* Base */,
+				16B7949F20298F3B00D27330 /* Containers（Pending） */,
+				16B794A220298F3B00D27330 /* Vender */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		16B7948420298F3B00D27330 /* NSNotifitication */ = {
+			isa = PBXGroup;
+			children = (
+				16B7948520298F3B00D27330 /* TestNotificationErrorVC.h */,
+				16B7948620298F3B00D27330 /* TestNotificationErrorVC.m */,
+			);
+			path = NSNotifitication;
+			sourceTree = "<group>";
+		};
+		16B7948720298F3B00D27330 /* UnrecognizedSelector */ = {
+			isa = PBXGroup;
+			children = (
+				16B7948820298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.h */,
+				16B7948920298F3B00D27330 /* TestUnrecognizedSelVC.h */,
+				16B7948A20298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.m */,
+				16B7948B20298F3B00D27330 /* TestUnrecognizedSelVC.m */,
+			);
+			path = UnrecognizedSelector;
+			sourceTree = "<group>";
+		};
+		16B7948C20298F3B00D27330 /* KVO */ = {
+			isa = PBXGroup;
+			children = (
+				16B7948D20298F3B00D27330 /* TestKVOErrorVC.h */,
+				16B7948E20298F3B00D27330 /* TestKVOErrorVC.m */,
+			);
+			path = KVO;
+			sourceTree = "<group>";
+		};
+		16B7948F20298F3B00D27330 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949020298F3B00D27330 /* TestTimerErrorVC.m */,
+				16B7949120298F3B00D27330 /* TestTimerErrorVC.h */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		16B7949220298F3B00D27330 /* Degrade */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949320298F3B00D27330 /* Webview */,
+				16B7949620298F3B00D27330 /* AutoDegrade */,
+				16B7949920298F3B00D27330 /* ManaulDegrade */,
+			);
+			path = Degrade;
+			sourceTree = "<group>";
+		};
+		16B7949320298F3B00D27330 /* Webview */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949420298F3B00D27330 /* WebViewController.m */,
+				16B7949520298F3B00D27330 /* WebViewController.h */,
+			);
+			path = Webview;
+			sourceTree = "<group>";
+		};
+		16B7949620298F3B00D27330 /* AutoDegrade */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949720298F3B00D27330 /* TestAutoDegradeVC.m */,
+				16B7949820298F3B00D27330 /* TestAutoDegradeVC.h */,
+			);
+			path = AutoDegrade;
+			sourceTree = "<group>";
+		};
+		16B7949920298F3B00D27330 /* ManaulDegrade */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949A20298F3B00D27330 /* TestManaulDegradeVC.h */,
+				16B7949B20298F3B00D27330 /* TestManaulDegradeVC.m */,
+			);
+			path = ManaulDegrade;
+			sourceTree = "<group>";
+		};
+		16B7949C20298F3B00D27330 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				16B7949D20298F3B00D27330 /* BaseViewController.m */,
+				16B7949E20298F3B00D27330 /* BaseViewController.h */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		16B7949F20298F3B00D27330 /* Containers（Pending） */ = {
+			isa = PBXGroup;
+			children = (
+				16B794A020298F3B00D27330 /* TestContainerVC.h */,
+				16B794A120298F3B00D27330 /* TestContainerVC.m */,
+			);
+			path = "Containers（Pending）";
+			sourceTree = "<group>";
+		};
+		16B794A220298F3B00D27330 /* Vender */ = {
+			isa = PBXGroup;
+			children = (
+				16B794A320298F3B00D27330 /* SVProgressHUD */,
+			);
+			path = Vender;
+			sourceTree = "<group>";
+		};
+		16B794A320298F3B00D27330 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				16B794A420298F3B00D27330 /* SVProgressHUD */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		16B794A420298F3B00D27330 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				16B794A520298F3B00D27330 /* SVIndefiniteAnimatedView.h */,
+				16B794A620298F3B00D27330 /* SVProgressHUD.h */,
+				16B794A720298F3B00D27330 /* SVProgressHUD.m */,
+				16B794A820298F3B00D27330 /* SVIndefiniteAnimatedView.m */,
+				16B794A920298F3B00D27330 /* SVProgressHUD.bundle */,
+			);
+			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,11 +480,11 @@
 				16B79409202986C800D27330 /* LaunchScreen.storyboard in Resources */,
 				16B7947D20298C5700D27330 /* LYT_eyeIcon@3x.png in Resources */,
 				16B79406202986C800D27330 /* Assets.xcassets in Resources */,
+				16B794B620298F3C00D27330 /* SVProgressHUD.bundle in Resources */,
 				16B79404202986C800D27330 /* Main.storyboard in Resources */,
 				16B7948220298C5D00D27330 /* LYT_sliderIcon@3x.png in Resources */,
 				16B7947A20298C5000D27330 /* LYT_editIcon@3x.png in Resources */,
 				16B7947920298C5000D27330 /* LYT_editIcon@2x.png in Resources */,
-				16B794712029896C00D27330 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,22 +511,22 @@
 			files = (
 				16B7943A202986FC00D27330 /* LayerTreeBaseNode.m in Sources */,
 				16B79401202986C800D27330 /* ViewController.m in Sources */,
-				16B794702029896C00D27330 /* SVIndefiniteAnimatedView.m in Sources */,
+				16B794B520298F3C00D27330 /* SVIndefiniteAnimatedView.m in Sources */,
 				16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */,
-				16B7946B2029896C00D27330 /* TestAutoDegradeVC.m in Sources */,
-				16B7946F2029896C00D27330 /* SVProgressHUD.m in Sources */,
 				16B7947520298AC500D27330 /* LayerTreeInspector.m in Sources */,
-				16B794672029896C00D27330 /* TestUnrecognizedSelVC.m in Sources */,
-				16B7946C2029896C00D27330 /* TestManaulDegradeVC.m in Sources */,
-				16B794692029896C00D27330 /* TestTimerErrorVC.m in Sources */,
-				16B7946A2029896C00D27330 /* WebViewController.m in Sources */,
-				16B7946E2029896C00D27330 /* TestContainerVC.m in Sources */,
-				16B7946D2029896C00D27330 /* BaseViewController.m in Sources */,
-				16B794662029896C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */,
+				16B794B020298F3C00D27330 /* TestAutoDegradeVC.m in Sources */,
+				16B794B420298F3C00D27330 /* SVProgressHUD.m in Sources */,
+				16B794AC20298F3C00D27330 /* TestUnrecognizedSelVC.m in Sources */,
+				16B794B120298F3C00D27330 /* TestManaulDegradeVC.m in Sources */,
+				16B794AE20298F3C00D27330 /* TestTimerErrorVC.m in Sources */,
+				16B794AF20298F3C00D27330 /* WebViewController.m in Sources */,
+				16B794B320298F3C00D27330 /* TestContainerVC.m in Sources */,
+				16B794B220298F3C00D27330 /* BaseViewController.m in Sources */,
+				16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */,
 				16B7940C202986C800D27330 /* main.m in Sources */,
-				16B794682029896C00D27330 /* TestKVOErrorVC.m in Sources */,
+				16B794AD20298F3C00D27330 /* TestKVOErrorVC.m in Sources */,
 				16B7943D202986FC00D27330 /* LayerTreeDebugView.m in Sources */,
-				16B794652029896C00D27330 /* TestNotificationErrorVC.m in Sources */,
+				16B794AA20298F3C00D27330 /* TestNotificationErrorVC.m in Sources */,
 				16B793FE202986C800D27330 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
