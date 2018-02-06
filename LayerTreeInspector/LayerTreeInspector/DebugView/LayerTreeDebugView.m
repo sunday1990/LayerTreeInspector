@@ -7,10 +7,14 @@
 //
 
 #import "LayerTreeDebugView.h"
-#import "LayerTreeBaseNode.h"
-#import "LayerTreeAssistMacros.h"
 #import "LayerTreeInspector.h"
 #import "LayerTreeViewDetailCell.h"
+#import "LayerTreeGraphicsView.h"
+#import "LayerTreeBreadcrumbsView.h"
+#import "LayerTreeAffineTransFormView.h"
+#import "LayerTreeBaseNode.h"
+#import "LayerTreeAssistMacros.h"
+
 
 @interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,6 +31,10 @@
 @property (nonatomic, strong) UIButton *LYT_dismissBtn;
 
 @property (nonatomic, strong) UIButton *LYT_refreshBtn;
+
+@property (nonatomic, strong) UIButton *LYT_changeTypeBtn;
+
+@property (nonatomic, strong) UIView *LYT_typeView;
 
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
 
@@ -230,11 +238,6 @@ static LayerTreeDebugView *_instance;
     }
 }
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)tap{
-    
-    NSLog(@"tap.view:%@",tap.view);
-}
-
 - (void)layerTreeBack:(UIButton *)btn{
     checkViewDetail = NO;
     if (self.LYT_selectNodes.count > 1) {
@@ -263,6 +266,21 @@ static LayerTreeDebugView *_instance;
 }
 
 - (void)refreshDebugView{
+    CABasicAnimation *lessAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    lessAnimation.toValue = [NSNumber numberWithFloat:0.3];
+    
+    CABasicAnimation *enlargeAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    enlargeAnimation.toValue = [NSNumber numberWithFloat:1];
+    
+    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];//transform.rotation
+    rotateAnimation.toValue = [NSNumber numberWithFloat:M_PI*2];
+    
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = @[lessAnimation,enlargeAnimation,rotateAnimation];
+    animationGroup.duration = 0.4;
+    [self.LYT_refreshBtn.layer addAnimation:animationGroup forKey:@"groupAnimation"];
+    
+    checkViewDetail = NO;
     self.LYT_tableview.hidden = NO;
     self.LYT_tableview.alpha = 1;
     [self.LYT_selectNodes removeAllObjects];
@@ -271,6 +289,25 @@ static LayerTreeDebugView *_instance;
         [self.LYT_selectNodes addObjectsFromArray:node];
         [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }];
+}
+
+- (void)showSelectTypeView:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    if (btn.selected) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.LYT_typeView.frame = CGRectMake(self.LYT_typeView.frame.origin.x, self.LYT_typeView.frame.origin.y, self.LYT_typeView.frame.size.width, 44*3);
+        }];
+    }else{
+        [UIView animateWithDuration:0.2 animations:^{
+            self.LYT_typeView.frame = CGRectMake(self.LYT_typeView.frame.origin.x, self.LYT_typeView.frame.origin.y, self.LYT_typeView.frame.size.width, 0);
+        }];
+    }
+    NSLog(@"changeType");
+}
+
+- (void)changeStyle:(UIButton *)btn{
+    NSLog(@"btn.tag:%ld",(long)btn.tag);
+    [self showSelectTypeView:self.LYT_changeTypeBtn];
 }
 
 #pragma mark =========== Setters && Getters ===========
@@ -308,7 +345,9 @@ static LayerTreeDebugView *_instance;
         _LYT_tableview.layer.cornerRadius = 10;
         _LYT_tableview.tableFooterView = [[UIView alloc]init];
         _LYT_tableview.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
+        [_LYT_tableview addSubview:self.LYT_typeView];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+
     }
     return _LYT_tableview;
 }
@@ -325,6 +364,8 @@ static LayerTreeDebugView *_instance;
         [_LYT_headerView addTarget:self action:@selector(layerTreeBack:) forControlEvents:UIControlEventTouchUpInside];
         [_LYT_headerView addSubview:self.LYT_dismissBtn];
         [_LYT_headerView addSubview:self.LYT_refreshBtn];
+        [_LYT_headerView addSubview:self.LYT_changeTypeBtn];
+//        [_LYT_headerView addSubview:self.LYT_typeView];
     }
     return _LYT_headerView;
 }
@@ -333,11 +374,7 @@ static LayerTreeDebugView *_instance;
     if (!_LYT_dismissBtn) {
         _LYT_dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _LYT_dismissBtn.frame = CGRectMake(_LYT_headerView.frame.size.width-50, 0, 44, 44);
-        [_LYT_dismissBtn setTitle:@"取消" forState:UIControlStateNormal];
-        _LYT_dismissBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        _LYT_dismissBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _LYT_dismissBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
-        [_LYT_dismissBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        [_LYT_dismissBtn setImage:[UIImage imageNamed:@"LYT_deleteIcon"] forState:UIControlStateNormal];
         _LYT_dismissBtn.backgroundColor = LYT_BackGroundColor;
         [_LYT_dismissBtn addTarget:self action:@selector(dismissDebugView) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -347,13 +384,50 @@ static LayerTreeDebugView *_instance;
 - (UIButton *)LYT_refreshBtn{
     if (!_LYT_refreshBtn) {
         _LYT_refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _LYT_refreshBtn.frame = CGRectMake(_LYT_headerView.frame.size.width-50-56, 0, 44, 44);
+        _LYT_refreshBtn.frame = CGRectMake(_LYT_headerView.frame.size.width-50-56, 44/2-30/2, 30, 30);
         [_LYT_refreshBtn setImage:[UIImage imageNamed:@"LYT_refreshIcon"] forState:UIControlStateNormal];
         _LYT_refreshBtn.backgroundColor = LYT_BackGroundColor;
         [_LYT_refreshBtn addTarget:self action:@selector(refreshDebugView) forControlEvents:UIControlEventTouchUpInside];
     }
     return _LYT_refreshBtn;
 }
+
+- (UIButton *)LYT_changeTypeBtn{
+    if (!_LYT_changeTypeBtn) {
+        _LYT_changeTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _LYT_changeTypeBtn.frame = CGRectMake(CGRectGetMinX(self.LYT_refreshBtn.frame)-56, 0, 44, 44);
+        [_LYT_changeTypeBtn setImage:[UIImage imageNamed:@"LYT_arrowdownIcon"] forState:UIControlStateNormal];
+        [_LYT_changeTypeBtn setImage:[UIImage imageNamed:@"LYT_arrowupIcon"] forState:UIControlStateSelected];
+        _LYT_changeTypeBtn.backgroundColor = LYT_BackGroundColor;
+        [_LYT_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _LYT_changeTypeBtn;
+}
+
+- (UIView *)LYT_typeView{
+    if (!_LYT_typeView) {
+        _LYT_typeView = [[UIView alloc]initWithFrame:CGRectMake(_LYT_tableview.frame.size.width - 60-80-88, 44, 80+88, 0)];
+        _LYT_typeView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
+        _LYT_typeView.layer.masksToBounds = YES;
+        NSArray *title = @[@"DefaultBreadStyle",
+                           @"GraphicsTreeStyle",
+                           @"AffineTransFormStyle"];
+        for (int i = 0; i<3; i++) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.tag = 100+i;
+            btn.frame = CGRectMake(0, 44*i, _LYT_typeView.frame.size.width, 44);
+            [btn setTitle:title[i] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+            btn.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13];
+            [btn addTarget:self action:@selector(changeStyle:) forControlEvents:UIControlEventTouchUpInside];
+            [_LYT_typeView addSubview:btn];
+        }
+    
+    }
+    return _LYT_typeView;
+}
+
 - (NSMutableArray *)LYT_selectNodes{
     if (!_LYT_selectNodes) {
         _LYT_selectNodes = [NSMutableArray array];

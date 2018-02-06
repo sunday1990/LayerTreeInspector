@@ -7,7 +7,7 @@
 //
 
 #import "LayerTreeViewDetailCell.h"
-
+#import "LayerTreeAssistMacros.h"
 #define LYT_x_Slider 1000
 #define LYT_y_Slider 1001
 #define LYT_w_Slider 1002
@@ -226,7 +226,7 @@
         UISlider *slider = [[UISlider alloc] init];
         slider.minimumValue = 0;// 设置最小值
         slider.tag = LYT_x_Slider;
-        slider.maximumValue = 1000;// 设置最大值
+        slider.maximumValue = LYT_ScreenWidth;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
@@ -244,7 +244,7 @@
         UISlider *slider = [[UISlider alloc] init];
         slider.minimumValue = 0;// 设置最小值
         slider.tag = LYT_y_Slider;
-        slider.maximumValue = 1000;// 设置最大值
+        slider.maximumValue = LYT_ScreenHeight;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
@@ -260,7 +260,7 @@
         UISlider *slider = [[UISlider alloc] init];
         slider.minimumValue = 0;// 设置最小值
         slider.tag = LYT_w_Slider;
-        slider.maximumValue = 1000;// 设置最大值
+        slider.maximumValue = LYT_ScreenWidth;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
@@ -276,7 +276,7 @@
         UISlider *slider = [[UISlider alloc] init];
         slider.minimumValue = 0;// 设置最小值
         slider.tag = LYT_h_Slider;
-        slider.maximumValue = 1000;// 设置最大值
+        slider.maximumValue = LYT_ScreenHeight;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
