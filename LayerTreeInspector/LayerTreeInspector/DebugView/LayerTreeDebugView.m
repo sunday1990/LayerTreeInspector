@@ -262,7 +262,7 @@ static LayerTreeDebugView *_instance;
         [_LYT_bubbleView setTitle:@"Debug" forState:UIControlStateNormal];
         [_LYT_bubbleView setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         _LYT_bubbleView.layer.cornerRadius = 10;
-        _LYT_bubbleView.backgroundColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        _LYT_bubbleView.backgroundColor = LYT_BackGroundColor;
         [_LYT_bubbleView addTarget:self action:@selector(showDebugView) forControlEvents:UIControlEventTouchUpInside];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
         [_LYT_bubbleView addGestureRecognizer:pan];
@@ -278,9 +278,10 @@ static LayerTreeDebugView *_instance;
         _LYT_tableview.dataSource = self;
         _LYT_tableview.layer.shadowColor = [UIColor blackColor].CGColor;
         _LYT_tableview.layer.borderWidth = 1;
-        _LYT_tableview.layer.borderColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1].CGColor;
+        _LYT_tableview.layer.borderColor = LYT_BackGroundColor.CGColor;
         _LYT_tableview.layer.cornerRadius = 10;
         _LYT_tableview.tableFooterView = [[UIView alloc]init];
+        _LYT_tableview.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     }
     return _LYT_tableview;
@@ -294,7 +295,7 @@ static LayerTreeDebugView *_instance;
         _LYT_headerView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _LYT_headerView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         [_LYT_headerView setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-        _LYT_headerView.backgroundColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        _LYT_headerView.backgroundColor = LYT_BackGroundColor;
         [_LYT_headerView addTarget:self action:@selector(layerTreeBack:) forControlEvents:UIControlEventTouchUpInside];
         [_LYT_headerView addSubview:self.LYT_dismissBtn];
     }
@@ -310,7 +311,7 @@ static LayerTreeDebugView *_instance;
         _LYT_dismissBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _LYT_dismissBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
         [_LYT_dismissBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-        _LYT_dismissBtn.backgroundColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        _LYT_dismissBtn.backgroundColor = LYT_BackGroundColor;
         [_LYT_dismissBtn addTarget:self action:@selector(dismissDebugView) forControlEvents:UIControlEventTouchUpInside];
     }
     return _LYT_dismissBtn;
