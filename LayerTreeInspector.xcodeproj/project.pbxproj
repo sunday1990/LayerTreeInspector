@@ -41,6 +41,8 @@
 		16B794B920298FFD00D27330 /* LayerTreeAffineTransFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */; };
 		16B794BC2029907300D27330 /* LayerTreeGraphicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */; };
 		16B794C42029935700D27330 /* LayerTreeBreadcrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */; };
+		16B794C72029A32A00D27330 /* LYT_refreshIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794C52029A32A00D27330 /* LYT_refreshIcon@2x.png */; };
+		16B794C82029A32A00D27330 /* LYT_refreshIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794C62029A32A00D27330 /* LYT_refreshIcon@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,8 @@
 		16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeGraphicsView.m; sourceTree = "<group>"; };
 		16B794C22029935700D27330 /* LayerTreeBreadcrumbsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeBreadcrumbsView.h; sourceTree = "<group>"; };
 		16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBreadcrumbsView.m; sourceTree = "<group>"; };
+		16B794C52029A32A00D27330 /* LYT_refreshIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYT_refreshIcon@2x.png"; sourceTree = "<group>"; };
+		16B794C62029A32A00D27330 /* LYT_refreshIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYT_refreshIcon@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +230,8 @@
 		16B7947620298C4900D27330 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				16B794C52029A32A00D27330 /* LYT_refreshIcon@2x.png */,
+				16B794C62029A32A00D27330 /* LYT_refreshIcon@3x.png */,
 				16B7947F20298C5D00D27330 /* LYT_sliderIcon@2x.png */,
 				16B7948020298C5D00D27330 /* LYT_sliderIcon@3x.png */,
 				16B7947C20298C5700D27330 /* LYT_eyeIcon@2x.png */,
@@ -532,6 +538,8 @@
 			files = (
 				16B7947E20298C5700D27330 /* LYT_eyeIcon@2x.png in Resources */,
 				16B7948120298C5D00D27330 /* LYT_sliderIcon@2x.png in Resources */,
+				16B794C72029A32A00D27330 /* LYT_refreshIcon@2x.png in Resources */,
+				16B794C82029A32A00D27330 /* LYT_refreshIcon@3x.png in Resources */,
 				16B79409202986C800D27330 /* LaunchScreen.storyboard in Resources */,
 				16B7947D20298C5700D27330 /* LYT_eyeIcon@3x.png in Resources */,
 				16B79406202986C800D27330 /* Assets.xcassets in Resources */,

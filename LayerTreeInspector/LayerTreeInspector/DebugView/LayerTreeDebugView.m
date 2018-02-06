@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) UIButton *LYT_dismissBtn;
 
+@property (nonatomic, strong) UIButton *LYT_refreshBtn;
+
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
 
 @end
@@ -123,14 +125,21 @@ static LayerTreeDebugView *_instance;
             [rightArrow addTarget:self action:@selector(checkCurrentSelectViewDetail:) forControlEvents:UIControlEventTouchUpInside];
             cell.accessoryView = rightArrow;
         }
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",node.LayerTreeNodeView];
-        cell.textLabel.font = [UIFont systemFontOfSize:12];
-        cell.textLabel.numberOfLines = 0;
         if (node.subNodes.count>0) {
             cell.accessoryView.hidden = NO;
         }else{
             cell.accessoryView.hidden = YES;
         }
+        if (node.LayerTreeNodeView) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@",node.LayerTreeNodeView];
+        }else{
+            cell.accessoryView.hidden = YES;
+            cell.textLabel.text = @"view已释放，无法查看，请返回上一级或点击刷新按钮";
+        }
+        
+        cell.textLabel.font = [UIFont systemFontOfSize:12];
+        cell.textLabel.numberOfLines = 0;
+        
         return cell;
     }
 }
@@ -141,25 +150,40 @@ static LayerTreeDebugView *_instance;
         return;
     }
     LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LYT_currentNode.subNodes[indexPath.row];
+    [_LYT_headerView setImage:[UIImage imageNamed:@"LYT__backIcon"] forState:UIControlStateNormal];
     if (node.subNodes.count>0) {
-        node.expand = YES;
-        checkViewDetail = NO;
-        self.LYT_currentNode = node;
-        [self.LYT_selectNodes addObject:node];
-        [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        LayerTreeBaseNode *firstSubNode = (LayerTreeBaseNode *)node.subNodes.firstObject;
+        if (firstSubNode.LayerTreeNodeView) {
+            node.expand = YES;
+            checkViewDetail = NO;
+            self.LYT_currentNode = node;
+            [self.LYT_selectNodes addObject:node];
+            [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        }else{
+            [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }else{
-        self.LYT_currentNode = (LayerTreeBaseNode *)node.fatherNode;
-        [self.LYT_selectNodes addObject:self.LYT_currentNode];
-        LayerTreeViewDetailModel *model = [LayerTreeViewDetailModel modelWithView:node.LayerTreeNodeView];
-        checkViewDetail = YES;
-        self.viewDetailModel = model;
-        [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        if (node.LayerTreeNodeView) {
+            self.LYT_currentNode = (LayerTreeBaseNode *)node.fatherNode;
+            [self.LYT_selectNodes addObject:self.LYT_currentNode];
+            LayerTreeViewDetailModel *model = [LayerTreeViewDetailModel modelWithView:node.LayerTreeNodeView];
+            checkViewDetail = YES;
+            self.viewDetailModel = model;
+            [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        }else{
+            [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     LayerTreeBaseNode *lastNode = [self.LYT_selectNodes lastObject];
-    [self.LYT_headerView setTitle:NSStringFromClass(lastNode.LayerTreeNodeView.class) forState:UIControlStateNormal];
+    if (self.LYT_selectNodes.count > 1) {
+        [self.LYT_headerView setTitle:NSStringFromClass(lastNode.LayerTreeNodeView.class)?[NSString stringWithFormat:@"< %@",NSStringFromClass(lastNode.LayerTreeNodeView.class)]:@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
+    }else{
+        [self.LYT_headerView setTitle:NSStringFromClass(lastNode.LayerTreeNodeView.class)?NSStringFromClass(lastNode.LayerTreeNodeView.class):@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
+    }
     return self.LYT_headerView;
 }
 
@@ -183,14 +207,7 @@ static LayerTreeDebugView *_instance;
 }
 
 - (void)showDebugView{
-    self.LYT_tableview.hidden = NO;
-    self.LYT_tableview.alpha = 1;
-    [self.LYT_selectNodes removeAllObjects];
-    [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
-        self.LYT_currentNode = currentNode;
-        [self.LYT_selectNodes addObjectsFromArray:node];
-        [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
-    }];
+    [self refreshDebugView];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer*) recognizer{
@@ -221,10 +238,12 @@ static LayerTreeDebugView *_instance;
 - (void)layerTreeBack:(UIButton *)btn{
     checkViewDetail = NO;
     if (self.LYT_selectNodes.count > 1) {
+        [_LYT_headerView setImage:[UIImage imageNamed:@"LYT__backIcon"] forState:UIControlStateNormal];
         [self.LYT_selectNodes removeLastObject];
         self.LYT_currentNode = self.LYT_selectNodes.lastObject;
         [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }else{
+        [_LYT_headerView setImage:nil forState:UIControlStateNormal];
         if (self.LYT_selectNodes.count == 1) {
             self.LYT_currentNode = self.LYT_selectNodes[0];
             [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
@@ -240,6 +259,17 @@ static LayerTreeDebugView *_instance;
         self.LYT_tableview.alpha = 0;
     }completion:^(BOOL finished) {
         self.LYT_tableview.hidden = YES;
+    }];
+}
+
+- (void)refreshDebugView{
+    self.LYT_tableview.hidden = NO;
+    self.LYT_tableview.alpha = 1;
+    [self.LYT_selectNodes removeAllObjects];
+    [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
+        self.LYT_currentNode = currentNode;
+        [self.LYT_selectNodes addObjectsFromArray:node];
+        [self.LYT_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }];
 }
 
@@ -294,6 +324,7 @@ static LayerTreeDebugView *_instance;
         _LYT_headerView.backgroundColor = LYT_BackGroundColor;
         [_LYT_headerView addTarget:self action:@selector(layerTreeBack:) forControlEvents:UIControlEventTouchUpInside];
         [_LYT_headerView addSubview:self.LYT_dismissBtn];
+        [_LYT_headerView addSubview:self.LYT_refreshBtn];
     }
     return _LYT_headerView;
 }
@@ -313,11 +344,23 @@ static LayerTreeDebugView *_instance;
     return _LYT_dismissBtn;
 }
 
+- (UIButton *)LYT_refreshBtn{
+    if (!_LYT_refreshBtn) {
+        _LYT_refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _LYT_refreshBtn.frame = CGRectMake(_LYT_headerView.frame.size.width-50-56, 0, 44, 44);
+        [_LYT_refreshBtn setImage:[UIImage imageNamed:@"LYT_refreshIcon"] forState:UIControlStateNormal];
+        _LYT_refreshBtn.backgroundColor = LYT_BackGroundColor;
+        [_LYT_refreshBtn addTarget:self action:@selector(refreshDebugView) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _LYT_refreshBtn;
+}
 - (NSMutableArray *)LYT_selectNodes{
     if (!_LYT_selectNodes) {
         _LYT_selectNodes = [NSMutableArray array];
     }
     return _LYT_selectNodes;
 }
+
+
 
 @end
