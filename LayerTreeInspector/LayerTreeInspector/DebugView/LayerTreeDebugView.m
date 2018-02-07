@@ -16,7 +16,7 @@
 #import "LayerTreeAssistMacros.h"
 
 
-@interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource>
+@interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *LYT_bubbleView;
 
@@ -112,9 +112,17 @@ static LayerTreeDebugView *_instance;
             cell = [[LayerTreeViewDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
         }
         cell.changeAttribute = ^(LayerTreeViewDetailModel * _Nonnull model) {
+            //此处区分是防射变换还是普通的面包屑形式
             model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
             model.associateView.backgroundColor = [UIColor colorWithRed:model.r green:model.g blue:model.b alpha:model.backGroundColoralpha];
             model.associateView.alpha = model.alpha;
+            
+            CATransform3D perspective = CATransform3DIdentity;
+            perspective.m34 = -1.0/400.0;
+            perspective = CATransform3DRotate(perspective, M_PI * model.r, 0, 1, 0);
+            perspective = CATransform3DScale(perspective, 1+model.g, 1+model.g, 0);
+            model.associateView.layer.sublayerTransform = perspective;
+
         };
         
         [cell updateWithModel:self.viewDetailModel];
@@ -158,6 +166,7 @@ static LayerTreeDebugView *_instance;
         return;
     }
     LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LYT_currentNode.subNodes[indexPath.row];
+    NSLog(@"nodelevel:%ld",node.nodeLevel);
     [_LYT_headerView setImage:[UIImage imageNamed:@"LYT__backIcon"] forState:UIControlStateNormal];
     if (node.subNodes.count>0) {
         LayerTreeBaseNode *firstSubNode = (LayerTreeBaseNode *)node.subNodes.firstObject;
@@ -197,6 +206,16 @@ static LayerTreeDebugView *_instance;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 44;
+}
+
+#pragma mark UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    NSLog(@"touch.view:%@",touch.view);
+    if ([touch.view isKindOfClass:NSClassFromString(@"UIButton")]) {//UITableViewCellContentView
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 #pragma mark =========== EventResponse ===========
@@ -308,6 +327,10 @@ static LayerTreeDebugView *_instance;
 - (void)changeStyle:(UIButton *)btn{
     NSLog(@"btn.tag:%ld",(long)btn.tag);
     [self showSelectTypeView:self.LYT_changeTypeBtn];
+    if (btn.tag == 101) {//说明是affine变换,此时需要对所有的view进行z轴的平移
+        //找到根节点
+        [LayerTreeInspector layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:LYT_AffineTransformLevelPadding];
+    }
 }
 
 #pragma mark =========== Setters && Getters ===========
@@ -346,8 +369,11 @@ static LayerTreeDebugView *_instance;
         _LYT_tableview.tableFooterView = [[UIView alloc]init];
         _LYT_tableview.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         [_LYT_tableview addSubview:self.LYT_typeView];
+        
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
-
+        pan.delegate = self;
+        [_LYT_tableview addGestureRecognizer:pan];
+        
     }
     return _LYT_tableview;
 }

@@ -11,7 +11,8 @@
 #import "LayerTreeNodeModelProtocol.h"
 #import "LayerTreeDebugView.h"
 #import "LayerTreeAssistMacros.h"
-static LayerTreeBaseNode *rootNode;
+
+static LayerTreeBaseNode *_rootNode;
 
 struct {
     unsigned int rootNodeInitialize:1;
@@ -56,6 +57,22 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
     return nil;
 }
 
+static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
+    if (rootNode.subNodes.count == 0) {
+        return;
+    }else{
+        [rootNode.subNodes enumerateObjectsUsingBlock:^(id<NodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
+            CATransform3D perspective = CATransform3DIdentity;
+            perspective = CATransform3DTranslate(perspective, 0, 0, (subNode.nodeLevel-1)*levelPadding);
+            perspective.m34 = -1.0/500.0;
+            subNode.LayerTreeNodeView.layer.sublayerTransform = perspective;
+            NSLog(@"view:%@ z轴平移：%f",subNode.LayerTreeNodeView,(subNode.nodeLevel-1)*levelPadding);
+            RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
+        }];
+    }
+}
+
 #pragma mark 递归查找UIWindow
 static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     if ([view isMemberOfClass:[UIWindow class]]) {
@@ -96,10 +113,10 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 }
 
 - (void)constructTreeNodeWithView:(UIView *)view{
-    if (rootNode.LayerTreeNodeView == nil) {//初始化根节点
-        rootNode.LayerTreeNodeView = self;
+    if (_rootNode.LayerTreeNodeView == nil) {//初始化根节点
+        _rootNode.LayerTreeNodeView = self;
     }
-    LayerTreeBaseNode *layerNode = RecursiveFindNodeWith(self, rootNode);
+    LayerTreeBaseNode *layerNode = RecursiveFindNodeWith(self, _rootNode);
     if (layerNode) {
         LayerTreeBaseNode *subLayerNode = [[LayerTreeBaseNode alloc]init];
         subLayerNode.LayerTreeNodeView = view;
@@ -112,7 +129,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 
 - (void)destructTreeNodeWithView:(UIView *)view{
     //根据view找到对应的node，然后删除这个node,这个操作可以记录下来，就不用每次都查找了。
-    LayerTreeBaseNode *node = RecursiveFindNodeWith(view, rootNode);
+    LayerTreeBaseNode *node = RecursiveFindNodeWith(view, _rootNode);
     [node.fatherNode.subNodes removeObject:node];
 }
 @end
@@ -123,7 +140,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     if (LayerTreeFirstInitializeState.startMonitor == 1) {//已经处于开启状态
         NSLog(@"Duplicate start monitor");
     }else{
-        rootNode = [[LayerTreeBaseNode alloc]init];
+        _rootNode = [[LayerTreeBaseNode alloc]init];
         LayerTreeFirstInitializeState.rootNodeInitialize = 1;
         LayerTreeFirstInitializeState.startMonitor = 1;
         LYT_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LYT_addSubview:));
@@ -133,7 +150,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 
 + (void)closeMonitor{
     if (LayerTreeFirstInitializeState.startMonitor == 1) {//已经处于开启状态，这时候需要关闭
-        rootNode = nil;
+        _rootNode = nil;
         LayerTreeFirstInitializeState.rootNodeInitialize = 0;
         LayerTreeFirstInitializeState.startMonitor = 0;
         LYT_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LYT_addSubview:));
@@ -149,7 +166,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 }
 
 + (LayerTreeBaseNode *)currentRootNode{
-    return rootNode;
+    return _rootNode;
 }
 
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
@@ -158,6 +175,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
+    _rootNode = rootNode;
     if (completion) {
         completion(rootNode);
     }
@@ -169,6 +187,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
+    _rootNode = rootNode;
     LayerTreeBaseNode *currentNode = RecursiveFindNodeWith(topViewController.view, rootNode);
     NSMutableArray *frontNodes = [NSMutableArray array];
     while (currentNode.fatherNode != rootNode) {
@@ -183,6 +202,10 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
             completion(currentNode,frontNodes);
         }
     }
+}
+
++ (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding{
+    RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(_rootNode, levelPadding);
 }
 
 + (UIViewController *)topViewController {
