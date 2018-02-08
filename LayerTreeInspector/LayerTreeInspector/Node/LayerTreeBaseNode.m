@@ -49,7 +49,8 @@ subTreeHeight = _subTreeHeight,
 expand = _expand,
 currentTreeHeight = _currentTreeHeight,
 nodeLevel = _nodeLevel,
-LayerTreeNodeView = _LayerTreeNodeView;
+LayerTreeNodeView = _LayerTreeNodeView,
+LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
 
 - (instancetype)init{
     if (self = [super init]) {

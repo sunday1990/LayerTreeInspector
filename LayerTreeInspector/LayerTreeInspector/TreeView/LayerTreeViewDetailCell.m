@@ -103,7 +103,6 @@
     [self.contentView addSubview:self.LTI_bSlider];
     [self.contentView addSubview:self.LTI_alphaLabel];
     [self.contentView addSubview:self.LTI_alphaSlider];
-
 }
 
 - (void)setModel:(LayerTreeViewDetailModel *)model{

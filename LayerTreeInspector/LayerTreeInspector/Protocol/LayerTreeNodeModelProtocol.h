@@ -12,9 +12,14 @@
 @protocol LayerTreeNodeModelProtocol
 @required
 /**
- 该节点元素对应的所有子节点,添加子节点的时候，不要直接向数组中添加，而应该通过addNode的方式，这样会自动设置父节点
+ 该节点元素对应的视图
  */
 @property (nonatomic ,weak) UIView *LayerTreeNodeView;
+/**
+ 该节点元素对应的父视图
+ */
+@property (nonatomic ,weak) UIView *LayerTreeFatherNodeView;
+
 /**
  该节点元素自身的高度
  */

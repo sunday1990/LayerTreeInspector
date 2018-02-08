@@ -47,8 +47,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.view.backgroundColor = [UIColor greenColor];
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewTransform:)];
-    [self.view addGestureRecognizer:panGesture];
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewTransform:)];
+//    [self.view addGestureRecognizer:panGesture];
 
     titleArray = @[
                    @{
@@ -137,6 +137,7 @@
     CGPoint point = [sender translationInView:self.view];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
     CGFloat angleX = angle.x + point.x/30.0;
     CGFloat angleY = angle.y - point.y/30.0;
+    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = -1.0/500.0;
     transform = CATransform3DRotate(transform, angleX, 0, 1, 0);

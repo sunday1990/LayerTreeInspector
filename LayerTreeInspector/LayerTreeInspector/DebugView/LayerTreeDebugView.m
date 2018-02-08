@@ -93,7 +93,6 @@ static LayerTreeDebugView *_instance;
         [self addSubview:self.LTI_tableview];
         [keyWindow addSubview:self];
         [keyWindow addSubview:self.LTI_bubbleView];
-//        [keyWindow addSubview:self.LTI_tableview];
     }
     return self;
 }
@@ -228,7 +227,6 @@ static LayerTreeDebugView *_instance;
             [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
         }
     }
-    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -248,7 +246,7 @@ static LayerTreeDebugView *_instance;
 #pragma mark UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        if ([touch.view isKindOfClass:NSClassFromString(@"UIButton")]) {//UITableViewCellContentView
+        if ([touch.view isKindOfClass:NSClassFromString(@"UIButton")]) {//UITableViewCellContentView  ???
             return YES;
         }else{
             return NO;
@@ -267,6 +265,7 @@ static LayerTreeDebugView *_instance;
     CGPoint point = [sender translationInView:[UIApplication sharedApplication].keyWindow];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
     CGFloat angleX = angle.x + point.x/30.0;
     CGFloat angleY = angle.y - point.y/30.0;
+    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = -1.0/500.0;
     transform = CATransform3DRotate(transform, angleX, 0, 1, 0);
@@ -295,10 +294,8 @@ static LayerTreeDebugView *_instance;
 }
 
 - (void)checkCurrentSelectViewDetail:(UIButton *)btn{
-    NSLog(@"check detail");
     UITableViewCell *cell = (UITableViewCell *)btn.superview;
     NSInteger index = [self.LTI_tableview.visibleCells indexOfObject:cell];
-    NSLog(@"row:%ld",index);
     LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[index];
     [self.LTI_selectNodes addObject:self.LTI_currentNode];
     //展开这一行

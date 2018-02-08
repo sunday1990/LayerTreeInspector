@@ -28,7 +28,12 @@
  @param levelPadding 每一层级需要平移的单位距离
  */
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding;
-
+/**
+ 返回rootNode
+ 
+ @return return rootNode
+ */
++ (LayerTreeBaseNode *)currentRootNode;
 @end
 
 #endif /* LayerTreeInspectorProtocol_h */

@@ -16,6 +16,7 @@
 @implementation TestUnrecognizedSelVC
 {
     NSArray *_titleArray;
+    UIView *testview;
 }
 #pragma mark ======== Life Cycle ========
 - (void)viewDidLoad {
@@ -27,7 +28,8 @@
                     @"找不到vc中的方法",
                     @"向null对象发送length消息",
                     @"关闭UnrecognizedSel防护",
-                    @"开启UnrecognizedSel防护"
+                    @"开启UnrecognizedSel防护",
+                    @"测试convertFrame"
                     ];
     [self setupSubviews];
 }
@@ -53,17 +55,25 @@
 - (void)btnClick:(UIButton *)btn{
     NSInteger btnTag = btn.tag;
     if (1000 == btnTag) {
+        
     }else if (1001 == btnTag){
 //        [self performSelector:@selector(undefinedVCSelector)];
         TestUnrecognizedSelVC *vc = [[TestUnrecognizedSelVC alloc]init];
         [self presentViewController:vc animated:YES completion:nil];
     
     }else if (1002 == btnTag){
-        [[NSNull null]performSelector:@selector(length)];
+//        [[NSNull null]performSelector:@selector(length)];
     }else if (1003 == btnTag){
 //        [BayMaxProtector closeProtectionsOn:BayMaxProtectionTypeUnrecognizedSelector];
     }else if (1004 == btnTag){
 //        [BayMaxProtector openProtectionsOn:BayMaxProtectionTypeUnrecognizedSelector];
+    }else if (1005 == btnTag){
+//        testview.superview.frame = [self.view convertRect:testview.superview.frame toView:self.view];
+//      testview.frame = [[UIApplication sharedApplication].keyWindow convertRect:testview.frame fromView:[UIApplication sharedApplication].keyWindow];
+//        testview.frame = [self.view convertRect:testview.frame toView:<#(nullable UIView *)#>]
+        
+//        [[testview.superview convertRect:testview.frame toView:[UIApplication sharedApplication].keyWindow] ];
+
     }
 }
 
@@ -81,10 +91,21 @@
         btn.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
         btn.frame = CGRectMake(borderSpace + (btnSpace + btnWidth)*(i%2), 60+(btnHeight+borderSpace)*(i/2), btnWidth, btnHeight);
         if (i == 0) {
-            [btn addTarget:self action:@selector(undefinedBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            testview = [[UIView alloc]initWithFrame:CGRectMake(10, 20, 10, 10)];
+            testview.backgroundColor = [UIColor redColor];
+            [btn addSubview:testview];
+//            [btn addTarget:self action:@selector(undefinedBtnClick) forControlEvents:UIControlEventTouchUpInside];
         }else{
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         }
+        UIView *subtestview = [[UIView alloc]initWithFrame:CGRectMake(btn.frame.size.width/2-20, 00, 40, 40)];
+        subtestview.backgroundColor = [UIColor redColor];
+        for (int j = 0; j <= 3; j++) {
+            UIView *grandTestView = [[UIView alloc]initWithFrame:CGRectMake(subtestview.frame.size.width/2-50, 2+(5+10)*j, 10, 10)];
+            grandTestView.backgroundColor = [UIColor greenColor];
+            [subtestview addSubview:grandTestView];
+        }
+        [btn addSubview:subtestview];
         btn.layer.cornerRadius = 5;
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.backgroundColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
