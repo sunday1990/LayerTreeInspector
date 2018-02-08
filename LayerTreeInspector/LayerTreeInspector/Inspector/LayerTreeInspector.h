@@ -11,10 +11,8 @@
 
 @interface LayerTreeInspector : NSObject<LayerTreeInspectorProtocol>
 /**
- 展示DebugView,必须展示
+ 展示DebugView
  */
 + (void)showDebugView;
-
-#pragma mark api需要重新设计
 
 @end

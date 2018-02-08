@@ -57,23 +57,17 @@
     if (1000 == btnTag) {
         
     }else if (1001 == btnTag){
-//        [self performSelector:@selector(undefinedVCSelector)];
         TestUnrecognizedSelVC *vc = [[TestUnrecognizedSelVC alloc]init];
         [self presentViewController:vc animated:YES completion:nil];
     
     }else if (1002 == btnTag){
-//        [[NSNull null]performSelector:@selector(length)];
+        NSLog(@"点击了%ld",btnTag);
     }else if (1003 == btnTag){
-//        [BayMaxProtector closeProtectionsOn:BayMaxProtectionTypeUnrecognizedSelector];
+        NSLog(@"点击了%ld",btnTag);
     }else if (1004 == btnTag){
-//        [BayMaxProtector openProtectionsOn:BayMaxProtectionTypeUnrecognizedSelector];
+        NSLog(@"点击了%ld",btnTag);
     }else if (1005 == btnTag){
-//        testview.superview.frame = [self.view convertRect:testview.superview.frame toView:self.view];
-//      testview.frame = [[UIApplication sharedApplication].keyWindow convertRect:testview.frame fromView:[UIApplication sharedApplication].keyWindow];
-//        testview.frame = [self.view convertRect:testview.frame toView:<#(nullable UIView *)#>]
-        
-//        [[testview.superview convertRect:testview.frame toView:[UIApplication sharedApplication].keyWindow] ];
-
+        NSLog(@"点击了%ld",btnTag);
     }
 }
 

@@ -26,6 +26,8 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 
 @property (nonatomic, strong) UIButton *LTI_bubbleView;
 
+@property (nonatomic, strong) UIButton *LTI_resetButton;
+
 @property (nonatomic, strong) UITableView *LTI_tableview;
 
 @property (nonatomic, strong) LayerTreeBaseNode *LTI_currentNode;
@@ -51,10 +53,10 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 @implementation LayerTreeDebugView
 {
     BOOL checkViewDetail;
-    
     CGPoint angle;
-    
-    CATransform3D transForm;
+    CATransform3D _initialTransForm;
+    UIPanGestureRecognizer *_panGesture;
+    UIPinchGestureRecognizer *_pinGesture;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -265,7 +267,7 @@ static LayerTreeDebugView *_instance;
     CGPoint point = [sender translationInView:[UIApplication sharedApplication].keyWindow];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
     CGFloat angleX = angle.x + point.x/30.0;
     CGFloat angleY = angle.y - point.y/30.0;
-    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
+//    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = -1.0/500.0;
     transform = CATransform3DRotate(transform, angleX, 0, 1, 0);
@@ -288,8 +290,7 @@ static LayerTreeDebugView *_instance;
     }
     if (sender.state == UIGestureRecognizerStateEnded) {
 #warning 计算错误,需要更新angle
-//        angle.x = sender.scale;
-//        angle.y = sender.scale;
+
     }
 }
 
@@ -398,20 +399,43 @@ static LayerTreeDebugView *_instance;
 - (void)changeStyle:(UIButton *)btn{
     [self showSelectTypeView:self.LTI_changeTypeBtn];
     if (btn.tag == 100) {
+        if (self.treeStyle == LayerTreeStyle3DTransForm) {
+            [self resetLayerTree:nil];
+        }
         self.treeStyle = LayerTreeStyleDefault;
     }else if (btn.tag == 101) {//说明是3DTransform变换,此时需要对所有的view进行z轴的平移
-        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanTransform:)];
-        UIPinchGestureRecognizer *pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(viewPinTransform:)];
-        pinGesture.delegate = self;
+        //手势移除
+        self.LTI_resetButton.hidden = NO;
+        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanTransform:)];
+        _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(viewPinTransform:)];
+        _pinGesture.delegate = self;
         UIWindow *rootWindow = [UIApplication sharedApplication].keyWindow;
-        [rootWindow addGestureRecognizer:pinGesture];
-        [rootWindow addGestureRecognizer:panGesture];
+        [rootWindow addGestureRecognizer:_pinGesture];
+        [rootWindow addGestureRecognizer:_panGesture];
+        _initialTransForm = rootWindow.layer.sublayerTransform;
         self.treeStyle = LayerTreeStyle3DTransForm;
         [LayerTreeInspector layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:LTI_AffineTransformLevelPadding];
     }else if (btn.tag == 102){
         self.treeStyle = LayerTreeStyleGraphics;
     }
     [self.LTI_tableview reloadData];
+}
+
+- (void)resetLayerTree:(UIButton *)btn{
+    NSLog(@"重置3D树到平面状态");
+    [LayerTreeInspector layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:^(BOOL isFinished) {
+        if (isFinished) {
+            NSLog(@"finish revert 3D to Plannar");
+            _LTI_resetButton.hidden = YES;
+            self.treeStyle = LayerTreeStyleDefault;
+            CATransform3D transform = CATransform3DIdentity;
+            [[UIApplication sharedApplication].keyWindow removeGestureRecognizer:_pinGesture];
+            [[UIApplication sharedApplication].keyWindow removeGestureRecognizer:_panGesture];
+            [UIApplication sharedApplication].keyWindow.layer.sublayerTransform = _initialTransForm;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
+            //动画恢复
+            [self.LTI_tableview reloadData];
+        }
+    }];
 }
 
 #pragma mark =========== Setters && Getters ===========
@@ -470,6 +494,7 @@ static LayerTreeDebugView *_instance;
         [_LTI_headerView addSubview:self.LTI_dismissBtn];
         [_LTI_headerView addSubview:self.LTI_refreshBtn];
         [_LTI_headerView addSubview:self.LTI_changeTypeBtn];
+        [_LTI_headerView addSubview:self.LTI_resetButton];
     }
     return _LTI_headerView;
 }
@@ -506,6 +531,23 @@ static LayerTreeDebugView *_instance;
         [_LTI_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _LTI_changeTypeBtn;
+}
+
+- (UIButton *)LTI_resetButton{
+    if (!_LTI_resetButton) {
+        _LTI_resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _LTI_resetButton.frame = CGRectMake(CGRectGetMinX(self.LTI_changeTypeBtn.frame)-56, 0, 44, 44);
+        _LTI_resetButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_LTI_resetButton setTitle:@"恢复" forState:UIControlStateNormal];
+        [_LTI_resetButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        _LTI_resetButton.layer.cornerRadius = 10;
+        _LTI_resetButton.hidden = YES;
+        _LTI_resetButton.backgroundColor = LTI_BackGroundColor;
+        [_LTI_resetButton addTarget:self action:@selector(resetLayerTree:) forControlEvents:UIControlEventTouchUpInside];
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+        [_LTI_resetButton addGestureRecognizer:pan];
+    }
+    return _LTI_resetButton;
 }
 
 - (UIView *)LTI_typeView{

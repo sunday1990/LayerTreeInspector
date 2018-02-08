@@ -15,13 +15,13 @@
  
  @param completion completion回调
  */
-+ (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion;
++ (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^_Nullable)(LayerTreeBaseNode * _Nullable rootNode))completion;
 /**
  获取topViewController的视图所在的节点
  
  @param completion 获取后的回调
  */
-+ (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *node))completion;
++ (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^_Nullable)(LayerTreeBaseNode * _Nullable currentNode,NSArray<LayerTreeBaseNode *> * _Nullable node))completion;
 /**
  递归的将所有的子view在z轴方向按照各自的层级平移一段距离,同时改变所有控件的父视图为window
 
@@ -29,11 +29,15 @@
  */
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding;
 /**
+ 图层树从3D状态恢复到初始的平面状态
+ */
++ (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion;
+/**
  返回rootNode
  
  @return return rootNode
  */
-+ (LayerTreeBaseNode *)currentRootNode;
++ (LayerTreeBaseNode *_Nullable)currentRootNode;
 @end
 
 #endif /* LayerTreeInspectorProtocol_h */

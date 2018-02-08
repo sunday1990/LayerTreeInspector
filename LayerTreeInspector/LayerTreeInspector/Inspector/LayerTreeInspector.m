@@ -13,7 +13,7 @@
 #import "LayerTreeAssistMacros.h"
 
 static LayerTreeBaseNode *LTI_rootNode;
-UIWindow *_window;
+
 struct {
     unsigned int rootNodeInitialize:1;
     unsigned int windowInitialize:1;
@@ -62,8 +62,18 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
             if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeDebugView")]) {
                 LTI_treeDepth = subNode.nodeLevel>LTI_treeDepth?subNode.nodeLevel:LTI_treeDepth;
-                subNode.LayerTreeNodeView.frame = [[UIApplication sharedApplication].keyWindow convertRect:subNode.LayerTreeNodeView.frame fromView:subNode.LayerTreeNodeView.superview];
-                [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];                
+                Class BtnLabel = NSClassFromString(@"UIButtonLabel");
+                if ([subNode.LayerTreeNodeView isMemberOfClass:BtnLabel]) {
+                    NSLog(@"Buttonlabel:%@,superView:%@",subNode.LayerTreeNodeView,subNode.LayerTreeFatherNodeView);
+                }else{
+                    if ([rootNode isMemberOfClass:[UIButton class]]) {
+                        NSLog(@"btnsubview:%@",subNode.LayerTreeNodeView);
+                    }
+                    subNode.LayerTreeNodeView.frame = [[UIApplication sharedApplication].keyWindow convertRect:subNode.LayerTreeNodeView.frame fromView:subNode.LayerTreeNodeView.superview];
+                    //                NSLog(@"subnode:%@,frame:%@",NSStringFromClass(subNode.LayerTreeNodeView.class),NSStringFromCGRect(subNode.LayerTreeNodeView.frame));
+                    [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];
+                }
+
                 LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
                 subNode.LayerTreeNodeView.layer.transform = LTI_transForm;
                 RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
@@ -74,18 +84,26 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
     }
 }
 
-#pragma mark 递归查找UIWindow           (可废弃)
-static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
-    if ([view isMemberOfClass:[UIWindow class]]) {
-        return (UIWindow *)view;
+//layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion
+//    //展示为平面
+//层级体系恢复
+//frame转换
+static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_Nonnull rootNode){
+    //rootNode中保存着最初的的层级关系。
+    if (rootNode.subNodes.count > 0) {//递归的将所有的子view加到其上
+        UIView *fatherView = rootNode.LayerTreeNodeView;
+        [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
+            subNode.LayerTreeNodeView.frame = [rootNode.LayerTreeNodeView convertRect:subNode.LayerTreeNodeView.frame fromView: [UIApplication sharedApplication].keyWindow];
+            NSLog(@"originalFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));
+            //转换坐标系
+            [fatherView addSubview:subNode.LayerTreeNodeView];
+            NSLog(@"+++currentFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));//LayerTreeFatherNodeView
+            RecursiveRevertLayerTreeFrom3DToPlanar(subNode);
+        }];
     }else{
-        if (view.superview) {
-            return RecursiveFindWindow(view.superview);
-        }else{
-            return nil;
-        }
+        return;
     }
-    return nil;
 }
 
 @implementation LayerTreeInspector
@@ -112,15 +130,15 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 
 + (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *frontNodes))completion{
     UIViewController *topViewController = [self topViewController];
-    UIWindow *window = RecursiveFindWindow(topViewController.view);
-    _window = window;
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
     LTI_rootNode = rootNode;
     LayerTreeBaseNode *currentNode = RecursiveFindNodeWith(topViewController.view, rootNode);
     NSMutableArray *frontNodes = [NSMutableArray array];
-    while (currentNode.fatherNode != rootNode) {
+#warning && currentNode != nil May cause some problems
+    while (currentNode.fatherNode != rootNode && currentNode != nil) {
         [frontNodes insertObject:currentNode atIndex:0];
         currentNode = (LayerTreeBaseNode *)currentNode.fatherNode;
     }
@@ -139,6 +157,13 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     [[UIApplication sharedApplication].keyWindow bringSubviewToFront:[LayerTreeDebugView sharedDebugView]];
     LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, LTI_treeDepth*levelPadding);
     [LayerTreeDebugView sharedDebugView].layer.transform = LTI_transForm;
+}
+
++ (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
+    RecursiveRevertLayerTreeFrom3DToPlanar(LTI_rootNode);
+    if (completion) {
+        completion(YES);
+    }
 }
 
 + (UIViewController *)topViewController {

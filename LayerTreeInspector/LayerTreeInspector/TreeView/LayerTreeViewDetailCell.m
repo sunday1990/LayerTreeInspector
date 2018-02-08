@@ -318,7 +318,6 @@
         slider.tag = LTI_g_Slider;
         slider.maximumValue = 1;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
-//        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.minimumTrackTintColor = [UIColor greenColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
         [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
@@ -335,7 +334,6 @@
         slider.tag = LTI_b_Slider;
         slider.maximumValue = 1;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
-//        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.minimumTrackTintColor = [UIColor blueColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
         [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
