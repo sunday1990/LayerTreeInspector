@@ -12,7 +12,7 @@ CGFloat layerTreeHeight;
 CGFloat layerTreetempNodeLevel;
 
 #pragma mark 获取根节点
-static inline id<NodeModelProtocol>RecursiveGetRootNodeWithNode(id<NodeModelProtocol> node){
+static inline id<LayerTreeNodeModelProtocol>RecursiveGetRootNodeWithNode(id<LayerTreeNodeModelProtocol> node){
     if (node.fatherNode == node) {
         node.expand = YES;
         return node;
@@ -24,14 +24,14 @@ static inline id<NodeModelProtocol>RecursiveGetRootNodeWithNode(id<NodeModelProt
 }
 
 #pragma mark 根据根节点获取树的高度
-static inline void RecursiveCalculateTreeHeightWithRootNode(id<NodeModelProtocol> rootNode){
+static inline void RecursiveCalculateTreeHeightWithRootNode(id<LayerTreeNodeModelProtocol> rootNode){
     if (rootNode.subNodes.count == 0||!rootNode.isExpand) {
         return ;
     }
     if (!isnan(rootNode.subTreeHeight)) {
         layerTreeHeight += rootNode.subTreeHeight;
     }
-    for (id<NodeModelProtocol>obj in rootNode.subNodes) {
+    for (id<LayerTreeNodeModelProtocol>obj in rootNode.subNodes) {
         RecursiveCalculateTreeHeightWithRootNode(obj);
     }
 }
@@ -63,7 +63,7 @@ LayerTreeNodeView = _LayerTreeNodeView;
 - (CGFloat)subTreeHeight{
     if (!_subTreeHeight) {
         CGFloat tempSubTreeHeight = 0;
-        for (id<NodeModelProtocol>  _Nonnull obj in self.subNodes) {
+        for (id<LayerTreeNodeModelProtocol>  _Nonnull obj in self.subNodes) {
             tempSubTreeHeight += obj.nodeHeight;
         }
         _subTreeHeight = tempSubTreeHeight;
@@ -74,7 +74,7 @@ LayerTreeNodeView = _LayerTreeNodeView;
 - (CGFloat)currentTreeHeight{
     layerTreeHeight = _currentTreeHeight = 0;
     if (self.fatherNode) {
-        id<NodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
+        id<LayerTreeNodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
         if (rootNode == nil) {
             NSLog(@"未获取到rootNode");
         }else{
@@ -88,38 +88,38 @@ LayerTreeNodeView = _LayerTreeNodeView;
 - (NSInteger)nodeLevel{
     if (!_nodeLevel || _nodeLevel == 0) {
         layerTreetempNodeLevel = 0;
-        id<NodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
+        id<LayerTreeNodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
         rootNode.nodeLevel = 0;
         _nodeLevel = layerTreetempNodeLevel;
     }
     return _nodeLevel;
 }
 
-- (void)getTreeHeightAtFatherNode:(id<NodeModelProtocol>)fatherNode{
+- (void)getTreeHeightAtFatherNode:(id<LayerTreeNodeModelProtocol>)fatherNode{
     if (fatherNode.subNodes.count == 0||!fatherNode.isExpand) {//叶子节点
         return ;
     }
     if (!isnan(fatherNode.subTreeHeight)) {
         _currentTreeHeight += fatherNode.subTreeHeight;
     }
-    for (id<NodeModelProtocol>obj in fatherNode.subNodes) {
+    for (id<LayerTreeNodeModelProtocol>obj in fatherNode.subNodes) {
         [self getTreeHeightAtFatherNode:obj];
     }
 }
 
-- (void)addSubNode:(id<NodeModelProtocol>)node{
+- (void)addSubNode:(id<LayerTreeNodeModelProtocol>)node{
     node.fatherNode = self;
     [self.subNodes addObject:node];
 }
 
-- (void)addSubNodesFromArray:(NSArray<id<NodeModelProtocol>> *)nodes{
-    [nodes enumerateObjectsUsingBlock:^(id<NodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)addSubNodesFromArray:(NSArray<id<LayerTreeNodeModelProtocol>> *)nodes{
+    [nodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.fatherNode = self;
     }];
     [self.subNodes addObjectsFromArray:nodes];
 }
 
-- (void)deleteSubNode:(id<NodeModelProtocol>)node{
+- (void)deleteSubNode:(id<LayerTreeNodeModelProtocol>)node{
     [self.subNodes removeObject:node];
 }
 

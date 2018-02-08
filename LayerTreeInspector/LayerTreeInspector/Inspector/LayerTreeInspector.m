@@ -13,7 +13,7 @@
 #import "LayerTreeAssistMacros.h"
 
 static LayerTreeBaseNode *_rootNode;
-
+UIWindow *_window;
 struct {
     unsigned int rootNodeInitialize:1;
     unsigned int windowInitialize:1;
@@ -46,7 +46,7 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
         return rootNode;
     }else{
         if (rootNode.subNodes.count > 0) {
-            for (id<NodeModelProtocol>node in rootNode.subNodes) {
+            for (id<LayerTreeNodeModelProtocol>node in rootNode.subNodes) {
                 LayerTreeBaseNode *layerNode = (LayerTreeBaseNode *)node;
                 return RecursiveFindNodeWith(view, layerNode);
             }
@@ -57,17 +57,18 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
     return nil;
 }
 
+CATransform3D transForm;
 static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
     if (rootNode.subNodes.count == 0) {
         return;
     }else{
-        [rootNode.subNodes enumerateObjectsUsingBlock:^(id<NodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            CATransform3D perspective = CATransform3DIdentity;
-            perspective = CATransform3DTranslate(perspective, 0, 0, (subNode.nodeLevel-1)*levelPadding);
-            perspective.m34 = -1.0/500.0;
-            subNode.LayerTreeNodeView.layer.sublayerTransform = perspective;
-            NSLog(@"view:%@ z轴平移：%f",subNode.LayerTreeNodeView,(subNode.nodeLevel-1)*levelPadding);
+            [subNode.LayerTreeNodeView.superview convertRect:subNode.LayerTreeNodeView.frame toView:[UIApplication sharedApplication].keyWindow];
+            [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];
+            NSLog(@"view:%@ z轴平移：%f",NSStringFromClass(subNode.LayerTreeNodeView.class),(subNode.nodeLevel-1)*levelPadding);
+            transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
+            subNode.LayerTreeNodeView.layer.transform = transForm;
             RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
         }];
     }
@@ -170,8 +171,9 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 }
 
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
-    UIViewController *topViewController = [self topViewController];
-    UIWindow *window = RecursiveFindWindow(topViewController.view);
+//    UIViewController *topViewController = [self topViewController];
+//    UIWindow *window = RecursiveFindWindow(topViewController.view);
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
@@ -184,6 +186,7 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 + (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *frontNodes))completion{
     UIViewController *topViewController = [self topViewController];
     UIWindow *window = RecursiveFindWindow(topViewController.view);
+    _window = window;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);

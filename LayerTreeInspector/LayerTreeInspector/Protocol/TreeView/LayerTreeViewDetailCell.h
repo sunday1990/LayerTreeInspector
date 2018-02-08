@@ -35,6 +35,7 @@
 @property (nonatomic, assign) CGFloat g;
 @property (nonatomic, assign) CGFloat b;
 
+
 @property (nonatomic,weak) UIView *_Nullable associateView;
 
 

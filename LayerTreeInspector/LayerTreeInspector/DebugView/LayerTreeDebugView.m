@@ -15,7 +15,13 @@
 #import "LayerTreeBaseNode.h"
 #import "LayerTreeAssistMacros.h"
 
-
+typedef NS_ENUM(NSUInteger,LayerTreeStyle)
+{
+    LayerTreeStyleDefault = 0,      //默认的面包屑形式
+    LayerTreeStyle3DTransForm = 1,  //3D变换形式
+    LayerTreeStyleGraphics = 2      //🌲形式
+    
+};
 @interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *LYT_bubbleView;
@@ -38,11 +44,15 @@
 
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
 
+@property (nonatomic, assign) LayerTreeStyle treeStyle;
+
 @end
 
 @implementation LayerTreeDebugView
 {
     BOOL checkViewDetail;
+    
+    CGPoint angle;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -75,6 +85,7 @@ static LayerTreeDebugView *_instance;
 
 - (instancetype)init{
     if (self = [super init]) {
+        self.treeStyle = LayerTreeStyleDefault;
         UIWindow *keyWindow = [self getWindow];
         [keyWindow addSubview:self.LYT_bubbleView];
         [keyWindow addSubview:self.LYT_tableview];
@@ -103,6 +114,20 @@ static LayerTreeDebugView *_instance;
     }
 }
 
+- (void)animate:(UIView *)view transform:(CATransform3D)trans{
+    [UIView animateWithDuration:0.2 animations:^{
+        NSLog(@"view:%@",view);
+        view.layer.transform = trans;
+        if (view.subviews.count>0 ) {
+            for (UIView *subView in view.subviews) {
+                [self animate:subView transform:trans];
+            }
+        }else{
+            return;
+        }
+    }];
+}
+
 #pragma mark UITableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (checkViewDetail) {
@@ -111,18 +136,26 @@ static LayerTreeDebugView *_instance;
         if (cell == nil) {
             cell = [[LayerTreeViewDetailCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
         }
+        __weak typeof(self)weakSelf = self;
         cell.changeAttribute = ^(LayerTreeViewDetailModel * _Nonnull model) {
-            //此处区分是防射变换还是普通的面包屑形式
-            model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
-            model.associateView.backgroundColor = [UIColor colorWithRed:model.r green:model.g blue:model.b alpha:model.backGroundColoralpha];
-            model.associateView.alpha = model.alpha;
-            
-            CATransform3D perspective = CATransform3DIdentity;
-            perspective.m34 = -1.0/400.0;
-            perspective = CATransform3DRotate(perspective, M_PI * model.r, 0, 1, 0);
-            perspective = CATransform3DScale(perspective, 1+model.g, 1+model.g, 0);
-            model.associateView.layer.sublayerTransform = perspective;
+            if (weakSelf.treeStyle == LayerTreeStyleDefault) {
+                model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
+                model.associateView.backgroundColor = [UIColor colorWithRed:model.r green:model.g blue:model.b alpha:model.backGroundColoralpha];
+                model.associateView.alpha = model.alpha;
+            }else if (weakSelf.treeStyle == LayerTreeStyle3DTransForm){
+                model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
+                CATransform3D trans = CATransform3DIdentity;
+                CATransform3D t = CATransform3DIdentity;
+                t.m34 = -1.0/500.0;
+                trans = CATransform3DConcat(CATransform3DMakeRotation(M_PI * model.r, 0, 1, 0), trans);
+//                trans = CATransform3DConcat(CATransform3DMakeRotation(M_PI * model.g, 1, 0, 0), trans);
 
+//                trans = CATransform3DConcat(CATransform3DMakeScale(1+model.b, 1+model.b, 0),trans);
+                trans = CATransform3DConcat(trans, t);
+                [weakSelf animate:model.associateView transform:trans];
+            }else if (weakSelf.treeStyle == LayerTreeStyleGraphics){
+                
+            }
         };
         
         [cell updateWithModel:self.viewDetailModel];
@@ -210,7 +243,6 @@ static LayerTreeDebugView *_instance;
 
 #pragma mark UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    NSLog(@"touch.view:%@",touch.view);
     if ([touch.view isKindOfClass:NSClassFromString(@"UIButton")]) {//UITableViewCellContentView
         return YES;
     }else{
@@ -219,6 +251,22 @@ static LayerTreeDebugView *_instance;
 }
 
 #pragma mark =========== EventResponse ===========
+- (void)viewTransform:(UIPanGestureRecognizer *)sender{
+    CGPoint point = [sender translationInView:[UIApplication sharedApplication].keyWindow];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
+    CGFloat angleX = angle.x + point.x/30.0;
+    CGFloat angleY = angle.y - point.y/30.0;
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = -1.0/500.0;
+    transform = CATransform3DRotate(transform, angleX, 0, 1, 0);
+    transform = CATransform3DRotate(transform, angleY, 1, 0, 0);
+    //    self.blueView.layer.transform = transform;//这是旋转layer，如果旋转的话，那么blueview的坐标系就会不断变化
+    [UIApplication sharedApplication].keyWindow.layer.sublayerTransform = transform;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        angle.x = angleX;
+        angle.y = angleY;
+    }
+}
+
 - (void)checkCurrentSelectViewDetail:(UIButton *)btn{
     NSLog(@"check detail");
     UITableViewCell *cell = (UITableViewCell *)btn.superview;
@@ -327,10 +375,18 @@ static LayerTreeDebugView *_instance;
 - (void)changeStyle:(UIButton *)btn{
     NSLog(@"btn.tag:%ld",(long)btn.tag);
     [self showSelectTypeView:self.LYT_changeTypeBtn];
-    if (btn.tag == 101) {//说明是affine变换,此时需要对所有的view进行z轴的平移
-        //找到根节点
+    if (btn.tag == 100) {
+        self.treeStyle = LayerTreeStyleDefault;
+    }else if (btn.tag == 101) {//说明是3DTransform变换,此时需要对所有的view进行z轴的平移
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewTransform:)];
+        UIWindow *rootWindow = [UIApplication sharedApplication].keyWindow;
+        [rootWindow addGestureRecognizer:panGesture];
+        self.treeStyle = LayerTreeStyle3DTransForm;
         [LayerTreeInspector layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:LYT_AffineTransformLevelPadding];
+    }else if (btn.tag == 102){
+        self.treeStyle = LayerTreeStyleGraphics;
     }
+    [self.LYT_tableview reloadData];
 }
 
 #pragma mark =========== Setters && Getters ===========
@@ -391,7 +447,6 @@ static LayerTreeDebugView *_instance;
         [_LYT_headerView addSubview:self.LYT_dismissBtn];
         [_LYT_headerView addSubview:self.LYT_refreshBtn];
         [_LYT_headerView addSubview:self.LYT_changeTypeBtn];
-//        [_LYT_headerView addSubview:self.LYT_typeView];
     }
     return _LYT_headerView;
 }
@@ -436,8 +491,9 @@ static LayerTreeDebugView *_instance;
         _LYT_typeView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         _LYT_typeView.layer.masksToBounds = YES;
         NSArray *title = @[@"DefaultBreadStyle",
-                           @"GraphicsTreeStyle",
-                           @"AffineTransFormStyle"];
+                           @"3DTransFormStyle",
+                           @"GraphicsTreeStyle(Pending)"
+                           ];
         for (int i = 0; i<3; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = 100+i;
@@ -449,7 +505,6 @@ static LayerTreeDebugView *_instance;
             [btn addTarget:self action:@selector(changeStyle:) forControlEvents:UIControlEventTouchUpInside];
             [_LYT_typeView addSubview:btn];
         }
-    
     }
     return _LYT_typeView;
 }
@@ -460,7 +515,5 @@ static LayerTreeDebugView *_instance;
     }
     return _LYT_selectNodes;
 }
-
-
 
 @end

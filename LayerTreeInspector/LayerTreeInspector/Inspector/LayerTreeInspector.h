@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LayerTreeBaseNode.h"
+#import "LayerTreeInspectorProtocol.h"
 
-@interface LayerTreeInspector : NSObject
+@interface LayerTreeInspector : NSObject<LayerTreeInspectorProtocol>
 /**
  开始监控,自动刷新树，但是很耗费性能，不建议使用
  */
@@ -34,21 +34,5 @@
 + (LayerTreeBaseNode *)currentRootNode;
 
 #pragma mark api需要重新设计
-
-/**
- 获取节点视图为UIWindwo的根节点
- 
- @param completion completion回调
- */
-+ (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion;
-
-/**
- 获取topViewController的视图所在的节点
-
- @param completion 获取后的回调
- */
-+ (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *node))completion;
-
-+ (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding;
 
 @end

@@ -69,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectorProtocol.h; sourceTree = "<group>"; };
 		16B793F9202986C800D27330 /* LayerTreeInspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerTreeInspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B793FC202986C800D27330 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16B793FD202986C800D27330 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		16B7941C202986C800D27330 /* LayerTreeInspectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LayerTreeInspectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B79420202986C800D27330 /* LayerTreeInspectorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspectorUITests.m; sourceTree = "<group>"; };
 		16B79422202986C800D27330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16B7942F202986F100D27330 /* NodeModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeModelProtocol.h; sourceTree = "<group>"; };
 		16B79430202986FB00D27330 /* LayerTreeViewDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeViewDetailCell.h; sourceTree = "<group>"; };
 		16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeNodeModelProtocol.h; sourceTree = "<group>"; };
 		16B79432202986FB00D27330 /* LayerTreeBaseNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeBaseNode.h; sourceTree = "<group>"; };
@@ -232,7 +232,6 @@
 				16B794BD202990A900D27330 /* Inspector */,
 				16B794C1202990C900D27330 /* Node */,
 				16B794C0202990C100D27330 /* Protocol */,
-				16B794BF202990B300D27330 /* TreeView */,
 				16B794BE202990AE00D27330 /* DebugView */,
 				16B7947620298C4900D27330 /* assets */,
 			);
@@ -433,8 +432,9 @@
 		16B794C0202990C100D27330 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				16B7942F202986F100D27330 /* NodeModelProtocol.h */,
 				16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */,
+				16B794BF202990B300D27330 /* TreeView */,
+				161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";

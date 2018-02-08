@@ -29,12 +29,20 @@
 @property (nonatomic, strong) UISlider *LYT_ySlider;
 @property (nonatomic, strong) UISlider *LYT_wSlider;
 @property (nonatomic, strong) UISlider *LYT_hSlider;
+@property (nonatomic, strong) UILabel *LYT_xLabel;
+@property (nonatomic, strong) UILabel *LYT_yLabel;
+@property (nonatomic, strong) UILabel *LYT_wLabel;
+@property (nonatomic, strong) UILabel *LYT_hLabel;
 
 
 @property (nonatomic, strong) UILabel *LYT_colorLabel;
 @property (nonatomic, strong) UISlider *LYT_rSlider;
 @property (nonatomic, strong) UISlider *LYT_gSlider;
 @property (nonatomic, strong) UISlider *LYT_bSlider;
+@property (nonatomic, strong) UISlider *LYT_rLabel;
+@property (nonatomic, strong) UISlider *LYT_gLabel;
+@property (nonatomic, strong) UISlider *LYT_bLabel;
+
 
 @property (nonatomic, strong) UILabel *LYT_alphaLabel;
 @property (nonatomic, strong) UISlider *LYT_alphaSlider;
@@ -294,7 +302,8 @@
         slider.tag = LYT_r_Slider;
         slider.maximumValue = 1;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
-        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+//        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        slider.minimumTrackTintColor = [UIColor redColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
         [slider setThumbImage:[UIImage imageNamed:@"LYT_sliderIcon"] forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
@@ -310,7 +319,8 @@
         slider.tag = LYT_g_Slider;
         slider.maximumValue = 1;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
-        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+//        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        slider.minimumTrackTintColor = [UIColor greenColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
         [slider setThumbImage:[UIImage imageNamed:@"LYT_sliderIcon"] forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
@@ -326,7 +336,8 @@
         slider.tag = LYT_b_Slider;
         slider.maximumValue = 1;// 设置最大值
         slider.continuous = YES;// 设置可连续变化
-        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+//        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
+        slider.minimumTrackTintColor = [UIColor blueColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
         [slider setThumbImage:[UIImage imageNamed:@"LYT_sliderIcon"] forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
