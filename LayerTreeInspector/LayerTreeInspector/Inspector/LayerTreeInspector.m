@@ -20,7 +20,7 @@ struct {
     unsigned int startMonitor:1;
 }LayerTreeFirstInitializeState;
 
-static inline void LYT_EXChangeInstanceMethod(Class _originalClass ,SEL _originalSel,Class _targetClass ,SEL _targetSel){
+static inline void LTI_EXChangeInstanceMethod(Class _originalClass ,SEL _originalSel,Class _targetClass ,SEL _targetSel){
     Method methodOriginal = class_getInstanceMethod(_originalClass, _originalSel);
     Method methodNew = class_getInstanceMethod(_targetClass, _targetSel);
     method_exchangeImplementations(methodOriginal, methodNew);
@@ -58,23 +58,30 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
 }
 
 CATransform3D transForm;
+NSInteger treeDepth;
 static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
-    if (rootNode.subNodes.count == 0) {
+    if (rootNode.subNodes.count == 0||[rootNode.LayerTreeNodeView isMemberOfClass:[LayerTreeDebugView class]]) {
         return;
     }else{
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            [subNode.LayerTreeNodeView.superview convertRect:subNode.LayerTreeNodeView.frame toView:[UIApplication sharedApplication].keyWindow];
-            [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];
-            NSLog(@"view:%@ z轴平移：%f",NSStringFromClass(subNode.LayerTreeNodeView.class),(subNode.nodeLevel-1)*levelPadding);
-            transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
-            subNode.LayerTreeNodeView.layer.transform = transForm;
-            RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
+            if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeDebugView")]) {
+                treeDepth = subNode.nodeLevel>treeDepth?subNode.nodeLevel:treeDepth;
+                [subNode.LayerTreeNodeView.superview convertRect:subNode.LayerTreeNodeView.frame toView:[UIApplication sharedApplication].keyWindow];
+                [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];
+                NSLog(@"view:%@ z轴平移：%f",NSStringFromClass(subNode.LayerTreeNodeView.class),(subNode.nodeLevel-1)*levelPadding);
+                transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
+                subNode.LayerTreeNodeView.layer.transform = transForm;
+                RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
+            }else{
+                NSLog(@"过滤掉debugView");
+                
+            }
         }];
     }
 }
 
-#pragma mark 递归查找UIWindow
+#pragma mark 递归查找UIWindow           (可废弃)
 static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     if ([view isMemberOfClass:[UIWindow class]]) {
         return (UIWindow *)view;
@@ -88,52 +95,52 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
     return nil;
 }
 
-@interface UIView (LYT_Extend)
-
-@end
-
-@implementation UIView (LYT_Extend)
-
-- (void)LYT_addSubview:(UIView *)view{
-    [self LYT_addSubview:view];
-    if (LayerTreeFirstInitializeState.windowInitialize == 1) {
-        if (![view isKindOfClass:[LayerTreeDebugView class]]) {
-            [self constructTreeNodeWithView:view];
-        }
-    }else{
-        if ([self isMemberOfClass:[UIWindow class]]) {
-            LayerTreeFirstInitializeState.windowInitialize = 1;
-            [self constructTreeNodeWithView:view];
-        }
-    }
-}
-
-- (void)LYT_removeFromSuperview{
-    [self destructTreeNodeWithView:self];
-    [self LYT_removeFromSuperview];
-}
-
-- (void)constructTreeNodeWithView:(UIView *)view{
-    if (_rootNode.LayerTreeNodeView == nil) {//初始化根节点
-        _rootNode.LayerTreeNodeView = self;
-    }
-    LayerTreeBaseNode *layerNode = RecursiveFindNodeWith(self, _rootNode);
-    if (layerNode) {
-        LayerTreeBaseNode *subLayerNode = [[LayerTreeBaseNode alloc]init];
-        subLayerNode.LayerTreeNodeView = view;
-        RecursiveInitializeSubNodesAtNodeWithNewAddView(subLayerNode, view);
-        [layerNode addSubNode:subLayerNode];
-    }else{
-        
-    }
-}
-
-- (void)destructTreeNodeWithView:(UIView *)view{
-    //根据view找到对应的node，然后删除这个node,这个操作可以记录下来，就不用每次都查找了。
-    LayerTreeBaseNode *node = RecursiveFindNodeWith(view, _rootNode);
-    [node.fatherNode.subNodes removeObject:node];
-}
-@end
+//@interface UIView (LTI_Extend)
+//
+//@end
+//
+//@implementation UIView (LTI_Extend)
+//
+//- (void)LTI_addSubview:(UIView *)view{
+//    [self LTI_addSubview:view];
+//    if (LayerTreeFirstInitializeState.windowInitialize == 1) {
+//        if (![view isKindOfClass:[LayerTreeDebugView class]]) {
+//            [self constructTreeNodeWithView:view];
+//        }
+//    }else{
+//        if ([self isMemberOfClass:[UIWindow class]]) {
+//            LayerTreeFirstInitializeState.windowInitialize = 1;
+//            [self constructTreeNodeWithView:view];
+//        }
+//    }
+//}
+//
+//- (void)LTI_removeFromSuperview{
+//    [self destructTreeNodeWithView:self];
+//    [self LTI_removeFromSuperview];
+//}
+//
+//- (void)constructTreeNodeWithView:(UIView *)view{
+//    if (_rootNode.LayerTreeNodeView == nil) {//初始化根节点
+//        _rootNode.LayerTreeNodeView = self;
+//    }
+//    LayerTreeBaseNode *layerNode = RecursiveFindNodeWith(self, _rootNode);
+//    if (layerNode) {
+//        LayerTreeBaseNode *subLayerNode = [[LayerTreeBaseNode alloc]init];
+//        subLayerNode.LayerTreeNodeView = view;
+//        RecursiveInitializeSubNodesAtNodeWithNewAddView(subLayerNode, view);
+//        [layerNode addSubNode:subLayerNode];
+//    }else{
+//
+//    }
+//}
+//
+//- (void)destructTreeNodeWithView:(UIView *)view{
+//    //根据view找到对应的node，然后删除这个node,这个操作可以记录下来，就不用每次都查找了。
+//    LayerTreeBaseNode *node = RecursiveFindNodeWith(view, _rootNode);
+//    [node.fatherNode.subNodes removeObject:node];
+//}
+//@end
 
 @implementation LayerTreeInspector
 
@@ -144,8 +151,8 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
         _rootNode = [[LayerTreeBaseNode alloc]init];
         LayerTreeFirstInitializeState.rootNodeInitialize = 1;
         LayerTreeFirstInitializeState.startMonitor = 1;
-        LYT_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LYT_addSubview:));
-        LYT_EXChangeInstanceMethod([UIView class], @selector(removeFromSuperview), [UIView class], @selector(LYT_removeFromSuperview));
+//        LTI_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LTI_addSubview:));
+//        LTI_EXChangeInstanceMethod([UIView class], @selector(removeFromSuperview), [UIView class], @selector(LTI_removeFromSuperview));
     }
 }
 
@@ -154,8 +161,8 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
         _rootNode = nil;
         LayerTreeFirstInitializeState.rootNodeInitialize = 0;
         LayerTreeFirstInitializeState.startMonitor = 0;
-        LYT_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LYT_addSubview:));
-        LYT_EXChangeInstanceMethod([UIView class], @selector(removeFromSuperview), [UIView class], @selector(LYT_removeFromSuperview));
+//        LTI_EXChangeInstanceMethod([UIView class], @selector(addSubview:), [UIView class], @selector(LTI_addSubview:));
+//        LTI_EXChangeInstanceMethod([UIView class], @selector(removeFromSuperview), [UIView class], @selector(LTI_removeFromSuperview));
     }else{
         NSLog(@"Please start monitor first");
     }
@@ -171,8 +178,6 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 }
 
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
-//    UIViewController *topViewController = [self topViewController];
-//    UIWindow *window = RecursiveFindWindow(topViewController.view);
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
@@ -209,6 +214,9 @@ static inline UIWindow *_Nullable RecursiveFindWindow(UIView *view){
 
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding{
     RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(_rootNode, levelPadding);
+    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:[LayerTreeDebugView sharedDebugView]];
+    transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, treeDepth*levelPadding);
+    [LayerTreeDebugView sharedDebugView].layer.transform = transForm;
 }
 
 + (UIViewController *)topViewController {
