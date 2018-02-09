@@ -25,9 +25,19 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 
 static UIWindow * LTI_rootWindow;
 
-#ifndef DEGREES_TO_RADIANS
+#ifndef DEGREES_TO_RADIANS//避免重复定义
 #define DEGREES_TO_RADIANS(d) ((d) * M_PI / 180)
 #endif
+
+//#ifndef DEGREES_RESET_TO_ZERO
+#define DEGREES_RESET_TO_ZERO(d)\
+    CGFloat radians = DEGREES_TO_RADIANS(d);\
+    CGFloat floatCircles = radians/(2*M_PI);\
+    int intCircle = (int)floatCircles;\
+    CGFloat radiansToZero = floatCircles - intCircle;\
+    return -radiansToZero;
+//#endif
+
 
 @interface LayerTreeInspectionView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
@@ -270,7 +280,9 @@ static LayerTreeInspectionView *_instance;
     CGPoint change = [gestureRecognizer translationInView:self];
     rotateY =  oldPan.x + change.x;
     rotateX = -oldPan.y - change.y;
+    NSLog(@"rotatex:%f ---   rotatey:%f ---- dist:%f",DEGREES_TO_RADIANS(rotateX),DEGREES_TO_RADIANS(rotateY),dist*1000);
     [self anime:0.1];
+    
 }
 
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer {
@@ -280,6 +292,9 @@ static LayerTreeInspectionView *_instance;
     }
     dist = oldDist + (gestureRecognizer.scale - 1);
     dist = dist < -5 ? -5 : dist > 0.5 ? 0.5 : dist;
+    NSLog(@"dist:%f",dist
+          );
+
     [self anime:0.1];
 }
 
@@ -424,15 +439,17 @@ static LayerTreeInspectionView *_instance;
            self.debugWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
         }];
     }
-    
-    [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
-        self.LTI_currentNode = currentNode;
-        [self.LTI_selectNodes addObjectsFromArray:node];
-        [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
-    }];
+#warning 3D模式下，不要刷新层级树
+
+    if (LayerTreeStyleDefault == self.treeStyle) {
+        [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
+            self.LTI_currentNode = currentNode;
+            [self.LTI_selectNodes addObjectsFromArray:node];
+            [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
+        }];
+    }
+   
     //此处需要判断一下中心点的y坐标
-    
-    
 }
 
 - (void)showSelectTypeView:(UIButton *)btn{
@@ -486,13 +503,56 @@ static LayerTreeInspectionView *_instance;
             _LTI_resetButton.hidden = YES;
             self.treeStyle = LayerTreeStyleDefault;
             CATransform3D transform = CATransform3DIdentity;
+            CATransform3D transIdentity = CATransform3DIdentity;
+            /*
+             逆运算
+             CATransform3D trans = CATransform3DIdentity;
+             CATransform3D t = CATransform3DIdentity;
+             t.m34 = -0.001;
+             trans = CATransform3DMakeTranslation(0, 0, dist * 1000);
+             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateX), 1, 0, 0), trans);
+             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateY), 0, 1, 0), trans);
+             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(0), 0, 0, 1), trans);
+             trans = CATransform3DConcat(trans, t);
+
+             */
+            
+            
+            
+            CGFloat radiansToZeroX = [self radiansToZero:rotateX];
+            CGFloat radiansToZeroY = [self radiansToZero:rotateY];
+            CGFloat radiansToZeroZ = [self radiansToZero:0];
+            NSLog(@"radiansToZeroX:%f ---- radiansToZeroY:%f ----- dist:%f",radiansToZeroX,radiansToZeroY,-dist*1000);
+            //逆运算transform
+            transform = CATransform3DMakeTranslation(0, 0, -dist * 1000);
+            transform = CATransform3DRotate(transform,radiansToZeroX , 1, 0, 0);
+            transform = CATransform3DRotate(transform,radiansToZeroY, 0, 1, 0);
+            transform = CATransform3DConcat(transform, transIdentity);
+            transform = CATransform3DConcat(CATransform3DMakeRotation(radiansToZeroZ, 0, 0, 1), transform);
+
+            
+            
+            
+            
+            
+            
+            
+            
             [[self getWindow] removeGestureRecognizer:_pinGesture];
             [[self getWindow] removeGestureRecognizer:_panGesture];
-            [self getWindow].layer.sublayerTransform = _initialTransForm;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
-            //动画恢复
+            [self getWindow].layer.sublayerTransform = transform;
             [self.LTI_tableview reloadData];
         }
     }];
+}
+
+- (CGFloat)radiansToZero:(CGFloat)degree{
+    CGFloat radians = DEGREES_TO_RADIANS(degree);
+    NSLog(@"radians:%f",radians);
+    CGFloat floatRadians = radians/(2*M_PI);//3.145
+    int intRadians = (int)floatRadians;
+    CGFloat radiansToZero = floatRadians - intRadians;
+    return -radiansToZero;
 }
 
 #pragma mark =========== Setters && Getters ===========

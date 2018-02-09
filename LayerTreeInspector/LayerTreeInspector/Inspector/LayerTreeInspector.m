@@ -82,20 +82,16 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
     }
 }
 
-//layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion
-//    //展示为平面
-//层级体系恢复
-//frame转换
 static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_Nonnull rootNode){
     //rootNode中保存着最初的的层级关系。
     if (rootNode.subNodes.count > 0) {//递归的将所有的子view加到其上
-        UIView *fatherView = rootNode.LayerTreeNodeView;
+//        UIView *fatherView = rootNode.LayerTreeNodeView;
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            subNode.LayerTreeNodeView.frame = [rootNode.LayerTreeNodeView convertRect:subNode.LayerTreeNodeView.frame fromView:LTI_rootWindow];
+            subNode.LayerTreeNodeView.frame = [subNode.LayerTreeFatherNodeView convertRect:subNode.LayerTreeNodeView.frame fromView:LTI_rootWindow];
             NSLog(@"originalFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));
             //转换坐标系
-            [fatherView addSubview:subNode.LayerTreeNodeView];
+            [subNode.LayerTreeFatherNodeView addSubview:subNode.LayerTreeNodeView];
             NSLog(@"+++currentFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));//LayerTreeFatherNodeView
             RecursiveRevertLayerTreeFrom3DToPlanar(subNode);
         }];
@@ -156,11 +152,7 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
     if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:NSClassFromString(@"LayerTreeCustomWindow")]) {
         NSLog(@"window为自定义window");
     }
-        RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
-//        [LTI_rootWindow bringSubviewToFront:[LayerTreeInspectionView sharedDebugView]];
-//        LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, LTI_treeDepth*levelPadding);
-//        [LayerTreeInspectionView sharedDebugView].layer.transform = LTI_transForm;
-    
+    RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
 }
 
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
