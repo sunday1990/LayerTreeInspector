@@ -7,6 +7,7 @@
 //
 
 #import "LayerTreeDebugView.h"
+#import "LayerTreeCustomWindow.h"
 #import "LayerTreeInspector.h"
 #import "LayerTreeViewDetailCell.h"
 #import "LayerTreeGraphicsView.h"
@@ -22,6 +23,9 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
     LayerTreeStyleGraphics = 2      //🌲形式
     
 };
+
+static UIWindow * LTI_rootWindow;
+
 @interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *LTI_bubbleView;
@@ -47,6 +51,8 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
 
 @property (nonatomic, assign) LayerTreeStyle treeStyle;
+
+@property (nonatomic, strong) LayerTreeCustomWindow *debugWindow;
 
 @end
 
@@ -89,11 +95,9 @@ static LayerTreeDebugView *_instance;
 
 - (instancetype)init{
     if (self = [super init]) {
-        UIWindow *keyWindow = [self getWindow];
+        LTI_rootWindow = [UIApplication sharedApplication].keyWindow;
         self.treeStyle = LayerTreeStyleDefault;
-        self.frame = CGRectMake(12, 300, LTI_ScreenWidth-24,44*8);
-        [self addSubview:self.LTI_tableview];
-        [keyWindow addSubview:self];
+        UIWindow *keyWindow = [self getWindow];
         [keyWindow addSubview:self.LTI_bubbleView];
     }
     return self;
@@ -264,7 +268,7 @@ static LayerTreeDebugView *_instance;
 
 #pragma mark =========== EventResponse ===========
 - (void)viewPanTransform:(UIPanGestureRecognizer *)sender{
-    CGPoint point = [sender translationInView:[UIApplication sharedApplication].keyWindow];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
+    CGPoint point = [sender translationInView:[self getWindow]];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
     CGFloat angleX = angle.x + point.x/30.0;
     CGFloat angleY = angle.y - point.y/30.0;
 //    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
@@ -272,7 +276,7 @@ static LayerTreeDebugView *_instance;
     transform.m34 = -1.0/500.0;
     transform = CATransform3DRotate(transform, angleX, 0, 1, 0);
     transform = CATransform3DRotate(transform, angleY, 1, 0, 0);
-    [UIApplication sharedApplication].keyWindow.layer.sublayerTransform = transform;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
+    [self getWindow].layer.sublayerTransform = transform;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
     if (sender.state == UIGestureRecognizerStateEnded) {
         angle.x = angleX;
         angle.y = angleY;
@@ -282,7 +286,7 @@ static LayerTreeDebugView *_instance;
 - (void)viewPinTransform:(UIPinchGestureRecognizer *)sender{
     NSLog(@"scale:%f",sender.scale);
     if (sender.state==UIGestureRecognizerStateBegan || sender.state==UIGestureRecognizerStateChanged){
-        UIWindow *rootWindow = [UIApplication sharedApplication].keyWindow;
+        UIWindow *rootWindow = [self getWindow];
         CATransform3D transform = CATransform3DScale(CATransform3DIdentity, sender.scale, sender.scale, sender.scale);
         transform = CATransform3DRotate(transform, angle.x, 0, 1, 0);
         transform = CATransform3DRotate(transform, angle.y, 1, 0, 0);
@@ -290,7 +294,6 @@ static LayerTreeDebugView *_instance;
     }
     if (sender.state == UIGestureRecognizerStateEnded) {
 #warning 计算错误,需要更新angle
-
     }
 }
 
@@ -307,26 +310,58 @@ static LayerTreeDebugView *_instance;
 }
 
 - (void)showDebugView{
+    if (!self.debugWindow) {
+        //按钮放在自己的window上，点击后，设置自定义的window，并将tableview放在自定义window上，自定义window显示在最上层
+        LayerTreeCustomWindow *debugWindow = [LayerTreeCustomWindow window];
+        debugWindow.frame = CGRectMake(12, 300, LTI_ScreenWidth-24,44*6);
+        debugWindow.windowLevel = 1000;
+        [debugWindow makeKeyAndVisible];
+        debugWindow.backgroundColor = [UIColor clearColor];
+        self.debugWindow = debugWindow;
+        [self.debugWindow addSubview:self.LTI_tableview];
+        [self.debugWindow makeKeyAndVisible];
+    }
     [self refreshDebugView];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer*) recognizer{
-    CGPoint translation = [recognizer translationInView:[self getWindow]];
-    CGFloat centerX = recognizer.view.center.x + translation.x;
-    CGFloat thecenter = 0;
-    recognizer.view.center=CGPointMake(centerX,
-                                       recognizer.view.center.y+ translation.y);
-    [recognizer setTranslation:CGPointZero inView:[self getWindow]];
-    if(recognizer.state==UIGestureRecognizerStateEnded || recognizer.state==UIGestureRecognizerStateCancelled) {
-        if(centerX > LTI_ScreenWidth/2) {
-            thecenter = LTI_ScreenWidth-recognizer.view.frame.size.width/2-12;
-        }else{
-            thecenter = recognizer.view.frame.size.width/2+12;
+    UIWindow *window = recognizer.view.window;
+    if ([window isMemberOfClass:[LayerTreeCustomWindow class]]) {
+        CGPoint translation = [recognizer translationInView:[self getWindow]];//
+        CGFloat centerX = recognizer.view.window.center.x + translation.x;
+        CGFloat thecenter = 0;
+        recognizer.view.window.center=CGPointMake(centerX,
+                                           recognizer.view.window.center.y+ translation.y);
+        [recognizer setTranslation:CGPointZero inView:[self getWindow]];
+        if(recognizer.state==UIGestureRecognizerStateEnded || recognizer.state==UIGestureRecognizerStateCancelled) {
+            if(centerX > LTI_ScreenWidth/2) {
+                thecenter = LTI_ScreenWidth-recognizer.view.window.frame.size.width/2-12;
+            }else{
+                thecenter = recognizer.view.window.frame.size.width/2+12;
+            }
+            [UIView animateWithDuration:0.3 animations:^{
+                recognizer.view.window.center=CGPointMake(thecenter,
+                                                   recognizer.view.window.center.y + translation.y);
+            }];
         }
-        [UIView animateWithDuration:0.3 animations:^{
-            recognizer.view.center=CGPointMake(thecenter,
-                                               recognizer.view.center.y + translation.y);
-        }];
+    }else{
+        CGPoint translation = [recognizer translationInView:[self getWindow]];//
+        CGFloat centerX = recognizer.view.center.x + translation.x;
+        CGFloat thecenter = 0;
+        recognizer.view.center=CGPointMake(centerX,
+                                           recognizer.view.center.y+ translation.y);
+        [recognizer setTranslation:CGPointZero inView:[self getWindow]];
+        if(recognizer.state==UIGestureRecognizerStateEnded || recognizer.state==UIGestureRecognizerStateCancelled) {
+            if(centerX > LTI_ScreenWidth/2) {
+                thecenter = LTI_ScreenWidth-recognizer.view.frame.size.width/2-12;
+            }else{
+                thecenter = recognizer.view.frame.size.width/2+12;
+            }
+            [UIView animateWithDuration:0.3 animations:^{
+                recognizer.view.center=CGPointMake(thecenter,
+                                                   recognizer.view.center.y + translation.y);
+            }];
+        }
     }
 }
 
@@ -353,7 +388,8 @@ static LayerTreeDebugView *_instance;
     [UIView animateWithDuration:0.2 animations:^{
         self.LTI_tableview.alpha = 0;
     }completion:^(BOOL finished) {
-        self.LTI_tableview.hidden = YES;
+//        self.LTI_tableview.hidden = YES;
+        self.debugWindow.hidden = YES;
     }];
 }
 
@@ -370,10 +406,11 @@ static LayerTreeDebugView *_instance;
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.animations = @[lessAnimation,enlargeAnimation,rotateAnimation];
     animationGroup.duration = 0.4;
-    [self.LTI_refreshBtn.layer addAnimation:animationGroup forKey:@"groupAnimation"];
+    [_LTI_refreshBtn.layer addAnimation:animationGroup forKey:@"groupAnimation"];
     
     checkViewDetail = NO;
-    self.LTI_tableview.hidden = NO;
+//    self.LTI_tableview.hidden = NO;
+    self.debugWindow.hidden = NO;
     self.LTI_tableview.alpha = 1;
     [self.LTI_selectNodes removeAllObjects];
     [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
@@ -409,7 +446,9 @@ static LayerTreeDebugView *_instance;
         _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanTransform:)];
         _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(viewPinTransform:)];
         _pinGesture.delegate = self;
-        UIWindow *rootWindow = [UIApplication sharedApplication].keyWindow;
+        
+        NSLog(@"windows:%@",[UIApplication sharedApplication].windows[0]);
+        UIWindow *rootWindow = [self getWindow];
         [rootWindow addGestureRecognizer:_pinGesture];
         [rootWindow addGestureRecognizer:_panGesture];
         _initialTransForm = rootWindow.layer.sublayerTransform;
@@ -429,9 +468,9 @@ static LayerTreeDebugView *_instance;
             _LTI_resetButton.hidden = YES;
             self.treeStyle = LayerTreeStyleDefault;
             CATransform3D transform = CATransform3DIdentity;
-            [[UIApplication sharedApplication].keyWindow removeGestureRecognizer:_pinGesture];
-            [[UIApplication sharedApplication].keyWindow removeGestureRecognizer:_panGesture];
-            [UIApplication sharedApplication].keyWindow.layer.sublayerTransform = _initialTransForm;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
+            [[self getWindow] removeGestureRecognizer:_pinGesture];
+            [[self getWindow] removeGestureRecognizer:_panGesture];
+            [self getWindow].layer.sublayerTransform = _initialTransForm;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
             //动画恢复
             [self.LTI_tableview reloadData];
         }
@@ -441,8 +480,9 @@ static LayerTreeDebugView *_instance;
 #pragma mark =========== Setters && Getters ===========
 
 - (UIWindow *)getWindow{
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    return keyWindow;
+    return LTI_rootWindow;
+//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;//应该为静态变量
+//    return keyWindow;
 }
 
 - (UIButton *)LTI_bubbleView{
@@ -463,9 +503,8 @@ static LayerTreeDebugView *_instance;
 
 - (UITableView *)LTI_tableview{
     if (!_LTI_tableview) {
-        _LTI_tableview = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStylePlain];
+        _LTI_tableview = [[UITableView alloc]initWithFrame:self.debugWindow.bounds style:UITableViewStylePlain];
         _LTI_tableview.delegate = self;
-        _LTI_tableview.hidden = YES;
         _LTI_tableview.dataSource = self;
         _LTI_tableview.layer.shadowColor = [UIColor blackColor].CGColor;
         _LTI_tableview.layer.borderWidth = 1;
@@ -474,6 +513,7 @@ static LayerTreeDebugView *_instance;
         _LTI_tableview.tableFooterView = [[UIView alloc]init];
         _LTI_tableview.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         [_LTI_tableview addSubview:self.LTI_typeView];
+
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
         pan.delegate = self;
         [_LTI_tableview addGestureRecognizer:pan];
@@ -552,7 +592,7 @@ static LayerTreeDebugView *_instance;
 
 - (UIView *)LTI_typeView{
     if (!_LTI_typeView) {
-        _LTI_typeView = [[UIView alloc]initWithFrame:CGRectMake(_LTI_tableview.frame.size.width - 60-80-88, 44, 80+88, 0)];
+        _LTI_typeView = [[UIView alloc]initWithFrame:CGRectMake(self.debugWindow.frame.size.width - 60-80-88, 44, 80+88, 0)];
         _LTI_typeView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         _LTI_typeView.layer.masksToBounds = YES;
         NSArray *title = @[@"DefaultBreadStyle",
@@ -580,5 +620,22 @@ static LayerTreeDebugView *_instance;
     }
     return _LTI_selectNodes;
 }
+
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    if (self.debugWindow.isHidden == NO) {
+//        //将当前tabbar的触摸点转换坐标系，转换到发布按钮的身上，生成一个新的点
+//        CGPoint newP = [self.window convertPoint:point toView:self.debugWindow];
+//        //判断如果这个新的点是在发布按钮身上，那么处理点击事件最合适的view就是发布按钮
+//        if ( [self.debugWindow pointInside:newP withEvent:event]) {
+//            return self.debugWindow;
+//        }else{//如果点不在发布按钮身上，直接让系统处理就可以了
+//            return [super hitTest:point withEvent:event];
+//        }
+//    }
+//    else {//tabbar隐藏了，那么说明已经push到其他的页面了，这个时候还是让系统去判断最合适的view处理就好了
+//        return [super hitTest:point withEvent:event];
+//    }
+//
+//}
 
 @end

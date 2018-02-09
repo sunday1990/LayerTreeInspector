@@ -14,6 +14,8 @@
 
 static LayerTreeBaseNode *LTI_rootNode;
 
+static UIWindow * LTI_rootWindow;
+
 struct {
     unsigned int rootNodeInitialize:1;
     unsigned int windowInitialize:1;
@@ -62,21 +64,17 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
             if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeDebugView")]) {
                 LTI_treeDepth = subNode.nodeLevel>LTI_treeDepth?subNode.nodeLevel:LTI_treeDepth;
-                Class BtnLabel = NSClassFromString(@"UIButtonLabel");
-                if ([subNode.LayerTreeNodeView isMemberOfClass:BtnLabel]) {
-                    NSLog(@"Buttonlabel:%@,superView:%@",subNode.LayerTreeNodeView,subNode.LayerTreeFatherNodeView);
+                UIView *subview = (UIView *)subNode.LayerTreeNodeView;
+                NSLog(@"subview:%@",subview);
+                if (subview.constraints.count>0) {
+                    NSLog(@"autolayout:%@",subview);
                 }else{
-                    if ([rootNode isMemberOfClass:[UIButton class]]) {
-                        NSLog(@"btnsubview:%@",subNode.LayerTreeNodeView);
-                    }
-                    subNode.LayerTreeNodeView.frame = [[UIApplication sharedApplication].keyWindow convertRect:subNode.LayerTreeNodeView.frame fromView:subNode.LayerTreeNodeView.superview];
-                    //                NSLog(@"subnode:%@,frame:%@",NSStringFromClass(subNode.LayerTreeNodeView.class),NSStringFromCGRect(subNode.LayerTreeNodeView.frame));
-                    [[UIApplication sharedApplication].keyWindow addSubview:subNode.LayerTreeNodeView];
+                    subview.frame = [LTI_rootWindow convertRect:subview.frame fromView:subview.superview];
+                    [LTI_rootWindow addSubview:subview];
+                    LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
+                    subNode.LayerTreeNodeView.layer.transform = LTI_transForm;
+                    RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
                 }
-
-                LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
-                subNode.LayerTreeNodeView.layer.transform = LTI_transForm;
-                RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
             }else{
                 NSLog(@"过滤掉debugView");
             }
@@ -94,7 +92,7 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
         UIView *fatherView = rootNode.LayerTreeNodeView;
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            subNode.LayerTreeNodeView.frame = [rootNode.LayerTreeNodeView convertRect:subNode.LayerTreeNodeView.frame fromView: [UIApplication sharedApplication].keyWindow];
+            subNode.LayerTreeNodeView.frame = [rootNode.LayerTreeNodeView convertRect:subNode.LayerTreeNodeView.frame fromView:LTI_rootWindow];
             NSLog(@"originalFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));
             //转换坐标系
             [fatherView addSubview:subNode.LayerTreeNodeView];
@@ -107,9 +105,11 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 }
 
 @implementation LayerTreeInspector
-
 #pragma mark 分界线
 + (void)showDebugView{
+    if (LTI_rootWindow == nil) {
+        LTI_rootWindow = [UIApplication sharedApplication].keyWindow;
+    }
     [LayerTreeDebugView sharedDebugView];
 }
 
@@ -118,7 +118,7 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 }
 
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = LTI_rootWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
@@ -130,7 +130,7 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 
 + (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *frontNodes))completion{
     UIViewController *topViewController = [self topViewController];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = LTI_rootWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
     rootNode.LayerTreeNodeView = window;
     RecursiveInitializeSubNodesAtNodeWithNewAddView(rootNode, window);
@@ -153,10 +153,14 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 }
 
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding{
-    RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
-    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:[LayerTreeDebugView sharedDebugView]];
-    LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, LTI_treeDepth*levelPadding);
-    [LayerTreeDebugView sharedDebugView].layer.transform = LTI_transForm;
+    if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:NSClassFromString(@"LayerTreeCustomWindow")]) {
+        NSLog(@"window为自定义window");
+    }
+        RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
+//        [LTI_rootWindow bringSubviewToFront:[LayerTreeDebugView sharedDebugView]];
+//        LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, LTI_treeDepth*levelPadding);
+//        [LayerTreeDebugView sharedDebugView].layer.transform = LTI_transForm;
+    
 }
 
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
@@ -168,10 +172,11 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 
 + (UIViewController *)topViewController {
     UIViewController *resultVC;
-    resultVC = [self _topViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    resultVC = [self _topViewController:[LTI_rootWindow rootViewController]];
     while (resultVC.presentedViewController) {
         resultVC = [self _topViewController:resultVC.presentedViewController];
     }
+    
     return resultVC;
 }
 

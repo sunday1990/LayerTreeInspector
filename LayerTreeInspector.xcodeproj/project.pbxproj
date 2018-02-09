@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		161D7116202D42E400A423DF /* LayerTreeCustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */; };
 		16B793FE202986C800D27330 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B793FD202986C800D27330 /* AppDelegate.m */; };
 		16B79401202986C800D27330 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79400202986C800D27330 /* ViewController.m */; };
 		16B79404202986C800D27330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B79402202986C800D27330 /* Main.storyboard */; };
@@ -70,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectorProtocol.h; sourceTree = "<group>"; };
+		161D7114202D42E300A423DF /* LayerTreeCustomWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeCustomWindow.h; sourceTree = "<group>"; };
+		161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeCustomWindow.m; sourceTree = "<group>"; };
 		16B793F9202986C800D27330 /* LayerTreeInspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerTreeInspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B793FC202986C800D27330 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16B793FD202986C800D27330 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -426,6 +429,8 @@
 				16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */,
 				16B79430202986FB00D27330 /* LayerTreeViewDetailCell.h */,
 				16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */,
+				161D7114202D42E300A423DF /* LayerTreeCustomWindow.h */,
+				161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */,
 			);
 			path = TreeView;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				16B794B020298F3C00D27330 /* TestAutoDegradeVC.m in Sources */,
 				16B794B420298F3C00D27330 /* SVProgressHUD.m in Sources */,
 				16B794AC20298F3C00D27330 /* TestUnrecognizedSelVC.m in Sources */,
+				161D7116202D42E400A423DF /* LayerTreeCustomWindow.m in Sources */,
 				16B794B120298F3C00D27330 /* TestManaulDegradeVC.m in Sources */,
 				16B794AE20298F3C00D27330 /* TestTimerErrorVC.m in Sources */,
 				16B794AF20298F3C00D27330 /* WebViewController.m in Sources */,

@@ -96,6 +96,12 @@
         subtestview.backgroundColor = [UIColor redColor];
         for (int j = 0; j <= 3; j++) {
             UIView *grandTestView = [[UIView alloc]initWithFrame:CGRectMake(subtestview.frame.size.width/2-50, 2+(5+10)*j, 10, 10)];
+           
+            UIView *abcView = [[UIView alloc]initWithFrame:CGRectMake(5, 5, 5, 5)];
+            abcView.backgroundColor = [UIColor blueColor];
+            [grandTestView addSubview:abcView];
+            
+            
             grandTestView.backgroundColor = [UIColor greenColor];
             [subtestview addSubview:grandTestView];
         }

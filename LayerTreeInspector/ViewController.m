@@ -11,6 +11,7 @@
 #import "TestManaulDegradeVC.h"
 #import "WebViewController.h"
 #import "AssistMicros.h"
+#import "LayerTreeInspector.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -47,7 +48,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.view.backgroundColor = [UIColor greenColor];
-    
+
     
     titleArray = @[
                    @{
@@ -91,7 +92,7 @@
     UIView *view = (UIView *)label;
     view.frame = CGRectMake(100, 100, 100, 100);
     view.backgroundColor = [UIColor redColor];
-    [self.view addSubview:view];
+//    [self.view addSubview:view];
 
 //    [self setupSubviews];
     
@@ -123,6 +124,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (indexPath.row == 4) {
+//        [LayerTreeInspector showDebugView];
+//        return;
+//
+//    }
     NSDictionary *item =  titleArray[indexPath.row];
     Class cls = NSClassFromString([item objectForKey:@"class"]);
     if ([[item objectForKey:@"class"] isEqualToString:@"TestUnrecognizedSelVC"]) {
@@ -215,8 +221,6 @@
     tipLabel.text = @"1、当未获取自动降级配置时，点击前三个按钮后，会拦阻异常，防止崩溃，但不会对该页面进行降级 \n 2、当获取自动降级配置后，再点击会跳转到该页面对应的H5页面，进行降级，展示掘金首页。\n 3、当关闭崩溃保护后，再次点击前三个按钮，会发生崩溃，可点击开启防护后，重新进行防护\n 4、如果有参数会获取参数。";
     [self.view addSubview:tipLabel];
 }
-
-
 #pragma mark ======== Setters && Getters ========
 
 
