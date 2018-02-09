@@ -9,7 +9,7 @@
 #import "LayerTreeInspector.h"
 #import <objc/runtime.h>
 #import "LayerTreeNodeModelProtocol.h"
-#import "LayerTreeDebugView.h"
+#import "LayerTreeInspectionView.h"
 #import "LayerTreeAssistMacros.h"
 
 static LayerTreeBaseNode *LTI_rootNode;
@@ -57,12 +57,12 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
 CATransform3D LTI_transForm;
 NSInteger LTI_treeDepth;
 static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
-    if (rootNode.subNodes.count == 0||[rootNode.LayerTreeNodeView isMemberOfClass:[LayerTreeDebugView class]]) {
+    if (rootNode.subNodes.count == 0||[rootNode.LayerTreeNodeView isMemberOfClass:[LayerTreeInspectionView class]]) {
         return;
     }else{
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeDebugView")]) {
+            if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeInspectionView")]) {
                 LTI_treeDepth = subNode.nodeLevel>LTI_treeDepth?subNode.nodeLevel:LTI_treeDepth;
                 UIView *subview = (UIView *)subNode.LayerTreeNodeView;
                 NSLog(@"subview:%@",subview);
@@ -110,7 +110,7 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
     if (LTI_rootWindow == nil) {
         LTI_rootWindow = [UIApplication sharedApplication].keyWindow;
     }
-    [LayerTreeDebugView sharedDebugView];
+    [LayerTreeInspectionView sharedDebugView];
 }
 
 + (LayerTreeBaseNode *)currentRootNode{
@@ -157,9 +157,9 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
         NSLog(@"window为自定义window");
     }
         RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
-//        [LTI_rootWindow bringSubviewToFront:[LayerTreeDebugView sharedDebugView]];
+//        [LTI_rootWindow bringSubviewToFront:[LayerTreeInspectionView sharedDebugView]];
 //        LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, LTI_treeDepth*levelPadding);
-//        [LayerTreeDebugView sharedDebugView].layer.transform = LTI_transForm;
+//        [LayerTreeInspectionView sharedDebugView].layer.transform = LTI_transForm;
     
 }
 

@@ -18,7 +18,7 @@
 		16B79421202986C800D27330 /* LayerTreeInspectorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79420202986C800D27330 /* LayerTreeInspectorUITests.m */; };
 		16B7943A202986FC00D27330 /* LayerTreeBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79434202986FB00D27330 /* LayerTreeBaseNode.m */; };
 		16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */; };
-		16B7943D202986FC00D27330 /* LayerTreeDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79439202986FC00D27330 /* LayerTreeDebugView.m */; };
+		16B7943D202986FC00D27330 /* LayerTreeInspectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79439202986FC00D27330 /* LayerTreeInspectionView.m */; };
 		16B7947520298AC500D27330 /* LayerTreeInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7947420298AC400D27330 /* LayerTreeInspector.m */; };
 		16B7947920298C5000D27330 /* LTI_editIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947720298C5000D27330 /* LTI_editIcon@2x.png */; };
 		16B7947A20298C5000D27330 /* LTI_editIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947820298C5000D27330 /* LTI_editIcon@3x.png */; };
@@ -94,9 +94,9 @@
 		16B79432202986FB00D27330 /* LayerTreeBaseNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeBaseNode.h; sourceTree = "<group>"; };
 		16B79433202986FB00D27330 /* LayerTreeAssistMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeAssistMacros.h; sourceTree = "<group>"; };
 		16B79434202986FB00D27330 /* LayerTreeBaseNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBaseNode.m; sourceTree = "<group>"; };
-		16B79436202986FB00D27330 /* LayerTreeDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeDebugView.h; sourceTree = "<group>"; };
+		16B79436202986FB00D27330 /* LayerTreeInspectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectionView.h; sourceTree = "<group>"; };
 		16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeViewDetailCell.m; sourceTree = "<group>"; };
-		16B79439202986FC00D27330 /* LayerTreeDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeDebugView.m; sourceTree = "<group>"; };
+		16B79439202986FC00D27330 /* LayerTreeInspectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspectionView.m; sourceTree = "<group>"; };
 		16B7947220298A1F00D27330 /* AssistMicros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssistMicros.h; sourceTree = "<group>"; };
 		16B7947320298AC400D27330 /* LayerTreeInspector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspector.h; sourceTree = "<group>"; };
 		16B7947420298AC400D27330 /* LayerTreeInspector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspector.m; sourceTree = "<group>"; };
@@ -412,8 +412,8 @@
 		16B794BE202990AE00D27330 /* DebugView */ = {
 			isa = PBXGroup;
 			children = (
-				16B79436202986FB00D27330 /* LayerTreeDebugView.h */,
-				16B79439202986FC00D27330 /* LayerTreeDebugView.m */,
+				16B79436202986FB00D27330 /* LayerTreeInspectionView.h */,
+				16B79439202986FC00D27330 /* LayerTreeInspectionView.m */,
 			);
 			path = DebugView;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 				16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */,
 				16B7940C202986C800D27330 /* main.m in Sources */,
 				16B794AD20298F3C00D27330 /* TestKVOErrorVC.m in Sources */,
-				16B7943D202986FC00D27330 /* LayerTreeDebugView.m in Sources */,
+				16B7943D202986FC00D27330 /* LayerTreeInspectionView.m in Sources */,
 				16B794AA20298F3C00D27330 /* TestNotificationErrorVC.m in Sources */,
 				16B794B920298FFD00D27330 /* LayerTreeAffineTransFormView.m in Sources */,
 				16B793FE202986C800D27330 /* AppDelegate.m in Sources */,

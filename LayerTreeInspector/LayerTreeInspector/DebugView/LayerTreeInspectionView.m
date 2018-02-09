@@ -1,12 +1,12 @@
 //
-//  LayerTreeDebugView.m
+//  LayerTreeInspectionView.m
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/6.
 //  Copyright © 2018年 ccSunday. All rights reserved.
 //
 
-#import "LayerTreeDebugView.h"
+#import "LayerTreeInspectionView.h"
 #import "LayerTreeCustomWindow.h"
 #import "LayerTreeInspector.h"
 #import "LayerTreeViewDetailCell.h"
@@ -21,12 +21,15 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
     LayerTreeStyleDefault = 0,      //默认的面包屑形式
     LayerTreeStyle3DTransForm = 1,  //3D变换形式
     LayerTreeStyleGraphics = 2      //🌲形式
-    
 };
 
 static UIWindow * LTI_rootWindow;
 
-@interface LayerTreeDebugView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+#ifndef DEGREES_TO_RADIANS
+#define DEGREES_TO_RADIANS(d) ((d) * M_PI / 180)
+#endif
+
+@interface LayerTreeInspectionView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIButton *LTI_bubbleView;
 
@@ -54,15 +57,21 @@ static UIWindow * LTI_rootWindow;
 
 @property (nonatomic, strong) LayerTreeCustomWindow *debugWindow;
 
+@property (nonatomic, strong) LayerTreeCustomWindow *LTI_bubbleContainerWindow;
+
 @end
 
-@implementation LayerTreeDebugView
+@implementation LayerTreeInspectionView
 {
+    float rotateX;
+    float rotateY;
+    float dist;
+    
     BOOL checkViewDetail;
-    CGPoint angle;
-    CATransform3D _initialTransForm;
     UIPanGestureRecognizer *_panGesture;
     UIPinchGestureRecognizer *_pinGesture;
+    
+    CATransform3D _initialTransForm;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -71,7 +80,7 @@ static UIWindow * LTI_rootWindow;
     // Drawing code
 }
 */
-static LayerTreeDebugView *_instance;
+static LayerTreeInspectionView *_instance;
 
 + (id)allocWithZone:(struct _NSZone *)zone{
     static dispatch_once_t onceToken;
@@ -267,34 +276,38 @@ static LayerTreeDebugView *_instance;
 }
 
 #pragma mark =========== EventResponse ===========
-- (void)viewPanTransform:(UIPanGestureRecognizer *)sender{
-    CGPoint point = [sender translationInView:[self getWindow]];//以手势在blueView的相对坐标为基准，但由于这个基准每次都变化，所以它也会变化。
-    CGFloat angleX = angle.x + point.x/30.0;
-    CGFloat angleY = angle.y - point.y/30.0;
-//    NSLog(@"angleX:%f \n angleY:%f",angleX,angleY);
-    CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = -1.0/500.0;
-    transform = CATransform3DRotate(transform, angleX, 0, 1, 0);
-    transform = CATransform3DRotate(transform, angleY, 1, 0, 0);
-    [self getWindow].layer.sublayerTransform = transform;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        angle.x = angleX;
-        angle.y = angleY;
+
+- (void)pan:(UIPanGestureRecognizer *)gestureRecognizer {
+    static CGPoint oldPan;
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        oldPan = CGPointMake(rotateY, -rotateX);
     }
+    CGPoint change = [gestureRecognizer translationInView:self];
+    rotateY =  oldPan.x + change.x;
+    rotateX = -oldPan.y - change.y;
+    [self anime:0.1];
 }
 
-- (void)viewPinTransform:(UIPinchGestureRecognizer *)sender{
-    NSLog(@"scale:%f",sender.scale);
-    if (sender.state==UIGestureRecognizerStateBegan || sender.state==UIGestureRecognizerStateChanged){
-        UIWindow *rootWindow = [self getWindow];
-        CATransform3D transform = CATransform3DScale(CATransform3DIdentity, sender.scale, sender.scale, sender.scale);
-        transform = CATransform3DRotate(transform, angle.x, 0, 1, 0);
-        transform = CATransform3DRotate(transform, angle.y, 1, 0, 0);
-        rootWindow.layer.sublayerTransform = transform;
+- (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer {
+    static float oldDist;
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        oldDist = dist;
     }
-    if (sender.state == UIGestureRecognizerStateEnded) {
-#warning 计算错误,需要更新angle
-    }
+    dist = oldDist + (gestureRecognizer.scale - 1);
+    dist = dist < -5 ? -5 : dist > 0.5 ? 0.5 : dist;
+    [self anime:0.1];
+}
+
+- (void)anime:(float)time {
+    CATransform3D trans = CATransform3DIdentity;
+    CATransform3D t = CATransform3DIdentity;
+    t.m34 = -0.001;
+    trans = CATransform3DMakeTranslation(0, 0, dist * 1000);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateX), 1, 0, 0), trans);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateY), 0, 1, 0), trans);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(0), 0, 0, 1), trans);
+    trans = CATransform3DConcat(trans, t);
+    [self getWindow].layer.sublayerTransform = trans;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
 }
 
 - (void)checkCurrentSelectViewDetail:(UIButton *)btn{
@@ -315,11 +328,20 @@ static LayerTreeDebugView *_instance;
         LayerTreeCustomWindow *debugWindow = [LayerTreeCustomWindow window];
         debugWindow.frame = CGRectMake(12, 300, LTI_ScreenWidth-24,44*6);
         debugWindow.windowLevel = 1000;
-        [debugWindow makeKeyAndVisible];
         debugWindow.backgroundColor = [UIColor clearColor];
         self.debugWindow = debugWindow;
         [self.debugWindow addSubview:self.LTI_tableview];
         [self.debugWindow makeKeyAndVisible];
+    }
+    if (!self.LTI_bubbleContainerWindow) {
+        LayerTreeCustomWindow *bubbleContainerWindow = [LayerTreeCustomWindow window];
+        bubbleContainerWindow.frame = self.LTI_bubbleView.frame;
+        self.LTI_bubbleView.frame = bubbleContainerWindow.bounds;
+        bubbleContainerWindow.windowLevel = 1001;
+        bubbleContainerWindow.backgroundColor = [UIColor clearColor];
+        self.LTI_bubbleContainerWindow = bubbleContainerWindow;
+        [self.LTI_bubbleContainerWindow addSubview:self.LTI_bubbleView];
+        [self.LTI_bubbleContainerWindow makeKeyAndVisible];
     }
     [self refreshDebugView];
 }
@@ -443,8 +465,8 @@ static LayerTreeDebugView *_instance;
     }else if (btn.tag == 101) {//说明是3DTransform变换,此时需要对所有的view进行z轴的平移
         //手势移除
         self.LTI_resetButton.hidden = NO;
-        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanTransform:)];
-        _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(viewPinTransform:)];
+        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];//viewPanTransform:
+        _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinch:)];//viewPinTransform:
         _pinGesture.delegate = self;
         
         NSLog(@"windows:%@",[UIApplication sharedApplication].windows[0]);
@@ -481,8 +503,6 @@ static LayerTreeDebugView *_instance;
 
 - (UIWindow *)getWindow{
     return LTI_rootWindow;
-//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;//应该为静态变量
-//    return keyWindow;
 }
 
 - (UIButton *)LTI_bubbleView{
@@ -620,22 +640,5 @@ static LayerTreeDebugView *_instance;
     }
     return _LTI_selectNodes;
 }
-
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
-//    if (self.debugWindow.isHidden == NO) {
-//        //将当前tabbar的触摸点转换坐标系，转换到发布按钮的身上，生成一个新的点
-//        CGPoint newP = [self.window convertPoint:point toView:self.debugWindow];
-//        //判断如果这个新的点是在发布按钮身上，那么处理点击事件最合适的view就是发布按钮
-//        if ( [self.debugWindow pointInside:newP withEvent:event]) {
-//            return self.debugWindow;
-//        }else{//如果点不在发布按钮身上，直接让系统处理就可以了
-//            return [super hitTest:point withEvent:event];
-//        }
-//    }
-//    else {//tabbar隐藏了，那么说明已经push到其他的页面了，这个时候还是让系统去判断最合适的view处理就好了
-//        return [super hitTest:point withEvent:event];
-//    }
-//
-//}
 
 @end

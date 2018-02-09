@@ -1,5 +1,5 @@
 //
-//  LayerTreeDebugView.h
+//  LayerTreeInspectionView.h
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/6.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LayerTreeDebugView : UIView
+@interface LayerTreeInspectionView : UIView
 
 /**
  默认展示普通的面包屑形式
