@@ -70,7 +70,6 @@ static UIWindow * LTI_rootWindow;
     BOOL checkViewDetail;
     UIPanGestureRecognizer *_panGesture;
     UIPinchGestureRecognizer *_pinGesture;
-    
     CATransform3D _initialTransForm;
 }
 /*
@@ -157,30 +156,16 @@ static LayerTreeInspectionView *_instance;
         }
         __weak typeof(self)weakSelf = self;
         cell.changeAttribute = ^(LayerTreeViewDetailModel * _Nonnull model) {
-            if (weakSelf.treeStyle == LayerTreeStyleDefault) {
+            if (weakSelf.treeStyle == LayerTreeStyleDefault||weakSelf.treeStyle == LayerTreeStyle3DTransForm) {
                 model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
                 model.associateView.backgroundColor = [UIColor colorWithRed:model.r green:model.g blue:model.b alpha:model.backGroundColoralpha];
                 model.associateView.alpha = model.alpha;
-            }else if (weakSelf.treeStyle == LayerTreeStyle3DTransForm){
-                model.associateView.frame = CGRectMake(model.x, model.y, model.w, model.h);
-                CATransform3D trans = CATransform3DIdentity;
-                CATransform3D t = CATransform3DIdentity;
-                t.m34 = -1.0/500.0;
-                trans = CATransform3DConcat(CATransform3DMakeRotation(M_PI * model.r, 0, 1, 0), trans);
-                trans = CATransform3DConcat(CATransform3DMakeRotation(M_PI * model.g, 1, 0, 0), trans);
-                trans = CATransform3DConcat(CATransform3DMakeRotation(M_PI * model.b, 0, 0, 1), trans);
-
-                trans = CATransform3DConcat(CATransform3DMakeScale(1+model.b, 1+model.b, 0),trans);
-                trans = CATransform3DConcat(trans, t);
-                [weakSelf animate:model.associateView transform:trans];
-            }else if (weakSelf.treeStyle == LayerTreeStyleGraphics){
+            }else{
                 
             }
         };
-        
         [cell updateWithModel:self.viewDetailModel];
         return cell;
-    
     }else{
         LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[indexPath.row];
         static NSString *CELL_ID = @"LayTreeSubViewID";
@@ -326,7 +311,7 @@ static LayerTreeInspectionView *_instance;
     if (!self.debugWindow) {
         //按钮放在自己的window上，点击后，设置自定义的window，并将tableview放在自定义window上，自定义window显示在最上层
         LayerTreeCustomWindow *debugWindow = [LayerTreeCustomWindow window];
-        debugWindow.frame = CGRectMake(12, 300, LTI_ScreenWidth-24,44*6);
+        debugWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
         debugWindow.windowLevel = 1000;
         debugWindow.backgroundColor = [UIColor clearColor];
         self.debugWindow = debugWindow;
@@ -410,7 +395,6 @@ static LayerTreeInspectionView *_instance;
     [UIView animateWithDuration:0.2 animations:^{
         self.LTI_tableview.alpha = 0;
     }completion:^(BOOL finished) {
-//        self.LTI_tableview.hidden = YES;
         self.debugWindow.hidden = YES;
     }];
 }
@@ -431,15 +415,24 @@ static LayerTreeInspectionView *_instance;
     [_LTI_refreshBtn.layer addAnimation:animationGroup forKey:@"groupAnimation"];
     
     checkViewDetail = NO;
-//    self.LTI_tableview.hidden = NO;
     self.debugWindow.hidden = NO;
     self.LTI_tableview.alpha = 1;
     [self.LTI_selectNodes removeAllObjects];
+    
+    if (self.debugWindow.frame.origin.y<(self.LTI_headerView.frame.size.height+44)||self.debugWindow.frame.origin.y > (LTI_ScreenHeight - self.LTI_headerView.frame.size.height-44)) {
+        [UIView animateWithDuration:0.5 animations:^{
+           self.debugWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
+        }];
+    }
+    
     [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
         self.LTI_currentNode = currentNode;
         [self.LTI_selectNodes addObjectsFromArray:node];
         [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }];
+    //此处需要判断一下中心点的y坐标
+    
+    
 }
 
 - (void)showSelectTypeView:(UIButton *)btn{
@@ -447,6 +440,9 @@ static LayerTreeInspectionView *_instance;
     if (btn.selected) {
         [UIView animateWithDuration:0.2 animations:^{
             self.LTI_typeView.frame = CGRectMake(self.LTI_typeView.frame.origin.x, self.LTI_typeView.frame.origin.y, self.LTI_typeView.frame.size.width, 44*3);
+        }completion:^(BOOL finished) {
+            NSLog(@"展开typeview，回到顶部");
+            [self.LTI_tableview scrollsToTop];
         }];
     }else{
         [UIView animateWithDuration:0.2 animations:^{
@@ -533,7 +529,6 @@ static LayerTreeInspectionView *_instance;
         _LTI_tableview.tableFooterView = [[UIView alloc]init];
         _LTI_tableview.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         [_LTI_tableview addSubview:self.LTI_typeView];
-
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
         pan.delegate = self;
         [_LTI_tableview addGestureRecognizer:pan];
@@ -576,6 +571,7 @@ static LayerTreeInspectionView *_instance;
         _LTI_refreshBtn.frame = CGRectMake(_LTI_headerView.frame.size.width-50-56, 44/2-30/2, 30, 30);
         [_LTI_refreshBtn setImage:[UIImage imageNamed:@"LTI_refreshIcon"] forState:UIControlStateNormal];
         _LTI_refreshBtn.backgroundColor = LTI_BackGroundColor;
+        _LTI_refreshBtn.showsTouchWhenHighlighted = YES;
         [_LTI_refreshBtn addTarget:self action:@selector(refreshDebugView) forControlEvents:UIControlEventTouchUpInside];
     }
     return _LTI_refreshBtn;
@@ -589,6 +585,7 @@ static LayerTreeInspectionView *_instance;
         [_LTI_changeTypeBtn setImage:[UIImage imageNamed:@"LTI_arrowupIcon"] forState:UIControlStateSelected];
         _LTI_changeTypeBtn.backgroundColor = LTI_BackGroundColor;
         [_LTI_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];
+        _LTI_changeTypeBtn.showsTouchWhenHighlighted = YES;
     }
     return _LTI_changeTypeBtn;
 }
@@ -600,6 +597,7 @@ static LayerTreeInspectionView *_instance;
         _LTI_resetButton.titleLabel.font = [UIFont systemFontOfSize:12];
         [_LTI_resetButton setTitle:@"恢复" forState:UIControlStateNormal];
         [_LTI_resetButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        _LTI_resetButton.showsTouchWhenHighlighted = YES;
         _LTI_resetButton.layer.cornerRadius = 10;
         _LTI_resetButton.hidden = YES;
         _LTI_resetButton.backgroundColor = LTI_BackGroundColor;
