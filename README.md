@@ -3,7 +3,7 @@
 
 > 这是一个可以在你的iphone手机上实时查看视图层级的工具，提供两种查看的方式，一种是平面的树形结构，另一种就是3D立体的查看方式，因此你可以脱离Xcode，达到你想要的结果。
 
-#### [掘金地址](https://juejin.im/post/5a80372af265da4e8837a97b)
+#### [掘金地址：iOS-LayerTreeInspector](https://juejin.im/post/5a80372af265da4e8837a97b)
 
 ## 一、 功能简介
 
