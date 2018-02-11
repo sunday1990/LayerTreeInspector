@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 @class LayerTreeBaseNode;
 @interface LayerTreeSubImageView : UIImageView
-@property (nonatomic,strong) LayerTreeBaseNode *node;
+@property (nonatomic,strong) LayerTreeBaseNode *viewNode;
 @end

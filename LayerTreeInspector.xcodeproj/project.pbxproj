@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		161D7116202D42E400A423DF /* LayerTreeCustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */; };
 		169C45C8202EF70A00D638D4 /* LayerTreeSubImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 169C45C7202EF70A00D638D4 /* LayerTreeSubImageView.m */; };
+		169C4609202FE3F800D638D4 /* LayerTreeView3DDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 169C4608202FE3F800D638D4 /* LayerTreeView3DDetailCell.m */; };
+		169C464F20302A7300D638D4 /* LayerTreeAsset.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 169C464E20302A7300D638D4 /* LayerTreeAsset.bundle */; };
 		16B793FE202986C800D27330 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B793FD202986C800D27330 /* AppDelegate.m */; };
 		16B79401202986C800D27330 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79400202986C800D27330 /* ViewController.m */; };
 		16B79404202986C800D27330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B79402202986C800D27330 /* Main.storyboard */; };
@@ -21,12 +23,6 @@
 		16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */; };
 		16B7943D202986FC00D27330 /* LayerTreeInspectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79439202986FC00D27330 /* LayerTreeInspectionView.m */; };
 		16B7947520298AC500D27330 /* LayerTreeInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7947420298AC400D27330 /* LayerTreeInspector.m */; };
-		16B7947920298C5000D27330 /* LTI_editIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947720298C5000D27330 /* LTI_editIcon@2x.png */; };
-		16B7947A20298C5000D27330 /* LTI_editIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947820298C5000D27330 /* LTI_editIcon@3x.png */; };
-		16B7947D20298C5700D27330 /* LTI_eyeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947B20298C5700D27330 /* LTI_eyeIcon@3x.png */; };
-		16B7947E20298C5700D27330 /* LTI_eyeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947C20298C5700D27330 /* LTI_eyeIcon@2x.png */; };
-		16B7948120298C5D00D27330 /* LTI_sliderIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7947F20298C5D00D27330 /* LTI_sliderIcon@2x.png */; };
-		16B7948220298C5D00D27330 /* LTI_sliderIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B7948020298C5D00D27330 /* LTI_sliderIcon@3x.png */; };
 		16B794AA20298F3C00D27330 /* TestNotificationErrorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948620298F3B00D27330 /* TestNotificationErrorVC.m */; };
 		16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948A20298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.m */; };
 		16B794AC20298F3C00D27330 /* TestUnrecognizedSelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7948B20298F3B00D27330 /* TestUnrecognizedSelVC.m */; };
@@ -40,17 +36,6 @@
 		16B794B420298F3C00D27330 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794A720298F3B00D27330 /* SVProgressHUD.m */; };
 		16B794B520298F3C00D27330 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794A820298F3B00D27330 /* SVIndefiniteAnimatedView.m */; };
 		16B794B620298F3C00D27330 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16B794A920298F3B00D27330 /* SVProgressHUD.bundle */; };
-		16B794B920298FFD00D27330 /* LayerTreeAffineTransFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */; };
-		16B794BC2029907300D27330 /* LayerTreeGraphicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */; };
-		16B794C42029935700D27330 /* LayerTreeBreadcrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */; };
-		16B794C72029A32A00D27330 /* LTI_refreshIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794C52029A32A00D27330 /* LTI_refreshIcon@2x.png */; };
-		16B794C82029A32A00D27330 /* LTI_refreshIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794C62029A32A00D27330 /* LTI_refreshIcon@3x.png */; };
-		16B794D32029AD4D00D27330 /* LTI_arrowdownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794D12029AD4C00D27330 /* LTI_arrowdownIcon@2x.png */; };
-		16B794D42029AD4D00D27330 /* LTI_arrowdownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794D22029AD4D00D27330 /* LTI_arrowdownIcon@3x.png */; };
-		16B794DB2029AF1D00D27330 /* LTI_deleteIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794D92029AF1D00D27330 /* LTI_deleteIcon@3x.png */; };
-		16B794DC2029AF1D00D27330 /* LTI_deleteIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794DA2029AF1D00D27330 /* LTI_deleteIcon@2x.png */; };
-		16B794DF2029B2B600D27330 /* LTI_arrowupIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794DD2029B2B500D27330 /* LTI_arrowupIcon@3x.png */; };
-		16B794E02029B2B600D27330 /* LTI_arrowupIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B794DE2029B2B600D27330 /* LTI_arrowupIcon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +61,9 @@
 		161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeCustomWindow.m; sourceTree = "<group>"; };
 		169C45C6202EF70A00D638D4 /* LayerTreeSubImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeSubImageView.h; sourceTree = "<group>"; };
 		169C45C7202EF70A00D638D4 /* LayerTreeSubImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeSubImageView.m; sourceTree = "<group>"; };
+		169C4607202FE3F800D638D4 /* LayerTreeView3DDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeView3DDetailCell.h; sourceTree = "<group>"; };
+		169C4608202FE3F800D638D4 /* LayerTreeView3DDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeView3DDetailCell.m; sourceTree = "<group>"; };
+		169C464E20302A7300D638D4 /* LayerTreeAsset.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LayerTreeAsset.bundle; sourceTree = "<group>"; };
 		16B793F9202986C800D27330 /* LayerTreeInspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerTreeInspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B793FC202986C800D27330 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16B793FD202986C800D27330 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,12 +91,6 @@
 		16B7947220298A1F00D27330 /* AssistMicros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssistMicros.h; sourceTree = "<group>"; };
 		16B7947320298AC400D27330 /* LayerTreeInspector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspector.h; sourceTree = "<group>"; };
 		16B7947420298AC400D27330 /* LayerTreeInspector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspector.m; sourceTree = "<group>"; };
-		16B7947720298C5000D27330 /* LTI_editIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_editIcon@2x.png"; sourceTree = "<group>"; };
-		16B7947820298C5000D27330 /* LTI_editIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_editIcon@3x.png"; sourceTree = "<group>"; };
-		16B7947B20298C5700D27330 /* LTI_eyeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_eyeIcon@3x.png"; sourceTree = "<group>"; };
-		16B7947C20298C5700D27330 /* LTI_eyeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_eyeIcon@2x.png"; sourceTree = "<group>"; };
-		16B7947F20298C5D00D27330 /* LTI_sliderIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_sliderIcon@2x.png"; sourceTree = "<group>"; };
-		16B7948020298C5D00D27330 /* LTI_sliderIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_sliderIcon@3x.png"; sourceTree = "<group>"; };
 		16B7948520298F3B00D27330 /* TestNotificationErrorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNotificationErrorVC.h; sourceTree = "<group>"; };
 		16B7948620298F3B00D27330 /* TestNotificationErrorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNotificationErrorVC.m; sourceTree = "<group>"; };
 		16B7948820298F3B00D27330 /* TestViewDidloadUnrecognizedSelVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewDidloadUnrecognizedSelVC.h; sourceTree = "<group>"; };
@@ -134,20 +116,6 @@
 		16B794A720298F3B00D27330 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		16B794A820298F3B00D27330 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		16B794A920298F3B00D27330 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		16B794B720298FFD00D27330 /* LayerTreeAffineTransFormView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeAffineTransFormView.h; sourceTree = "<group>"; };
-		16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeAffineTransFormView.m; sourceTree = "<group>"; };
-		16B794BA2029907300D27330 /* LayerTreeGraphicsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeGraphicsView.h; sourceTree = "<group>"; };
-		16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeGraphicsView.m; sourceTree = "<group>"; };
-		16B794C22029935700D27330 /* LayerTreeBreadcrumbsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTreeBreadcrumbsView.h; sourceTree = "<group>"; };
-		16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBreadcrumbsView.m; sourceTree = "<group>"; };
-		16B794C52029A32A00D27330 /* LTI_refreshIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_refreshIcon@2x.png"; sourceTree = "<group>"; };
-		16B794C62029A32A00D27330 /* LTI_refreshIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_refreshIcon@3x.png"; sourceTree = "<group>"; };
-		16B794D12029AD4C00D27330 /* LTI_arrowdownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_arrowdownIcon@2x.png"; sourceTree = "<group>"; };
-		16B794D22029AD4D00D27330 /* LTI_arrowdownIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_arrowdownIcon@3x.png"; sourceTree = "<group>"; };
-		16B794D92029AF1D00D27330 /* LTI_deleteIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_deleteIcon@3x.png"; sourceTree = "<group>"; };
-		16B794DA2029AF1D00D27330 /* LTI_deleteIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_deleteIcon@2x.png"; sourceTree = "<group>"; };
-		16B794DD2029B2B500D27330 /* LTI_arrowupIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_arrowupIcon@3x.png"; sourceTree = "<group>"; };
-		16B794DE2029B2B600D27330 /* LTI_arrowupIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LTI_arrowupIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,35 +203,11 @@
 		16B7942E202986D700D27330 /* LayerTreeInspector */ = {
 			isa = PBXGroup;
 			children = (
-				16B794BF202990B300D27330 /* TreeView */,
 				16B794BD202990A900D27330 /* Inspector */,
-				16B794C1202990C900D27330 /* Node */,
-				16B794C0202990C100D27330 /* Protocol */,
-				16B794BE202990AE00D27330 /* DebugView */,
-				16B7947620298C4900D27330 /* assets */,
+				16B794BE202990AE00D27330 /* InspectionView */,
+				169C464E20302A7300D638D4 /* LayerTreeAsset.bundle */,
 			);
 			path = LayerTreeInspector;
-			sourceTree = "<group>";
-		};
-		16B7947620298C4900D27330 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				16B794DE2029B2B600D27330 /* LTI_arrowupIcon@2x.png */,
-				16B794DD2029B2B500D27330 /* LTI_arrowupIcon@3x.png */,
-				16B794DA2029AF1D00D27330 /* LTI_deleteIcon@2x.png */,
-				16B794D92029AF1D00D27330 /* LTI_deleteIcon@3x.png */,
-				16B794D12029AD4C00D27330 /* LTI_arrowdownIcon@2x.png */,
-				16B794D22029AD4D00D27330 /* LTI_arrowdownIcon@3x.png */,
-				16B794C52029A32A00D27330 /* LTI_refreshIcon@2x.png */,
-				16B794C62029A32A00D27330 /* LTI_refreshIcon@3x.png */,
-				16B7947F20298C5D00D27330 /* LTI_sliderIcon@2x.png */,
-				16B7948020298C5D00D27330 /* LTI_sliderIcon@3x.png */,
-				16B7947C20298C5700D27330 /* LTI_eyeIcon@2x.png */,
-				16B7947B20298C5700D27330 /* LTI_eyeIcon@3x.png */,
-				16B7947720298C5000D27330 /* LTI_editIcon@2x.png */,
-				16B7947820298C5000D27330 /* LTI_editIcon@3x.png */,
-			);
-			path = assets;
 			sourceTree = "<group>";
 		};
 		16B7948320298F3B00D27330 /* Examples */ = {
@@ -405,57 +349,32 @@
 		16B794BD202990A900D27330 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				16B79433202986FB00D27330 /* LayerTreeAssistMacros.h */,
 				16B7947320298AC400D27330 /* LayerTreeInspector.h */,
 				16B7947420298AC400D27330 /* LayerTreeInspector.m */,
+				16B79432202986FB00D27330 /* LayerTreeBaseNode.h */,
+				16B79434202986FB00D27330 /* LayerTreeBaseNode.m */,
+				16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */,
+				161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */,
+				16B79433202986FB00D27330 /* LayerTreeAssistMacros.h */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
 		};
-		16B794BE202990AE00D27330 /* DebugView */ = {
+		16B794BE202990AE00D27330 /* InspectionView */ = {
 			isa = PBXGroup;
 			children = (
 				16B79436202986FB00D27330 /* LayerTreeInspectionView.h */,
 				16B79439202986FC00D27330 /* LayerTreeInspectionView.m */,
-			);
-			path = DebugView;
-			sourceTree = "<group>";
-		};
-		16B794BF202990B300D27330 /* TreeView */ = {
-			isa = PBXGroup;
-			children = (
-				16B794B720298FFD00D27330 /* LayerTreeAffineTransFormView.h */,
-				16B794B820298FFD00D27330 /* LayerTreeAffineTransFormView.m */,
-				16B794BA2029907300D27330 /* LayerTreeGraphicsView.h */,
-				16B794BB2029907300D27330 /* LayerTreeGraphicsView.m */,
-				16B794C22029935700D27330 /* LayerTreeBreadcrumbsView.h */,
-				16B794C32029935700D27330 /* LayerTreeBreadcrumbsView.m */,
 				16B79430202986FB00D27330 /* LayerTreeViewDetailCell.h */,
 				16B79437202986FB00D27330 /* LayerTreeViewDetailCell.m */,
 				161D7114202D42E300A423DF /* LayerTreeCustomWindow.h */,
 				161D7115202D42E300A423DF /* LayerTreeCustomWindow.m */,
 				169C45C6202EF70A00D638D4 /* LayerTreeSubImageView.h */,
 				169C45C7202EF70A00D638D4 /* LayerTreeSubImageView.m */,
+				169C4607202FE3F800D638D4 /* LayerTreeView3DDetailCell.h */,
+				169C4608202FE3F800D638D4 /* LayerTreeView3DDetailCell.m */,
 			);
-			path = TreeView;
-			sourceTree = "<group>";
-		};
-		16B794C0202990C100D27330 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */,
-				161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		16B794C1202990C900D27330 /* Node */ = {
-			isa = PBXGroup;
-			children = (
-				16B79432202986FB00D27330 /* LayerTreeBaseNode.h */,
-				16B79434202986FB00D27330 /* LayerTreeBaseNode.m */,
-			);
-			path = Node;
+			path = InspectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -564,24 +483,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16B7947E20298C5700D27330 /* LTI_eyeIcon@2x.png in Resources */,
-				16B794DC2029AF1D00D27330 /* LTI_deleteIcon@2x.png in Resources */,
-				16B7948120298C5D00D27330 /* LTI_sliderIcon@2x.png in Resources */,
-				16B794C72029A32A00D27330 /* LTI_refreshIcon@2x.png in Resources */,
-				16B794DF2029B2B600D27330 /* LTI_arrowupIcon@3x.png in Resources */,
-				16B794C82029A32A00D27330 /* LTI_refreshIcon@3x.png in Resources */,
-				16B794D32029AD4D00D27330 /* LTI_arrowdownIcon@2x.png in Resources */,
-				16B794DB2029AF1D00D27330 /* LTI_deleteIcon@3x.png in Resources */,
+				169C464F20302A7300D638D4 /* LayerTreeAsset.bundle in Resources */,
 				16B79409202986C800D27330 /* LaunchScreen.storyboard in Resources */,
-				16B7947D20298C5700D27330 /* LTI_eyeIcon@3x.png in Resources */,
 				16B79406202986C800D27330 /* Assets.xcassets in Resources */,
 				16B794B620298F3C00D27330 /* SVProgressHUD.bundle in Resources */,
-				16B794E02029B2B600D27330 /* LTI_arrowupIcon@2x.png in Resources */,
 				16B79404202986C800D27330 /* Main.storyboard in Resources */,
-				16B7948220298C5D00D27330 /* LTI_sliderIcon@3x.png in Resources */,
-				16B7947A20298C5000D27330 /* LTI_editIcon@3x.png in Resources */,
-				16B7947920298C5000D27330 /* LTI_editIcon@2x.png in Resources */,
-				16B794D42029AD4D00D27330 /* LTI_arrowdownIcon@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,8 +517,8 @@
 				16B794B520298F3C00D27330 /* SVIndefiniteAnimatedView.m in Sources */,
 				16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */,
 				16B7947520298AC500D27330 /* LayerTreeInspector.m in Sources */,
-				16B794BC2029907300D27330 /* LayerTreeGraphicsView.m in Sources */,
 				16B794B020298F3C00D27330 /* TestAutoDegradeVC.m in Sources */,
+				169C4609202FE3F800D638D4 /* LayerTreeView3DDetailCell.m in Sources */,
 				16B794B420298F3C00D27330 /* SVProgressHUD.m in Sources */,
 				16B794AC20298F3C00D27330 /* TestUnrecognizedSelVC.m in Sources */,
 				161D7116202D42E400A423DF /* LayerTreeCustomWindow.m in Sources */,
@@ -620,14 +526,12 @@
 				16B794AE20298F3C00D27330 /* TestTimerErrorVC.m in Sources */,
 				16B794AF20298F3C00D27330 /* WebViewController.m in Sources */,
 				16B794B320298F3C00D27330 /* TestContainerVC.m in Sources */,
-				16B794C42029935700D27330 /* LayerTreeBreadcrumbsView.m in Sources */,
 				16B794B220298F3C00D27330 /* BaseViewController.m in Sources */,
 				16B794AB20298F3C00D27330 /* TestViewDidloadUnrecognizedSelVC.m in Sources */,
 				16B7940C202986C800D27330 /* main.m in Sources */,
 				16B794AD20298F3C00D27330 /* TestKVOErrorVC.m in Sources */,
 				16B7943D202986FC00D27330 /* LayerTreeInspectionView.m in Sources */,
 				16B794AA20298F3C00D27330 /* TestNotificationErrorVC.m in Sources */,
-				16B794B920298FFD00D27330 /* LayerTreeAffineTransFormView.m in Sources */,
 				16B793FE202986C800D27330 /* AppDelegate.m in Sources */,
 				169C45C8202EF70A00D638D4 /* LayerTreeSubImageView.m in Sources */,
 			);

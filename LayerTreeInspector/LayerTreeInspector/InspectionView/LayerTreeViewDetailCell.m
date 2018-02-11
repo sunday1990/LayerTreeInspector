@@ -180,9 +180,6 @@
             self.model.alpha = slider.value;
         }
             break;
-            
-        default:
-            break;
     }
     [self setModel:_model];
 }
@@ -237,7 +234,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         
         
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
@@ -255,7 +252,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_ySlider = slider;
     }
@@ -271,7 +268,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_wSlider = slider;
     }
@@ -287,7 +284,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_hSlider = slider;
     }
@@ -304,7 +301,7 @@
 //        slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.minimumTrackTintColor = [UIColor redColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_rSlider = slider;
     }
@@ -320,7 +317,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor greenColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_gSlider = slider;
     }
@@ -336,7 +333,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor blueColor];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_bSlider = slider;
     }
@@ -352,7 +349,7 @@
         slider.continuous = YES;// 设置可连续变化
         slider.minimumTrackTintColor = [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1];
         slider.maximumTrackTintColor = [UIColor grayColor];
-        [slider setThumbImage:[UIImage imageNamed:@"LTI_sliderIcon"] forState:UIControlStateNormal];
+        [slider setThumbImage:LTI_Image(@"LTI_sliderIcon") forState:UIControlStateNormal];
         
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];// 针对值变化添加响应方法
         _LTI_alphaSlider = slider;

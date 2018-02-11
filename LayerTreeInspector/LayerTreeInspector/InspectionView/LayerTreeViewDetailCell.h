@@ -18,7 +18,6 @@
 
 @end
 
-
 @interface LayerTreeViewDetailModel:NSObject
 
 @property (nonatomic, strong) NSString * _Nullable info;
@@ -27,17 +26,12 @@
 @property (nonatomic, assign) CGFloat y;
 @property (nonatomic, assign) CGFloat w;
 @property (nonatomic, assign) CGFloat h;
-
 @property (nonatomic, assign) CGFloat alpha;
 @property (nonatomic, assign) CGFloat backGroundColoralpha;
-
 @property (nonatomic, assign) CGFloat r;
 @property (nonatomic, assign) CGFloat g;
 @property (nonatomic, assign) CGFloat b;
-
-
 @property (nonatomic,weak) UIView *_Nullable associateView;
-
 
 + (LayerTreeViewDetailModel *_Nullable)modelWithView:(UIView *_Nonnull)view;
 
