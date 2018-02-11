@@ -64,8 +64,10 @@
         [self removeObserver:self forKeyPath:@"progress"];
     }else if (1004 == btnTag){
 //        [BayMaxProtector closeProtectionsOn:BayMaxProtectionTypeKVO];
+        NSLog(@"close");
     }else if (1005 == btnTag){
 //        [BayMaxProtector openProtectionsOn:BayMaxProtectionTypeKVO];
+        NSLog(@"open");
     }
 }
 

@@ -11,6 +11,7 @@
 #import "LayerTreeNodeModelProtocol.h"
 #import "LayerTreeInspectionView.h"
 #import "LayerTreeAssistMacros.h"
+#import "LayerTreeSubImageView.h"
 
 static LayerTreeBaseNode *LTI_rootNode;
 
@@ -54,45 +55,79 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNodeWith(UIView *view,La
     return nil;
 }
 
+static inline UIImage *RenderImageFromViewWithRect(UIView *view,CGRect frame){
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        return nil;
+    }
+    CGContextTranslateCTM(context, -frame.origin.x, -frame.origin.y);
+    [view.layer renderInContext:context];
+    UIImage *renderedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return renderedImage;
+}
+
 CATransform3D LTI_transForm;
-NSInteger LTI_treeDepth;
 static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
     if (rootNode.subNodes.count == 0||[rootNode.LayerTreeNodeView isMemberOfClass:[LayerTreeInspectionView class]]) {
         return;
     }else{
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
-            if (![subNode.LayerTreeNodeView isMemberOfClass:NSClassFromString(@"LayerTreeInspectionView")]) {
-                LTI_treeDepth = subNode.nodeLevel>LTI_treeDepth?subNode.nodeLevel:LTI_treeDepth;
-                UIView *subview = (UIView *)subNode.LayerTreeNodeView;
-                NSLog(@"subview:%@",subview);
-                if (subview.constraints.count>0) {
-                    NSLog(@"autolayout:%@",subview);
-                }else{
-                    subview.frame = [LTI_rootWindow convertRect:subview.frame fromView:subview.superview];
-                    [LTI_rootWindow addSubview:subview];
-                    LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
-                    subNode.LayerTreeNodeView.layer.transform = LTI_transForm;
-                    RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
+            UIView *subview = (UIView *)subNode.LayerTreeNodeView;
+            NSMutableArray *tempHiddenArray = [NSMutableArray array];
+            //先隐藏所有的子view，然后再生成该view对应的图片
+            if (subview.hidden == NO) {
+                for (UIView *contentView in subview.subviews) {
+                    if (!contentView.hidden) {
+                        contentView.hidden = YES;//记录那些被隐藏的view
+                        [tempHiddenArray addObject:contentView];
+                    }
                 }
-            }else{
-                NSLog(@"过滤掉debugView");
+                //生成对应的图片
+                UIImage *subImage = RenderImageFromViewWithRect(subview, subview.bounds);
+                //转换frame
+                CGRect imgViewFrame = [LTI_rootWindow convertRect:subview.frame fromView:subview.superview];
+                //创建imageview
+                LayerTreeSubImageView *imageview = [[LayerTreeSubImageView alloc]initWithFrame:imgViewFrame];
+                imageview.layer.opacity = 0.9;
+                imageview.node = subNode;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:[LayerTreeInspectionView sharedDebugView] action:@selector(tapInspectionView:)];
+#pragma clang diagnostic pop
+                imageview.userInteractionEnabled = YES;
+                [imageview addGestureRecognizer:tap];
+                imageview.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
+                imageview.image = subImage;
+                //平移imageview
+                LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
+                imageview.layer.transform = LTI_transForm;
+                [LTI_rootWindow addSubview:imageview];
+                //将tempHiddenArray中的view的隐藏状态置成NO
+                for (UIView *view in tempHiddenArray) {
+                    view.hidden = NO;
+                }
+                [tempHiddenArray removeAllObjects];
+                RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(subNode, levelPadding);
+            }else{//被隐藏，可以设置选项，看要不要进行显示。
+                NSLog(@"subview:%@ is hidden",subview);
             }
         }];
     }
 }
 
+//可以不用这个方法了
+CATransform3D LTI_reset_transform;
 static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_Nonnull rootNode){
-    //rootNode中保存着最初的的层级关系。
-    if (rootNode.subNodes.count > 0) {//递归的将所有的子view加到其上
-//        UIView *fatherView = rootNode.LayerTreeNodeView;
+    if (rootNode.subNodes.count > 0) {
         [rootNode.subNodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = (LayerTreeBaseNode *)obj;
+            LTI_reset_transform = CATransform3DTranslate(CATransform3DIdentity, 0, 0, -(subNode.nodeLevel-1)*LTI_AffineTransformLevelPadding);
             subNode.LayerTreeNodeView.frame = [subNode.LayerTreeFatherNodeView convertRect:subNode.LayerTreeNodeView.frame fromView:LTI_rootWindow];
-            NSLog(@"originalFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));
-            //转换坐标系
+            subNode.LayerTreeNodeView.layer.transform = LTI_reset_transform;
             [subNode.LayerTreeFatherNodeView addSubview:subNode.LayerTreeNodeView];
-            NSLog(@"+++currentFatherView:%@",NSStringFromClass(subNode.LayerTreeNodeView.superview.class));//LayerTreeFatherNodeView
             RecursiveRevertLayerTreeFrom3DToPlanar(subNode);
         }];
     }else{
@@ -149,14 +184,27 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
 }
 
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding{
-    if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:NSClassFromString(@"LayerTreeCustomWindow")]) {
-        NSLog(@"window为自定义window");
-    }
     RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
+    for (LayerTreeBaseNode *subNode in LTI_rootNode.subNodes) {
+        NSLog(@"layertreeNodeView:%@",subNode.LayerTreeNodeView);
+        subNode.LayerTreeNodeView.hidden = YES;
+    }
 }
 
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
-    RecursiveRevertLayerTreeFrom3DToPlanar(LTI_rootNode);
+    for (LayerTreeBaseNode *subNode in LTI_rootNode.subNodes) {//隐藏的时候不需要全部隐藏
+        NSLog(@"showNodeview:%@",subNode.LayerTreeNodeView);
+        subNode.LayerTreeNodeView.hidden = NO;
+    }
+    for (UIView *subView in LTI_rootWindow.subviews) {
+        if ([subView isMemberOfClass:[LayerTreeSubImageView class]]) {
+            [UIView animateWithDuration:1 animations:^{
+//                subView.layer.transform = CATransform3DIdentity;
+            }completion:^(BOOL finished) {
+                [subView removeFromSuperview];
+            }];
+        }
+    }
     if (completion) {
         completion(YES);
     }
@@ -168,7 +216,6 @@ static inline void RecursiveRevertLayerTreeFrom3DToPlanar(LayerTreeBaseNode *_No
     while (resultVC.presentedViewController) {
         resultVC = [self _topViewController:resultVC.presentedViewController];
     }
-    
     return resultVC;
 }
 

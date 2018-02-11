@@ -15,6 +15,7 @@
 #import "LayerTreeAffineTransFormView.h"
 #import "LayerTreeBaseNode.h"
 #import "LayerTreeAssistMacros.h"
+#import "LayerTreeSubImageView.h"
 
 typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 {
@@ -25,49 +26,28 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 
 static UIWindow * LTI_rootWindow;
 
-#ifndef DEGREES_TO_RADIANS//避免重复定义
-#define DEGREES_TO_RADIANS(d) ((d) * M_PI / 180)
+#ifndef LTI_DEGREES_TO_RADIANS
+#define LTI_DEGREES_TO_RADIANS(d) ((d) * M_PI / 180)
 #endif
 
-//#ifndef DEGREES_RESET_TO_ZERO
-#define DEGREES_RESET_TO_ZERO(d)\
-    CGFloat radians = DEGREES_TO_RADIANS(d);\
-    CGFloat floatCircles = radians/(2*M_PI);\
-    int intCircle = (int)floatCircles;\
-    CGFloat radiansToZero = floatCircles - intCircle;\
-    return -radiansToZero;
-//#endif
-
-
 @interface LayerTreeInspectionView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
-
-@property (nonatomic, strong) UIButton *LTI_bubbleView;
-
-@property (nonatomic, strong) UIButton *LTI_resetButton;
-
+//part0
+@property (nonatomic, strong) LayerTreeCustomWindow *LTI_debugBtnContainerWindow;
+@property (nonatomic, strong) UIButton *LTI_debugBtn;
+//part1
+@property (nonatomic, strong) LayerTreeCustomWindow *LTI_tableViewContainerWindow;
 @property (nonatomic, strong) UITableView *LTI_tableview;
-
+@property (nonatomic, strong) UIButton *LTI_resetButton;
 @property (nonatomic, strong) LayerTreeBaseNode *LTI_currentNode;
-
-@property (nonatomic, strong) NSMutableArray *LTI_selectNodes;
-
 @property (nonatomic, strong) UIButton *LTI_headerView;
-
 @property (nonatomic, strong) UIButton *LTI_dismissBtn;
-
 @property (nonatomic, strong) UIButton *LTI_refreshBtn;
-
 @property (nonatomic, strong) UIButton *LTI_changeTypeBtn;
-
 @property (nonatomic, strong) UIView *LTI_typeView;
-
+//part3
+@property (nonatomic, strong) NSMutableArray *LTI_selectNodes;
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
-
 @property (nonatomic, assign) LayerTreeStyle treeStyle;
-
-@property (nonatomic, strong) LayerTreeCustomWindow *debugWindow;
-
-@property (nonatomic, strong) LayerTreeCustomWindow *LTI_bubbleContainerWindow;
 
 @end
 
@@ -76,7 +56,6 @@ static UIWindow * LTI_rootWindow;
     float rotateX;
     float rotateY;
     float dist;
-    
     BOOL checkViewDetail;
     UIPanGestureRecognizer *_panGesture;
     UIPinchGestureRecognizer *_pinGesture;
@@ -116,7 +95,7 @@ static LayerTreeInspectionView *_instance;
         LTI_rootWindow = [UIApplication sharedApplication].keyWindow;
         self.treeStyle = LayerTreeStyleDefault;
         UIWindow *keyWindow = [self getWindow];
-        [keyWindow addSubview:self.LTI_bubbleView];
+        [keyWindow addSubview:self.LTI_debugBtn];
     }
     return self;
 }
@@ -144,7 +123,6 @@ static LayerTreeInspectionView *_instance;
 
 - (void)animate:(UIView *)view transform:(CATransform3D)trans{
     [UIView animateWithDuration:0.2 animations:^{
-        NSLog(@"view:%@",view);
         view.layer.transform = trans;
         if (view.subviews.count>0 ) {
             for (UIView *subView in view.subviews) {
@@ -271,7 +249,20 @@ static LayerTreeInspectionView *_instance;
 }
 
 #pragma mark =========== EventResponse ===========
+- (void)tapInspectionView:(UITapGestureRecognizer *)tap{
+    LayerTreeSubImageView *subImgView = (LayerTreeSubImageView *)tap.view;
+    
+    
+    
+    NSLog(@"tap.view:%@",subImgView.node.LayerTreeNodeView);
+    subImgView.backgroundColor = LTI_BackGroundColor;
+}
 
+/**
+ 以下的pan:、pinch:、anime、借鉴自YY大佬的 YYViewHierarchy3D
+
+ @param gestureRecognizer gestureRecognizer
+ */
 - (void)pan:(UIPanGestureRecognizer *)gestureRecognizer {
     static CGPoint oldPan;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -280,9 +271,7 @@ static LayerTreeInspectionView *_instance;
     CGPoint change = [gestureRecognizer translationInView:self];
     rotateY =  oldPan.x + change.x;
     rotateX = -oldPan.y - change.y;
-    NSLog(@"rotatex:%f ---   rotatey:%f ---- dist:%f",DEGREES_TO_RADIANS(rotateX),DEGREES_TO_RADIANS(rotateY),dist*1000);
     [self anime:0.1];
-    
 }
 
 - (void)pinch:(UIPinchGestureRecognizer *)gestureRecognizer {
@@ -292,9 +281,6 @@ static LayerTreeInspectionView *_instance;
     }
     dist = oldDist + (gestureRecognizer.scale - 1);
     dist = dist < -5 ? -5 : dist > 0.5 ? 0.5 : dist;
-    NSLog(@"dist:%f",dist
-          );
-
     [self anime:0.1];
 }
 
@@ -303,11 +289,11 @@ static LayerTreeInspectionView *_instance;
     CATransform3D t = CATransform3DIdentity;
     t.m34 = -0.001;
     trans = CATransform3DMakeTranslation(0, 0, dist * 1000);
-    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateX), 1, 0, 0), trans);
-    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateY), 0, 1, 0), trans);
-    trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(0), 0, 0, 1), trans);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(LTI_DEGREES_TO_RADIANS(rotateX), 1, 0, 0), trans);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(LTI_DEGREES_TO_RADIANS(rotateY), 0, 1, 0), trans);
+    trans = CATransform3DConcat(CATransform3DMakeRotation(LTI_DEGREES_TO_RADIANS(0), 0, 0, 1), trans);
     trans = CATransform3DConcat(trans, t);
-    [self getWindow].layer.sublayerTransform = trans;//这是旋转blueview的sublayer,这样blueview本身不会转动，但是子layer可以转动
+    [self getWindow].layer.sublayerTransform = trans;
 }
 
 - (void)checkCurrentSelectViewDetail:(UIButton *)btn{
@@ -315,7 +301,6 @@ static LayerTreeInspectionView *_instance;
     NSInteger index = [self.LTI_tableview.visibleCells indexOfObject:cell];
     LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[index];
     [self.LTI_selectNodes addObject:self.LTI_currentNode];
-    //展开这一行
     LayerTreeViewDetailModel *model = [LayerTreeViewDetailModel modelWithView:node.LayerTreeNodeView];
     checkViewDetail = YES;
     self.viewDetailModel = model;
@@ -323,29 +308,29 @@ static LayerTreeInspectionView *_instance;
 }
 
 - (void)showDebugView{
-    if (!self.debugWindow) {
-        //按钮放在自己的window上，点击后，设置自定义的window，并将tableview放在自定义window上，自定义window显示在最上层
-        LayerTreeCustomWindow *debugWindow = [LayerTreeCustomWindow window];
-        debugWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
-        debugWindow.windowLevel = 1000;
-        debugWindow.backgroundColor = [UIColor clearColor];
-        self.debugWindow = debugWindow;
-        [self.debugWindow addSubview:self.LTI_tableview];
-        [self.debugWindow makeKeyAndVisible];
+    if (!self.LTI_tableViewContainerWindow) {
+        LayerTreeCustomWindow *LTI_tableViewContainerWindow = [LayerTreeCustomWindow window];
+        LTI_tableViewContainerWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
+        LTI_tableViewContainerWindow.windowLevel = 1000;
+        LTI_tableViewContainerWindow.backgroundColor = [UIColor clearColor];
+        self.LTI_tableViewContainerWindow = LTI_tableViewContainerWindow;
+        [self.LTI_tableViewContainerWindow addSubview:self.LTI_tableview];
+        [self.LTI_tableViewContainerWindow makeKeyAndVisible];
     }
-    if (!self.LTI_bubbleContainerWindow) {
+    if (!self.LTI_debugBtnContainerWindow) {
         LayerTreeCustomWindow *bubbleContainerWindow = [LayerTreeCustomWindow window];
-        bubbleContainerWindow.frame = self.LTI_bubbleView.frame;
-        self.LTI_bubbleView.frame = bubbleContainerWindow.bounds;
+        bubbleContainerWindow.frame = self.LTI_debugBtn.frame;
+        self.LTI_debugBtn.frame = bubbleContainerWindow.bounds;
         bubbleContainerWindow.windowLevel = 1001;
         bubbleContainerWindow.backgroundColor = [UIColor clearColor];
-        self.LTI_bubbleContainerWindow = bubbleContainerWindow;
-        [self.LTI_bubbleContainerWindow addSubview:self.LTI_bubbleView];
-        [self.LTI_bubbleContainerWindow makeKeyAndVisible];
+        self.LTI_debugBtnContainerWindow = bubbleContainerWindow;
+        [self.LTI_debugBtnContainerWindow addSubview:self.LTI_debugBtn];
+        [self.LTI_debugBtnContainerWindow makeKeyAndVisible];
     }
     [self refreshDebugView];
 }
 
+#pragma mark 这个方法需要进行简化
 - (void)handlePan:(UIPanGestureRecognizer*) recognizer{
     UIWindow *window = recognizer.view.window;
     if ([window isMemberOfClass:[LayerTreeCustomWindow class]]) {
@@ -410,37 +395,30 @@ static LayerTreeInspectionView *_instance;
     [UIView animateWithDuration:0.2 animations:^{
         self.LTI_tableview.alpha = 0;
     }completion:^(BOOL finished) {
-        self.debugWindow.hidden = YES;
+        self.LTI_tableViewContainerWindow.hidden = YES;
     }];
 }
 
 - (void)refreshDebugView{
     CABasicAnimation *lessAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     lessAnimation.toValue = [NSNumber numberWithFloat:0.3];
-    
     CABasicAnimation *enlargeAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     enlargeAnimation.toValue = [NSNumber numberWithFloat:1];
-    
-    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];//transform.rotation
+    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotateAnimation.toValue = [NSNumber numberWithFloat:M_PI*2];
-    
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.animations = @[lessAnimation,enlargeAnimation,rotateAnimation];
     animationGroup.duration = 0.4;
     [_LTI_refreshBtn.layer addAnimation:animationGroup forKey:@"groupAnimation"];
-    
     checkViewDetail = NO;
-    self.debugWindow.hidden = NO;
+    self.LTI_tableViewContainerWindow.hidden = NO;
     self.LTI_tableview.alpha = 1;
     [self.LTI_selectNodes removeAllObjects];
-    
-    if (self.debugWindow.frame.origin.y<(self.LTI_headerView.frame.size.height+44)||self.debugWindow.frame.origin.y > (LTI_ScreenHeight - self.LTI_headerView.frame.size.height-44)) {
+    if (self.LTI_tableViewContainerWindow.frame.origin.y<(self.LTI_headerView.frame.size.height+44)||self.LTI_tableViewContainerWindow.frame.origin.y > (LTI_ScreenHeight - self.LTI_headerView.frame.size.height-44)) {
         [UIView animateWithDuration:0.5 animations:^{
-           self.debugWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
+           self.LTI_tableViewContainerWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
         }];
     }
-#warning 3D模式下，不要刷新层级树
-
     if (LayerTreeStyleDefault == self.treeStyle) {
         [LayerTreeInspector layerTreeFindCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode *currentNode, NSArray<LayerTreeBaseNode *> *node) {
             self.LTI_currentNode = currentNode;
@@ -448,8 +426,6 @@ static LayerTreeInspectionView *_instance;
             [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }
-   
-    //此处需要判断一下中心点的y坐标
 }
 
 - (void)showSelectTypeView:(UIButton *)btn{
@@ -458,7 +434,6 @@ static LayerTreeInspectionView *_instance;
         [UIView animateWithDuration:0.2 animations:^{
             self.LTI_typeView.frame = CGRectMake(self.LTI_typeView.frame.origin.x, self.LTI_typeView.frame.origin.y, self.LTI_typeView.frame.size.width, 44*3);
         }completion:^(BOOL finished) {
-            NSLog(@"展开typeview，回到顶部");
             [self.LTI_tableview scrollsToTop];
         }];
     }else{
@@ -472,17 +447,20 @@ static LayerTreeInspectionView *_instance;
     [self showSelectTypeView:self.LTI_changeTypeBtn];
     if (btn.tag == 100) {
         if (self.treeStyle == LayerTreeStyle3DTransForm) {
+            self.treeStyle = LayerTreeStyleDefault;
             [self resetLayerTree:nil];
+        }else if (self.treeStyle == LayerTreeStyleGraphics){
+            self.treeStyle = LayerTreeStyleDefault;
+            /*
+             Codes:here
+             
+             */
         }
-        self.treeStyle = LayerTreeStyleDefault;
-    }else if (btn.tag == 101) {//说明是3DTransform变换,此时需要对所有的view进行z轴的平移
-        //手势移除
+    }else if (btn.tag == 101) {
         self.LTI_resetButton.hidden = NO;
-        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];//viewPanTransform:
-        _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinch:)];//viewPinTransform:
+        _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+        _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinch:)];
         _pinGesture.delegate = self;
-        
-        NSLog(@"windows:%@",[UIApplication sharedApplication].windows[0]);
         UIWindow *rootWindow = [self getWindow];
         [rootWindow addGestureRecognizer:_pinGesture];
         [rootWindow addGestureRecognizer:_panGesture];
@@ -491,68 +469,28 @@ static LayerTreeInspectionView *_instance;
         [LayerTreeInspector layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:LTI_AffineTransformLevelPadding];
     }else if (btn.tag == 102){
         self.treeStyle = LayerTreeStyleGraphics;
+        /*
+         Codes here:
+         */
     }
     [self.LTI_tableview reloadData];
 }
 
+#warning 这个方法目前还存在问题
 - (void)resetLayerTree:(UIButton *)btn{
-    NSLog(@"重置3D树到平面状态");
+    NSLog(@"start revert 3D to plannar");
+    _LTI_resetButton.hidden = YES;
+    [self getWindow].layer.sublayerTransform = CATransform3DIdentity;
+    [[self getWindow] removeGestureRecognizer:_pinGesture];
+    [[self getWindow] removeGestureRecognizer:_panGesture];
     [LayerTreeInspector layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:^(BOOL isFinished) {
         if (isFinished) {
-            NSLog(@"finish revert 3D to Plannar");
-            _LTI_resetButton.hidden = YES;
-            self.treeStyle = LayerTreeStyleDefault;
-            CATransform3D transform = CATransform3DIdentity;
-            CATransform3D transIdentity = CATransform3DIdentity;
-            /*
-             逆运算
-             CATransform3D trans = CATransform3DIdentity;
-             CATransform3D t = CATransform3DIdentity;
-             t.m34 = -0.001;
-             trans = CATransform3DMakeTranslation(0, 0, dist * 1000);
-             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateX), 1, 0, 0), trans);
-             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(rotateY), 0, 1, 0), trans);
-             trans = CATransform3DConcat(CATransform3DMakeRotation(DEGREES_TO_RADIANS(0), 0, 0, 1), trans);
-             trans = CATransform3DConcat(trans, t);
-
-             */
-            
-            
-            
-            CGFloat radiansToZeroX = [self radiansToZero:rotateX];
-            CGFloat radiansToZeroY = [self radiansToZero:rotateY];
-            CGFloat radiansToZeroZ = [self radiansToZero:0];
-            NSLog(@"radiansToZeroX:%f ---- radiansToZeroY:%f ----- dist:%f",radiansToZeroX,radiansToZeroY,-dist*1000);
-            //逆运算transform
-            transform = CATransform3DMakeTranslation(0, 0, -dist * 1000);
-            transform = CATransform3DRotate(transform,radiansToZeroX , 1, 0, 0);
-            transform = CATransform3DRotate(transform,radiansToZeroY, 0, 1, 0);
-            transform = CATransform3DConcat(transform, transIdentity);
-            transform = CATransform3DConcat(CATransform3DMakeRotation(radiansToZeroZ, 0, 0, 1), transform);
-
-            
-            
-            
-            
-            
-            
-            
-            
-            [[self getWindow] removeGestureRecognizer:_pinGesture];
-            [[self getWindow] removeGestureRecognizer:_panGesture];
-            [self getWindow].layer.sublayerTransform = transform;
+            NSLog(@"finish revert 3D to plannar");
+            rotateX = rotateY = 0;
+            dist = 0;
             [self.LTI_tableview reloadData];
         }
     }];
-}
-
-- (CGFloat)radiansToZero:(CGFloat)degree{
-    CGFloat radians = DEGREES_TO_RADIANS(degree);
-    NSLog(@"radians:%f",radians);
-    CGFloat floatRadians = radians/(2*M_PI);//3.145
-    int intRadians = (int)floatRadians;
-    CGFloat radiansToZero = floatRadians - intRadians;
-    return -radiansToZero;
 }
 
 #pragma mark =========== Setters && Getters ===========
@@ -561,25 +499,25 @@ static LayerTreeInspectionView *_instance;
     return LTI_rootWindow;
 }
 
-- (UIButton *)LTI_bubbleView{
-    if (!_LTI_bubbleView) {
-        _LTI_bubbleView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _LTI_bubbleView.frame = CGRectMake(LTI_ScreenWidth-12- 50, 30, 50, 50);
-        _LTI_bubbleView.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_LTI_bubbleView setTitle:@"Debug" forState:UIControlStateNormal];
-        [_LTI_bubbleView setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _LTI_bubbleView.layer.cornerRadius = 10;
-        _LTI_bubbleView.backgroundColor = LTI_BackGroundColor;
-        [_LTI_bubbleView addTarget:self action:@selector(showDebugView) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)LTI_debugBtn{
+    if (!_LTI_debugBtn) {
+        _LTI_debugBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _LTI_debugBtn.frame = CGRectMake(LTI_ScreenWidth-12- 50, 30, 50, 50);
+        _LTI_debugBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_LTI_debugBtn setTitle:@"Debug" forState:UIControlStateNormal];
+        [_LTI_debugBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _LTI_debugBtn.layer.cornerRadius = 10;
+        _LTI_debugBtn.backgroundColor = LTI_BackGroundColor;
+        [_LTI_debugBtn addTarget:self action:@selector(showDebugView) forControlEvents:UIControlEventTouchUpInside];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
-        [_LTI_bubbleView addGestureRecognizer:pan];
+        [_LTI_debugBtn addGestureRecognizer:pan];
     }
-    return _LTI_bubbleView;
+    return _LTI_debugBtn;
 }
 
 - (UITableView *)LTI_tableview{
     if (!_LTI_tableview) {
-        _LTI_tableview = [[UITableView alloc]initWithFrame:self.debugWindow.bounds style:UITableViewStylePlain];
+        _LTI_tableview = [[UITableView alloc]initWithFrame:self.LTI_tableViewContainerWindow.bounds style:UITableViewStylePlain];
         _LTI_tableview.delegate = self;
         _LTI_tableview.dataSource = self;
         _LTI_tableview.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -670,7 +608,7 @@ static LayerTreeInspectionView *_instance;
 
 - (UIView *)LTI_typeView{
     if (!_LTI_typeView) {
-        _LTI_typeView = [[UIView alloc]initWithFrame:CGRectMake(self.debugWindow.frame.size.width - 60-80-88, 44, 80+88, 0)];
+        _LTI_typeView = [[UIView alloc]initWithFrame:CGRectMake(self.LTI_tableViewContainerWindow.frame.size.width - 60-80-88, 44, 80+88, 0)];
         _LTI_typeView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
         _LTI_typeView.layer.masksToBounds = YES;
         NSArray *title = @[@"DefaultBreadStyle",
