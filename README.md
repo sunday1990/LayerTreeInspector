@@ -41,7 +41,7 @@
 
 #### 4、3D-点击与重置
 
-![](https://user-gold-cdn.xitu.io/2018/2/11/161850aba0e1c116?w=369&h=621&f=gif&s=3141368)
+![3D-点击与重置](https://user-gold-cdn.xitu.io/2018/2/11/161850aba0e1c116?w=369&h=621&f=gif&s=3141368)
 
 ## 四、源码下载
 Github:[LayerTreeInspector](https://github.com/sunday1990/LayerTreeInspector)
