@@ -13,6 +13,7 @@
 #import "LayerTreeView3DDetailCell.h"
 #import "LayerTreeSubImageView.h"
 #import "LayerTreeAssistMacros.h"
+//#import "YYViewHierarchy3D.h"
 
 typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 {
@@ -188,7 +189,6 @@ static LayerTreeInspectionView *_instance;
         [cell updateWithNode:self.view3DDetailModel];
         return cell;
     }
-   
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -223,8 +223,7 @@ static LayerTreeInspectionView *_instance;
             }
         }
     }else{
-        
-        
+
     }
 }
 
@@ -583,7 +582,6 @@ static LayerTreeInspectionView *_instance;
     if (!_LTI_dismissBtn) {
         _LTI_dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _LTI_dismissBtn.frame = CGRectMake(_LTI_headerView.frame.size.width-50, 0, 44, 44);
-//        LTI_deleteIcon
         [_LTI_dismissBtn setImage:LTI_Image(@"LTI_deleteIcon") forState:UIControlStateNormal];
         _LTI_dismissBtn.backgroundColor = LTI_BackGroundColor;
         [_LTI_dismissBtn addTarget:self action:@selector(dismissDebugView) forControlEvents:UIControlEventTouchUpInside];
@@ -595,7 +593,6 @@ static LayerTreeInspectionView *_instance;
     if (!_LTI_refreshBtn) {
         _LTI_refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _LTI_refreshBtn.frame = CGRectMake(_LTI_headerView.frame.size.width-50-56, 44/2-30/2, 30, 30);
-        //LTI_refreshIcon
         [_LTI_refreshBtn setImage:LTI_Image(@"LTI_refreshIcon") forState:UIControlStateNormal];
         _LTI_refreshBtn.backgroundColor = LTI_BackGroundColor;
         _LTI_refreshBtn.showsTouchWhenHighlighted = YES;
@@ -609,7 +606,6 @@ static LayerTreeInspectionView *_instance;
         _LTI_changeTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _LTI_changeTypeBtn.frame = CGRectMake(CGRectGetMinX(self.LTI_refreshBtn.frame)-56, 0, 44, 44);
         [_LTI_changeTypeBtn setImage:LTI_Image(@"LTI_arrowdownIcon") forState:UIControlStateNormal];
-//        [UIImage imageNamed:@"LTI_arrowdownIcon"]
         [_LTI_changeTypeBtn setImage:LTI_Image(@"LTI_arrowupIcon") forState:UIControlStateSelected];
         _LTI_changeTypeBtn.backgroundColor = LTI_BackGroundColor;
         [_LTI_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];
@@ -630,9 +626,8 @@ static LayerTreeInspectionView *_instance;
         _LTI_resetButton.hidden = YES;
         _LTI_resetButton.backgroundColor = LTI_BackGroundColor;
         [_LTI_resetButton addTarget:self action:@selector(resetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-#warning 为甚要把手势加载reset按钮上
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
-        [_LTI_resetButton addGestureRecognizer:pan];
+//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+//        [_LTI_resetButton addGestureRecognizer:pan];
     }
     return _LTI_resetButton;
 }

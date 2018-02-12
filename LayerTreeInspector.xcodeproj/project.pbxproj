@@ -15,6 +15,8 @@
 		169C46572030313D00D638D4 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 169C46562030313D00D638D4 /* TestTableViewCell.m */; };
 		169C465A2030642100D638D4 /* TestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 169C46592030642100D638D4 /* TestDetailViewController.m */; };
 		169C465D2030647A00D638D4 /* TestDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 169C465C2030647A00D638D4 /* TestDataItem.m */; };
+		16A37587203167A70016ED0E /* YYViewHierarchy3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A37585203167A60016ED0E /* YYViewHierarchy3D.m */; };
+		16A3758B203186130016ED0E /* LayerTree3DBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A3758A203186130016ED0E /* LayerTree3DBaseNode.m */; };
 		16B793FE202986C800D27330 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B793FD202986C800D27330 /* AppDelegate.m */; };
 		16B79401202986C800D27330 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B79400202986C800D27330 /* ViewController.m */; };
 		16B79404202986C800D27330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B79402202986C800D27330 /* Main.storyboard */; };
@@ -62,6 +64,11 @@
 		169C46592030642100D638D4 /* TestDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDetailViewController.m; sourceTree = "<group>"; };
 		169C465B2030647A00D638D4 /* TestDataItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDataItem.h; sourceTree = "<group>"; };
 		169C465C2030647A00D638D4 /* TestDataItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDataItem.m; sourceTree = "<group>"; };
+		16A37585203167A60016ED0E /* YYViewHierarchy3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYViewHierarchy3D.m; sourceTree = "<group>"; };
+		16A37586203167A70016ED0E /* YYViewHierarchy3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYViewHierarchy3D.h; sourceTree = "<group>"; };
+		16A37588203181330016ED0E /* LayerTree3DNodeModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTree3DNodeModelProtocol.h; sourceTree = "<group>"; };
+		16A37589203186130016ED0E /* LayerTree3DBaseNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerTree3DBaseNode.h; sourceTree = "<group>"; };
+		16A3758A203186130016ED0E /* LayerTree3DBaseNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerTree3DBaseNode.m; sourceTree = "<group>"; };
 		16B793F9202986C800D27330 /* LayerTreeInspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerTreeInspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B793FC202986C800D27330 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16B793FD202986C800D27330 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -166,6 +173,8 @@
 		16B793FB202986C800D27330 /* LayerTreeInspector */ = {
 			isa = PBXGroup;
 			children = (
+				16A37586203167A70016ED0E /* YYViewHierarchy3D.h */,
+				16A37585203167A60016ED0E /* YYViewHierarchy3D.m */,
 				16B7948320298F3B00D27330 /* Examples */,
 				16B7942E202986D700D27330 /* LayerTreeInspector */,
 				16B793FC202986C800D27330 /* AppDelegate.h */,
@@ -228,9 +237,12 @@
 				16B7947420298AC400D27330 /* LayerTreeInspector.m */,
 				16B79432202986FB00D27330 /* LayerTreeBaseNode.h */,
 				16B79434202986FB00D27330 /* LayerTreeBaseNode.m */,
-				16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */,
+				16A37589203186130016ED0E /* LayerTree3DBaseNode.h */,
+				16A3758A203186130016ED0E /* LayerTree3DBaseNode.m */,
 				161D7110202BE2CA00A423DF /* LayerTreeInspectorProtocol.h */,
 				16B79433202986FB00D27330 /* LayerTreeAssistMacros.h */,
+				16B79431202986FB00D27330 /* LayerTreeNodeModelProtocol.h */,
+				16A37588203181330016ED0E /* LayerTree3DNodeModelProtocol.h */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -387,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16A3758B203186130016ED0E /* LayerTree3DBaseNode.m in Sources */,
 				16B7943A202986FC00D27330 /* LayerTreeBaseNode.m in Sources */,
 				16B79401202986C800D27330 /* ViewController.m in Sources */,
 				16B7943B202986FC00D27330 /* LayerTreeViewDetailCell.m in Sources */,
@@ -394,6 +407,7 @@
 				169C4609202FE3F800D638D4 /* LayerTreeView3DDetailCell.m in Sources */,
 				169C465A2030642100D638D4 /* TestDetailViewController.m in Sources */,
 				161D7116202D42E400A423DF /* LayerTreeCustomWindow.m in Sources */,
+				16A37587203167A70016ED0E /* YYViewHierarchy3D.m in Sources */,
 				169C46572030313D00D638D4 /* TestTableViewCell.m in Sources */,
 				16B7940C202986C800D27330 /* main.m in Sources */,
 				169C465D2030647A00D638D4 /* TestDataItem.m in Sources */,

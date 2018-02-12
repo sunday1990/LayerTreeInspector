@@ -15,7 +15,7 @@
 
 #define LTI_BackGroundColor [UIColor colorWithRed:214/255.0 green:235/255.0 blue:253/255.0 alpha:1]
 
-#define LTI_AffineTransformLevelPadding 30
+#define LTI_AffineTransformLevelPadding 20
 
 #define LTI_Image(imgName) [UIImage imageNamed:[NSString stringWithFormat:@"LayerTreeAsset.bundle/%@",imgName]]
 

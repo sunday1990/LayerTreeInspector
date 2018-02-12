@@ -17,12 +17,6 @@ static LayerTreeBaseNode *LTI_rootNode;
 
 static UIWindow * LTI_rootWindow;
 
-struct {
-    unsigned int rootNodeInitialize:1;
-    unsigned int windowInitialize:1;
-    unsigned int startMonitor:1;
-}LayerTreeFirstInitializeState;
-
 #pragma mark将view生成图片
 static inline UIImage *RenderImageFromViewWithRect(UIView *view,CGRect frame){
     UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0);
@@ -104,6 +98,8 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
                 imageview.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
                 imageview.image = subImage;
                 //平移imageview
+#warning 这里要区分大层级与小层级，暂时没有区分小层级，同一层级的目前都在一个面上，似乎没有必要区分小层级。
+//                NSUInteger index = [rootNode.subNodes indexOfObject:subNode];//获取该视图在父亲视图中的位置
                 LTI_transForm = CATransform3DTranslate(CATransform3DIdentity, 0, 0, (subNode.nodeLevel-1)*levelPadding);
                 imageview.layer.transform = LTI_transForm;
                 [LTI_rootWindow addSubview:imageview];
@@ -153,7 +149,6 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
     LTI_rootNode = rootNode;
     LayerTreeBaseNode *currentNode = RecursiveFindNodeWith(topViewController.view, rootNode);
     NSMutableArray *frontNodes = [NSMutableArray array];
-#warning && currentNode != nil May cause some problems
     while (currentNode.fatherNode != rootNode && currentNode != nil) {
         [frontNodes insertObject:currentNode atIndex:0];
         currentNode = (LayerTreeBaseNode *)currentNode.fatherNode;

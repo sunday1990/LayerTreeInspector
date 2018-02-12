@@ -11,7 +11,7 @@
 #import "LayerTreeBaseNode.h"
 @protocol LayerTreeInspectorProtocol
 /**
- 获取节点视图为UIWindwo的根节点
+ 获取节点视图为UIWindow的根节点
  
  @param completion completion回调
  */
