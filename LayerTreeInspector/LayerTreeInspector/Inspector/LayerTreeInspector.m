@@ -125,10 +125,6 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
     [LayerTreeInspectionView sharedDebugView];
 }
 
-+ (LayerTreeBaseNode *)currentRootNode{
-    return LTI_rootNode;
-}
-
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
     UIWindow *window = LTI_rootWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];

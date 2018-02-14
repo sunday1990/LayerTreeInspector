@@ -23,7 +23,7 @@
  */
 + (void)layerTreeFindCurrentNodeAtTopviewWithCompletion:(void(^_Nullable)(LayerTreeBaseNode * _Nullable currentNode,NSArray<LayerTreeBaseNode *> * _Nullable node))completion;
 /**
- 递归的将所有的子view在z轴方向按照各自的层级平移一段距离,同时改变所有控件的父视图为window
+ 递归的将所有的子view在z轴方向按照各自的层级平移一段距离
 
  @param levelPadding 每一层级需要平移的单位距离
  */
@@ -32,12 +32,6 @@
  图层树从3D状态恢复到初始的平面状态
  */
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion;
-/**
- 返回rootNode
- 
- @return return rootNode
- */
-+ (LayerTreeBaseNode *_Nullable)currentRootNode;
 @end
 
 #endif /* LayerTreeInspectorProtocol_h */
