@@ -23,7 +23,7 @@
 ## 二、安装及使用
 #### 安装
 * 手动：将`LayerTreeInspector`文件夹下的所有文件拖入项目。
-* `CocoaPod`:`podfile`中加入`pod 'LayerTreeInspector'`（待完善）。
+* `CocoaPod`:`podfile`中加入`pod 'LayerTreeInspector'`
 #### 使用
 ```
 //Appdelegate中，创建完rootWindow并makeKeyAndVisible后
