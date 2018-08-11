@@ -1,3 +1,5 @@
+# LayerTreeInspector
+
 ## iOS-LayerTreeInspector
 >  This is a tool to inspect your view hierarchys on your iphone at realtime,Provide two ways to view hierarchys：one is the general flat tree structure and anothe is three-dimensional form，So you can get out of Xcode and reach the result you want
 
@@ -24,8 +26,8 @@
 * `CocoaPod`:`podfile`中加入`pod 'LayerTreeInspector'`（待完善）。
 #### 使用
 ```
-    //Appdelegate中，创建完rootWindow并makeKeyAndVisible后
-    [LayerTreeInspector showDebugView];
+//Appdelegate中，创建完rootWindow并makeKeyAndVisible后
+[LayerTreeInspector showDebugView];
 ```
 ## 三、效果展示
 
@@ -47,3 +49,32 @@
 
 ## 四、源码下载
 Github:[LayerTreeInspector](https://github.com/sunday1990/LayerTreeInspector)
+
+
+[![CI Status](https://img.shields.io/travis/sunday1990/LayerTreeInspector.svg?style=flat)](https://travis-ci.org/sunday1990/LayerTreeInspector)
+[![Version](https://img.shields.io/cocoapods/v/LayerTreeInspector.svg?style=flat)](https://cocoapods.org/pods/LayerTreeInspector)
+[![License](https://img.shields.io/cocoapods/l/LayerTreeInspector.svg?style=flat)](https://cocoapods.org/pods/LayerTreeInspector)
+[![Platform](https://img.shields.io/cocoapods/p/LayerTreeInspector.svg?style=flat)](https://cocoapods.org/pods/LayerTreeInspector)
+
+## Example
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Requirements
+
+## Installation
+
+LayerTreeInspector is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'LayerTreeInspector'
+```
+
+## Author
+
+sunday1990, “935143023@qq.com”
+
+## License
+
+LayerTreeInspector is available under the MIT license. See the LICENSE file for more info.

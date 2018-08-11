@@ -1,0 +1,6 @@
+framework module LayerTreeInspector {
+  umbrella header "LayerTreeInspector-umbrella.h"
+
+  export *
+  module * { export * }
+}

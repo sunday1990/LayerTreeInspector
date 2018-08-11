@@ -1,0 +1,16 @@
+PODS:
+  - LayerTreeInspector (0.1.0)
+
+DEPENDENCIES:
+  - LayerTreeInspector (from `../`)
+
+EXTERNAL SOURCES:
+  LayerTreeInspector:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LayerTreeInspector: 02ba495aa6e18abc435d313661e5f23dd522839c
+
+PODFILE CHECKSUM: 6c9bfd61a6efff5185eb0a4be4e28363da8a0e08
+
+COCOAPODS: 1.4.0
