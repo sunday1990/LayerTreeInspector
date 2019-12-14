@@ -9,7 +9,7 @@
 #import "LTAppDelegate.h"
 #import "LTViewController.h"
 #import <LayerTreeInspector/LayerTreeInspector.h>
-
+#import <LayerTreeInspector/LayerTreeBaseNode.h>
 @implementation LTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,7 +18,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor grayColor];
     self.window.rootViewController = [[LTViewController alloc]init];
-    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];     
     [LayerTreeInspector showDebugView];
     return YES;
 }

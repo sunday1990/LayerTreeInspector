@@ -10,18 +10,16 @@
 #endif
 #endif
 
-#import "LayerTreeCustomWindow.h"
+#import "LayerTreeMacros.h"
+#import "LayerTreePodHelper.h"
+#import "LayerTree3DCell.h"
+#import "LayerTreeDefaultCell.h"
+#import "LayerTreeImageView.h"
 #import "LayerTreeInspectionView.h"
-#import "LayerTreeSubImageView.h"
-#import "LayerTreeView3DDetailCell.h"
-#import "LayerTreeViewDetailCell.h"
-#import "LayerTree3DBaseNode.h"
-#import "LayerTree3DNodeModelProtocol.h"
-#import "LayerTreeAssistMacros.h"
+#import "LayerTreeWindow.h"
 #import "LayerTreeBaseNode.h"
 #import "LayerTreeInspector.h"
-#import "LayerTreeInspectorProtocol.h"
-#import "LayerTreeNodeModelProtocol.h"
+#import "LayerTreeNodeProtocol.h"
 
 FOUNDATION_EXPORT double LayerTreeInspectorVersionNumber;
 FOUNDATION_EXPORT const unsigned char LayerTreeInspectorVersionString[];

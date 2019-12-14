@@ -7,52 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		002150A8FC7BA88834B5F48AD9276067 /* LayerTreeNodeModelProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 8783379C467FB862716C688B14F98F3F /* LayerTreeNodeModelProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0835871ABADE9A2CA74A25B1DDB04642 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		0AFBF2DBD42F989FF342FEFE8DA86179 /* Pods-LayerTreeInspector_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EEC32B0EF69BF7D33E0B79D81F96A10 /* Pods-LayerTreeInspector_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D384325BBAE8E513AED5B81FA90A04A /* LayerTreeInspector-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E47836A555582A0848564EFC2F2C471D /* LayerTreeInspector-dummy.m */; };
-		121CB2763BBDC81BBA187BCF2FEFF4D5 /* LTI_refreshIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = BE763FBEA8A97CCAFCC83525BA139294 /* LTI_refreshIcon@3x.png */; };
-		1E6D2C11B3EE851BD7038E85EA9ADEE3 /* LTI_editIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D2165CC0C628E0831EB037BD4C34164C /* LTI_editIcon@2x.png */; };
+		183911F631A2F629A1AED5B9A51FEAA3 /* LayerTreeInspector-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB69CF57679A39F0A7F5A107B41758D /* LayerTreeInspector-dummy.m */; };
+		237AB3256ADEAA21488DE9A7BE7B205E /* LayerTreeImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60803ECE21178CAB9E4C8BBB31B81A58 /* LayerTreeImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25DC5BBEBDAA9FBACD094BB38C0B5173 /* LayerTreeInspector.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED0D7AAFF8FF5CD8EA3646050524C9 /* LayerTreeInspector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2937223DDDC0831F0A3215B23DAE1D70 /* Pods-LayerTreeInspector_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 34AB7ACB118A526C59E17C59224DD974 /* Pods-LayerTreeInspector_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		29BCD86330A7131AC04044201C5D2B6A /* LayerTreeInspectorProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 570372CB76CD4E4A93AF71DB48E11848 /* LayerTreeInspectorProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2AB3462B36A95C19D73214AF66311560 /* LayerTree3DBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0110AEDAFBF81047D1C80B4BCB97D404 /* LayerTree3DBaseNode.m */; };
-		2ED937ABFB7CD9D7F4117B2118DEDAF7 /* LayerTreeAssistMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FFE9B98F40560662C263D8C581BCDF7 /* LayerTreeAssistMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		36A41B9074D1A4A9DD84B54F78D64184 /* LayerTreeView3DDetailCell.h in Headers */ = {isa = PBXBuildFile; fileRef = FC607EE5677635885149CBB001738155 /* LayerTreeView3DDetailCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		431822EEB679E1DA1DC157F5D5E1217A /* LayerTreeInspectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB6E4D13F5F000693D443870DE0B8F /* LayerTreeInspectionView.m */; };
+		2CED0B5CECC2DEEE8DC35348DC82F7B6 /* LayerTreeDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E5ABBAB2D1E5017007F839D4EC54E4 /* LayerTreeDefaultCell.m */; };
+		3686B8EF898EA2DFBD2356F6872FF4A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65AC7E5A0FB88EF78D05B1B2A69E893 /* Assets.xcassets */; };
+		3AA11697D66BD9BCC5769E5BDA8EC472 /* LayerTreeInspector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 586A0B56B06BE04D73A36A593083FD55 /* LayerTreeInspector.bundle */; };
+		3BBE5458CAAC8C4753F79E4ED67BBC7C /* LayerTreeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82392C55AAAE184B3BE8098AE5444104 /* LayerTreeImageView.m */; };
+		3E93E469934B49AC0A7085248B627041 /* LayerTreeWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EFA506C2BF41FC27AB51FD9A2DB8E26 /* LayerTreeWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42B91BAAABF8F1769330674F756CFCEC /* LayerTreeMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = F92C880A9722857F94C1671AEEB175DC /* LayerTreeMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4763118EF5718C18C2AFEF6D06786935 /* LayerTree3DCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A901955B91E9672BAB97FBD87DFA0BC0 /* LayerTree3DCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D665A824E4D39008F8F610200C12E94 /* Pods-LayerTreeInspector_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3769D4785DEA64F33847224A157FC791 /* Pods-LayerTreeInspector_Tests-dummy.m */; };
-		5043A223A3168710EC5A9F18A09EDF3A /* LayerTreeSubImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 270911868FB3300E1A2931BBC6CFD53A /* LayerTreeSubImageView.m */; };
-		563F17A14D7C228F4859060008EC626A /* LayerTreeBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDECE85E9C12D112FBF0DCD1320F6 /* LayerTreeBaseNode.m */; };
-		5B232F94664636D57F94905032041F9F /* LayerTreeViewDetailCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA5FAEF3EF8EB195C6039B2038E7500 /* LayerTreeViewDetailCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D2445B22CFE0758E00CF6C4D1AAE9BF /* LTI_arrowdownIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = B55ECB1ACB1BCB4DDDE17F1883F1609F /* LTI_arrowdownIcon@2x.png */; };
-		66DD9B5B6D830EEA65E9B035A7F2DAE9 /* LTI_eyeIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 0F026D918795262FA0EB9278B960A734 /* LTI_eyeIcon@3x.png */; };
-		6BC4CEE46A9F29AB264254E066B28E15 /* LTI_deleteIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 62209C2D673955B7E248E67A5A0D2E50 /* LTI_deleteIcon@2x.png */; };
-		7069DB0C7CA58CE97E6279B637F96797 /* LayerTreeViewDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B947716264FE7B9195BC9DA643A512FC /* LayerTreeViewDetailCell.m */; };
-		775DF1644194F441B0CA241A6F2F8ACB /* LTI_arrowupIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 60D22F4EA1AA3A4AAEFA9BEDE46F0EC4 /* LTI_arrowupIcon@3x.png */; };
-		7D5A4DF5BC8D52A7A95FFD7705CFEC81 /* LayerTreeInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA095749318E8094EBA7110A4DC6774 /* LayerTreeInspector.m */; };
-		7FB0E383849A4F098E82CEA65CFD3199 /* LayerTree3DBaseNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A0B864D507D5F59AEFFD98E3F96C254C /* LayerTree3DBaseNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		81808874CD90884B16978A66E6416ED6 /* LTI_editIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = FF3436F7446ED19227C6D6706B9531F8 /* LTI_editIcon@3x.png */; };
-		96C703C258B3E6822367E2A9020773F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		97EBC8CFB95E69D655099FB378026164 /* LayerTreeBaseNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D3CC9FFB051FF562024694A911202FC /* LayerTreeBaseNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D5AA62104FF60210CA6010A2003D2C4 /* LTI_sliderIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 71F96CAD7B710A4EC02572477E68A5D1 /* LTI_sliderIcon@3x.png */; };
-		A2D1E40FC6F69270FAF80CF78F245A9B /* LTI_deleteIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 1CA9DCC8FE798C064E4595F3AF6626D6 /* LTI_deleteIcon@3x.png */; };
-		A887599B620DD1898937579E767A8366 /* LayerTreeView3DDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB66058E8477CFF7BD5C98F15EE2D12 /* LayerTreeView3DDetailCell.m */; };
-		AFBF20C7A3EEC600DC6A73D863935E65 /* LTI_eyeIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 7F1DA65A0B42E2C8FB7A89CD34C7D5BA /* LTI_eyeIcon@2x.png */; };
-		B2C86137036238E0B414D1DA4897BFE0 /* LTI_arrowupIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = B7CFEE31ADC13B1D646522A2E6CD3A17 /* LTI_arrowupIcon@2x.png */; };
-		B907B1559E200CC64D5D5BC44C6D5198 /* LayerTreeInspector.h in Headers */ = {isa = PBXBuildFile; fileRef = 58F9BCA458FEAD09D01E2CF369B21542 /* LayerTreeInspector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BB6D52590754D9F5DC286C9800AA4CFC /* LayerTree3DNodeModelProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 8412DDBB588CB6D8C7EC51C3C19DC262 /* LayerTree3DNodeModelProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C1EEA32CFE78B25758DEB0E2D8E17453 /* LayerTreeInspectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = DD6BEA6A02BE5636F991593FC1C5FCE1 /* LayerTreeInspectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C7DAF8ED1AC333D65C66B1A44A8613C5 /* LayerTreeCustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E967219DB89149FCCE6FE45979AE3B69 /* LayerTreeCustomWindow.m */; };
-		DF66012F41E486D2CF8139FCA5150BD7 /* LTI_refreshIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = B5FBAC45067CB1F9E576BEB84E76CA73 /* LTI_refreshIcon@2x.png */; };
+		5C033A07C5F44BF91763E2F1F52F2E50 /* LayerTreeInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 142085454591B89F3C56DB19AA52AD10 /* LayerTreeInspector.m */; };
+		5C7F5DD7280A4814F177AEC5B40B842B /* LayerTreeBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6B0510A8DCBE097975708CD583A053 /* LayerTreeBaseNode.m */; };
+		5D8CA93EA82A756EDB0A4160D386FA4D /* LayerTreeInspectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBA2544BEF06A72FB98F63453549731 /* LayerTreeInspectionView.m */; };
+		6D7AACE332B138C64D48A60F18142908 /* LayerTreeInspector-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE480590DAD6DA1AD559FC0B6C9A12F /* LayerTreeInspector-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85ABAAE20CF4AD57495F99EC47980FB6 /* LayerTreeDefaultCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4791D9BE80CE9C8093C52B480CE9FB68 /* LayerTreeDefaultCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8AF8893374201565A460A0E6698F707D /* LayerTreeBaseNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D837288B74D84D5B3A26D6A8F3EB3540 /* LayerTreeBaseNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		935C67DD30AD20E3D48DFDF1D10CD8D7 /* LayerTreeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 764027D4816EA5B53DC42EFBF281EB97 /* LayerTreeWindow.m */; };
+		93D7379210B8EEAAF7BD641B88EA7FDD /* LayerTreePodHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C9FEE0986EFE172F1EA4210B8F1BD1B9 /* LayerTreePodHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A192059B68EC62E9AF27EC2AE36BCE6E /* LayerTreeNodeProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D211C8A2AAEE4526BF627967320F35C4 /* LayerTreeNodeProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE140173A28D7A1C66359F3E02AC94ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		E4B2D750639E9C9F6241D76CA71573F8 /* Pods-LayerTreeInspector_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 554297BE6CE7A80202E1F4EA125F3F3E /* Pods-LayerTreeInspector_Example-dummy.m */; };
-		EDA9A4124AE34FF0CE6DA978D7DCD418 /* LayerTreeInspector-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F08D0A8663F4B6AA6DB4B8E89DE27B /* LayerTreeInspector-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F071D3D18DC4EC0BB25BA3306492B7DD /* LayerTreeCustomWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E6A4F5D8367E802DD2A81A0B898AE136 /* LayerTreeCustomWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F2D2BE1151EB628E9C8860D24C69B9BF /* LayerTreeSubImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B2640B7FF2E88840E1E8053EC6C79AF /* LayerTreeSubImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD47AE48C99286058C3624D7091763C1 /* LTI_sliderIcon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = A09B985F6E19CB2CB9F6B332063E9131 /* LTI_sliderIcon@2x.png */; };
-		FD83C3611CF9188D835A0790FADB1040 /* LTI_arrowdownIcon@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 486EB433486B379646132D3676CED82E /* LTI_arrowdownIcon@3x.png */; };
+		F26A0952DCAD7841357383E04BB9B278 /* LayerTreePodHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B1837CCFC6C498FB6923908026A460 /* LayerTreePodHelper.m */; };
+		F27E1F0EE0F8D69C577B7DDFA5462565 /* LayerTree3DCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D34789908BEE4FAA5A171608BF82C1B /* LayerTree3DCell.m */; };
+		F41E621316F8D8C6DB072A0E345226F2 /* LayerTreeInspectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FD059D932043CD340E28D289A275005 /* LayerTreeInspectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FDF4DC0E6114AFE96F6F3CD5EEF890AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		46182910712EDA25E75F66AD4DA766C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E0FF51DB30CE3BDC881C0CC20658DBB;
+			remoteInfo = "LayerTreeInspector-LayerTreeInspector";
+		};
 		82E262EB7D65D5C264F431F5E9FE0AAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -70,87 +63,73 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0110AEDAFBF81047D1C80B4BCB97D404 /* LayerTree3DBaseNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTree3DBaseNode.m; sourceTree = "<group>"; };
 		041590B63A4AFC687934DEAD33E4F7FA /* Pods-LayerTreeInspector_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LayerTreeInspector_Tests-Info.plist"; sourceTree = "<group>"; };
-		0DE6CE3DC56B1ECEA7895280F07B0314 /* Pods_LayerTreeInspector_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_LayerTreeInspector_Tests.framework; path = "Pods-LayerTreeInspector_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F026D918795262FA0EB9278B960A734 /* LTI_eyeIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_eyeIcon@3x.png"; sourceTree = "<group>"; };
-		1AA5FAEF3EF8EB195C6039B2038E7500 /* LayerTreeViewDetailCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeViewDetailCell.h; sourceTree = "<group>"; };
-		1ADB6E4D13F5F000693D443870DE0B8F /* LayerTreeInspectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspectionView.m; sourceTree = "<group>"; };
+		04E5ABBAB2D1E5017007F839D4EC54E4 /* LayerTreeDefaultCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeDefaultCell.m; sourceTree = "<group>"; };
+		0DE6CE3DC56B1ECEA7895280F07B0314 /* Pods_LayerTreeInspector_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LayerTreeInspector_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		142085454591B89F3C56DB19AA52AD10 /* LayerTreeInspector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspector.m; sourceTree = "<group>"; };
 		1C1C39A1E8C1ECDC6279A55F044F342E /* Pods-LayerTreeInspector_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LayerTreeInspector_Example.release.xcconfig"; sourceTree = "<group>"; };
-		1CA9DCC8FE798C064E4595F3AF6626D6 /* LTI_deleteIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_deleteIcon@3x.png"; sourceTree = "<group>"; };
+		1EFA506C2BF41FC27AB51FD9A2DB8E26 /* LayerTreeWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeWindow.h; sourceTree = "<group>"; };
 		1F1FC29E76DD01F6C4DF8B1E50D1E52E /* Pods-LayerTreeInspector_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LayerTreeInspector_Example-Info.plist"; sourceTree = "<group>"; };
-		270911868FB3300E1A2931BBC6CFD53A /* LayerTreeSubImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeSubImageView.m; sourceTree = "<group>"; };
-		27C0FA5D37C48F07A1BF4086B59A445D /* Pods_LayerTreeInspector_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_LayerTreeInspector_Example.framework; path = "Pods-LayerTreeInspector_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B2640B7FF2E88840E1E8053EC6C79AF /* LayerTreeSubImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeSubImageView.h; sourceTree = "<group>"; };
-		2DA095749318E8094EBA7110A4DC6774 /* LayerTreeInspector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspector.m; sourceTree = "<group>"; };
-		31C8081A8A42FFB31EA253050A97810E /* LayerTreeInspector.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LayerTreeInspector.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		27C0FA5D37C48F07A1BF4086B59A445D /* Pods_LayerTreeInspector_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LayerTreeInspector_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C099EB7ACDB053366733FD0CD226781 /* LayerTreeInspector-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LayerTreeInspector-Info.plist"; sourceTree = "<group>"; };
+		2EB69CF57679A39F0A7F5A107B41758D /* LayerTreeInspector-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LayerTreeInspector-dummy.m"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		34AB7ACB118A526C59E17C59224DD974 /* Pods-LayerTreeInspector_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LayerTreeInspector_Tests-umbrella.h"; sourceTree = "<group>"; };
+		35B1CBC759AE1288880538A15DCF6028 /* LayerTreeInspector.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = LayerTreeInspector.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3769D4785DEA64F33847224A157FC791 /* Pods-LayerTreeInspector_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LayerTreeInspector_Tests-dummy.m"; sourceTree = "<group>"; };
 		39FC14EF7BD64CCF417FBAF03B358FD3 /* Pods-LayerTreeInspector_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LayerTreeInspector_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		486EB433486B379646132D3676CED82E /* LTI_arrowdownIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_arrowdownIcon@3x.png"; sourceTree = "<group>"; };
-		49CC1AD652CE47516AA931A4F8ED8400 /* LayerTreeInspector-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LayerTreeInspector-Info.plist"; sourceTree = "<group>"; };
+		3D0AFC84D649CCD3EC591195452A79C4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4791D9BE80CE9C8093C52B480CE9FB68 /* LayerTreeDefaultCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeDefaultCell.h; sourceTree = "<group>"; };
+		549C60A54DF99EDED119DD75CADED390 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		554297BE6CE7A80202E1F4EA125F3F3E /* Pods-LayerTreeInspector_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LayerTreeInspector_Example-dummy.m"; sourceTree = "<group>"; };
-		570372CB76CD4E4A93AF71DB48E11848 /* LayerTreeInspectorProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectorProtocol.h; sourceTree = "<group>"; };
-		58F9BCA458FEAD09D01E2CF369B21542 /* LayerTreeInspector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspector.h; sourceTree = "<group>"; };
-		5FFE9B98F40560662C263D8C581BCDF7 /* LayerTreeAssistMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeAssistMacros.h; sourceTree = "<group>"; };
-		60D22F4EA1AA3A4AAEFA9BEDE46F0EC4 /* LTI_arrowupIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_arrowupIcon@3x.png"; sourceTree = "<group>"; };
-		62209C2D673955B7E248E67A5A0D2E50 /* LTI_deleteIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_deleteIcon@2x.png"; sourceTree = "<group>"; };
-		71F96CAD7B710A4EC02572477E68A5D1 /* LTI_sliderIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_sliderIcon@3x.png"; sourceTree = "<group>"; };
+		586A0B56B06BE04D73A36A593083FD55 /* LayerTreeInspector.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LayerTreeInspector.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		60803ECE21178CAB9E4C8BBB31B81A58 /* LayerTreeImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeImageView.h; sourceTree = "<group>"; };
+		63ED0D7AAFF8FF5CD8EA3646050524C9 /* LayerTreeInspector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspector.h; sourceTree = "<group>"; };
+		6FD059D932043CD340E28D289A275005 /* LayerTreeInspectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectionView.h; sourceTree = "<group>"; };
+		764027D4816EA5B53DC42EFBF281EB97 /* LayerTreeWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeWindow.m; sourceTree = "<group>"; };
 		7A62187819BA99868B42F922CF680AA8 /* Pods-LayerTreeInspector_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LayerTreeInspector_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		7EEC32B0EF69BF7D33E0B79D81F96A10 /* Pods-LayerTreeInspector_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LayerTreeInspector_Example-umbrella.h"; sourceTree = "<group>"; };
-		7F1DA65A0B42E2C8FB7A89CD34C7D5BA /* LTI_eyeIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_eyeIcon@2x.png"; sourceTree = "<group>"; };
-		8412DDBB588CB6D8C7EC51C3C19DC262 /* LayerTree3DNodeModelProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTree3DNodeModelProtocol.h; sourceTree = "<group>"; };
-		8783379C467FB862716C688B14F98F3F /* LayerTreeNodeModelProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeNodeModelProtocol.h; sourceTree = "<group>"; };
+		82392C55AAAE184B3BE8098AE5444104 /* LayerTreeImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeImageView.m; sourceTree = "<group>"; };
 		8B6BB8EEDA86598756FE6EF4A9048D0F /* Pods-LayerTreeInspector_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LayerTreeInspector_Tests.modulemap"; sourceTree = "<group>"; };
-		8B977A2CECA09AE22B51B21BDBC2A279 /* LayerTreeInspector-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LayerTreeInspector-prefix.pch"; sourceTree = "<group>"; };
-		8D3CC9FFB051FF562024694A911202FC /* LayerTreeBaseNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeBaseNode.h; sourceTree = "<group>"; };
-		8F8184E24B1C93769C2CA939CAA84850 /* LayerTreeInspector.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LayerTreeInspector.xcconfig; sourceTree = "<group>"; };
+		9161FE3217B467770CF19A0EA89C9B77 /* LayerTreeInspector-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LayerTreeInspector-prefix.pch"; sourceTree = "<group>"; };
 		92F689650851AEA137B5BA5CA632582A /* Pods-LayerTreeInspector_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LayerTreeInspector_Example-frameworks.sh"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F3A114CC58A67D26F03CBD3E8DA0A8C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		A08D75694284EB3548407FC32E359DCA /* LayerTreeInspector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LayerTreeInspector.framework; path = LayerTreeInspector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A09B985F6E19CB2CB9F6B332063E9131 /* LTI_sliderIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_sliderIcon@2x.png"; sourceTree = "<group>"; };
-		A0B864D507D5F59AEFFD98E3F96C254C /* LayerTree3DBaseNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTree3DBaseNode.h; sourceTree = "<group>"; };
-		B55ECB1ACB1BCB4DDDE17F1883F1609F /* LTI_arrowdownIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_arrowdownIcon@2x.png"; sourceTree = "<group>"; };
-		B5FBAC45067CB1F9E576BEB84E76CA73 /* LTI_refreshIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_refreshIcon@2x.png"; sourceTree = "<group>"; };
-		B7CFEE31ADC13B1D646522A2E6CD3A17 /* LTI_arrowupIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_arrowupIcon@2x.png"; sourceTree = "<group>"; };
-		B84B32EC7EF91D0F15C0698AC69B8F54 /* LayerTreeInspector.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LayerTreeInspector.modulemap; sourceTree = "<group>"; };
+		9D34789908BEE4FAA5A171608BF82C1B /* LayerTree3DCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTree3DCell.m; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A08D75694284EB3548407FC32E359DCA /* LayerTreeInspector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LayerTreeInspector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LayerTreeInspector.xcconfig; sourceTree = "<group>"; };
+		A7B1837CCFC6C498FB6923908026A460 /* LayerTreePodHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreePodHelper.m; sourceTree = "<group>"; };
+		A901955B91E9672BAB97FBD87DFA0BC0 /* LayerTree3DCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTree3DCell.h; sourceTree = "<group>"; };
+		AB6B0510A8DCBE097975708CD583A053 /* LayerTreeBaseNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBaseNode.m; sourceTree = "<group>"; };
+		B17DEC2DA00BFFFD3776D06695958CC0 /* ResourceBundle-LayerTreeInspector-LayerTreeInspector-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-LayerTreeInspector-LayerTreeInspector-Info.plist"; sourceTree = "<group>"; };
+		B40CFD60E4336CECCEDB914635A52F14 /* LayerTreeInspector.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LayerTreeInspector.modulemap; sourceTree = "<group>"; };
+		B65AC7E5A0FB88EF78D05B1B2A69E893 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = LayerTreeInspector/Assets/Assets.xcassets; sourceTree = "<group>"; };
 		B8D1BB540C2C804AC16C7A03EA0BA0F1 /* Pods-LayerTreeInspector_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LayerTreeInspector_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B947716264FE7B9195BC9DA643A512FC /* LayerTreeViewDetailCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeViewDetailCell.m; sourceTree = "<group>"; };
-		BE763FBEA8A97CCAFCC83525BA139294 /* LTI_refreshIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_refreshIcon@3x.png"; sourceTree = "<group>"; };
-		C4DBDECE85E9C12D112FBF0DCD1320F6 /* LayerTreeBaseNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeBaseNode.m; sourceTree = "<group>"; };
+		BBBA2544BEF06A72FB98F63453549731 /* LayerTreeInspectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeInspectionView.m; sourceTree = "<group>"; };
 		C84881BE3015BC69F6A7245BA3B2926F /* Pods-LayerTreeInspector_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LayerTreeInspector_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		D2165CC0C628E0831EB037BD4C34164C /* LTI_editIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_editIcon@2x.png"; sourceTree = "<group>"; };
-		D6F08D0A8663F4B6AA6DB4B8E89DE27B /* LayerTreeInspector-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LayerTreeInspector-umbrella.h"; sourceTree = "<group>"; };
+		C9FEE0986EFE172F1EA4210B8F1BD1B9 /* LayerTreePodHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreePodHelper.h; sourceTree = "<group>"; };
+		D211C8A2AAEE4526BF627967320F35C4 /* LayerTreeNodeProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeNodeProtocol.h; sourceTree = "<group>"; };
 		D7D8CAD747E4D2BEC6758BBF480AFEFA /* Pods-LayerTreeInspector_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LayerTreeInspector_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		DB9C600A61604D86671F033A12BE902D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D837288B74D84D5B3A26D6A8F3EB3540 /* LayerTreeBaseNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeBaseNode.h; sourceTree = "<group>"; };
 		DC27A019AF0E8FB5CE3B2E0F0C2F2B03 /* Pods-LayerTreeInspector_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LayerTreeInspector_Example.modulemap"; sourceTree = "<group>"; };
-		DD6BEA6A02BE5636F991593FC1C5FCE1 /* LayerTreeInspectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeInspectionView.h; sourceTree = "<group>"; };
 		E0963E8020CFFCF0259EBCAC5440FEDA /* Pods-LayerTreeInspector_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LayerTreeInspector_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		E47836A555582A0848564EFC2F2C471D /* LayerTreeInspector-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LayerTreeInspector-dummy.m"; sourceTree = "<group>"; };
-		E6A4F5D8367E802DD2A81A0B898AE136 /* LayerTreeCustomWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeCustomWindow.h; sourceTree = "<group>"; };
-		E967219DB89149FCCE6FE45979AE3B69 /* LayerTreeCustomWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeCustomWindow.m; sourceTree = "<group>"; };
 		EA4523A950C8102CE70C6B2C3DD21329 /* Pods-LayerTreeInspector_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LayerTreeInspector_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		EBB66058E8477CFF7BD5C98F15EE2D12 /* LayerTreeView3DDetailCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LayerTreeView3DDetailCell.m; sourceTree = "<group>"; };
-		FC607EE5677635885149CBB001738155 /* LayerTreeView3DDetailCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeView3DDetailCell.h; sourceTree = "<group>"; };
-		FF3436F7446ED19227C6D6706B9531F8 /* LTI_editIcon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LTI_editIcon@3x.png"; sourceTree = "<group>"; };
+		EEE480590DAD6DA1AD559FC0B6C9A12F /* LayerTreeInspector-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LayerTreeInspector-umbrella.h"; sourceTree = "<group>"; };
+		F92C880A9722857F94C1671AEEB175DC /* LayerTreeMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LayerTreeMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		568AED7DDCBA75C2E68CC891FA1ECA51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57579D2F14ED7B94319C3DE281654539 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0835871ABADE9A2CA74A25B1DDB04642 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		70680982F7D7952FA6C4C30BE71E149F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				96C703C258B3E6822367E2A9020773F9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,25 +141,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2657DC6D639744A1CD536F80D52C8BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE140173A28D7A1C66359F3E02AC94ED /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0125211379BEAA07D9C661BAE6DA996C /* InspectionView */ = {
+		085625927F46328B848BE3367D38C41A /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				E6A4F5D8367E802DD2A81A0B898AE136 /* LayerTreeCustomWindow.h */,
-				E967219DB89149FCCE6FE45979AE3B69 /* LayerTreeCustomWindow.m */,
-				DD6BEA6A02BE5636F991593FC1C5FCE1 /* LayerTreeInspectionView.h */,
-				1ADB6E4D13F5F000693D443870DE0B8F /* LayerTreeInspectionView.m */,
-				2B2640B7FF2E88840E1E8053EC6C79AF /* LayerTreeSubImageView.h */,
-				270911868FB3300E1A2931BBC6CFD53A /* LayerTreeSubImageView.m */,
-				FC607EE5677635885149CBB001738155 /* LayerTreeView3DDetailCell.h */,
-				EBB66058E8477CFF7BD5C98F15EE2D12 /* LayerTreeView3DDetailCell.m */,
-				1AA5FAEF3EF8EB195C6039B2038E7500 /* LayerTreeViewDetailCell.h */,
-				B947716264FE7B9195BC9DA643A512FC /* LayerTreeViewDetailCell.m */,
+				D211C8A2AAEE4526BF627967320F35C4 /* LayerTreeNodeProtocol.h */,
 			);
-			name = InspectionView;
-			path = LayerTreeInspector/Classes/InspectionView;
+			name = Protocol;
+			path = LayerTreeInspector/Classes/Protocol;
+			sourceTree = "<group>";
+		};
+		1BE66CDBA2B392B073F1D5F9DA770E97 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A901955B91E9672BAB97FBD87DFA0BC0 /* LayerTree3DCell.h */,
+				9D34789908BEE4FAA5A171608BF82C1B /* LayerTree3DCell.m */,
+				4791D9BE80CE9C8093C52B480CE9FB68 /* LayerTreeDefaultCell.h */,
+				04E5ABBAB2D1E5017007F839D4EC54E4 /* LayerTreeDefaultCell.m */,
+				60803ECE21178CAB9E4C8BBB31B81A58 /* LayerTreeImageView.h */,
+				82392C55AAAE184B3BE8098AE5444104 /* LayerTreeImageView.m */,
+				6FD059D932043CD340E28D289A275005 /* LayerTreeInspectionView.h */,
+				BBBA2544BEF06A72FB98F63453549731 /* LayerTreeInspectionView.m */,
+				1EFA506C2BF41FC27AB51FD9A2DB8E26 /* LayerTreeWindow.h */,
+				764027D4816EA5B53DC42EFBF281EB97 /* LayerTreeWindow.m */,
+			);
+			name = View;
+			path = LayerTreeInspector/Classes/View;
+			sourceTree = "<group>";
+		};
+		237ABAB3551046C8A785EA178FE85D64 /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				D837288B74D84D5B3A26D6A8F3EB3540 /* LayerTreeBaseNode.h */,
+				AB6B0510A8DCBE097975708CD583A053 /* LayerTreeBaseNode.m */,
+				63ED0D7AAFF8FF5CD8EA3646050524C9 /* LayerTreeInspector.h */,
+				142085454591B89F3C56DB19AA52AD10 /* LayerTreeInspector.m */,
+			);
+			name = Inspector;
+			path = LayerTreeInspector/Classes/Inspector;
 			sourceTree = "<group>";
 		};
 		2E83612FD8D8F329833DF37E8CCB8C47 /* Pods-LayerTreeInspector_Tests */ = {
@@ -197,47 +205,6 @@
 			);
 			name = "Pods-LayerTreeInspector_Tests";
 			path = "Target Support Files/Pods-LayerTreeInspector_Tests";
-			sourceTree = "<group>";
-		};
-		33D7A40FA78FFCBD429251DA62945B19 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				31C8081A8A42FFB31EA253050A97810E /* LayerTreeInspector.podspec */,
-				9F3A114CC58A67D26F03CBD3E8DA0A8C /* LICENSE */,
-				DB9C600A61604D86671F033A12BE902D /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		45F6E8BBD595259ABBAFF4B383E00EEE /* Inspector */ = {
-			isa = PBXGroup;
-			children = (
-				A0B864D507D5F59AEFFD98E3F96C254C /* LayerTree3DBaseNode.h */,
-				0110AEDAFBF81047D1C80B4BCB97D404 /* LayerTree3DBaseNode.m */,
-				8412DDBB588CB6D8C7EC51C3C19DC262 /* LayerTree3DNodeModelProtocol.h */,
-				5FFE9B98F40560662C263D8C581BCDF7 /* LayerTreeAssistMacros.h */,
-				8D3CC9FFB051FF562024694A911202FC /* LayerTreeBaseNode.h */,
-				C4DBDECE85E9C12D112FBF0DCD1320F6 /* LayerTreeBaseNode.m */,
-				58F9BCA458FEAD09D01E2CF369B21542 /* LayerTreeInspector.h */,
-				2DA095749318E8094EBA7110A4DC6774 /* LayerTreeInspector.m */,
-				570372CB76CD4E4A93AF71DB48E11848 /* LayerTreeInspectorProtocol.h */,
-				8783379C467FB862716C688B14F98F3F /* LayerTreeNodeModelProtocol.h */,
-			);
-			name = Inspector;
-			path = LayerTreeInspector/Classes/Inspector;
-			sourceTree = "<group>";
-		};
-		5FDF37FEE3B0EA27E459354B27B4B383 /* LayerTreeInspector */ = {
-			isa = PBXGroup;
-			children = (
-				0125211379BEAA07D9C661BAE6DA996C /* InspectionView */,
-				45F6E8BBD595259ABBAFF4B383E00EEE /* Inspector */,
-				F1C7BE8481321414CDD1E9936D214706 /* LayerTreeAsset.bundle */,
-				33D7A40FA78FFCBD429251DA62945B19 /* Pod */,
-				C9B968E0245D17AB8431BB9069FC8F76 /* Support Files */,
-			);
-			name = LayerTreeInspector;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		854BC726B4C48BC181649BF5CA7E3E2D /* Pods-LayerTreeInspector_Example */ = {
@@ -257,14 +224,6 @@
 			path = "Target Support Files/Pods-LayerTreeInspector_Example";
 			sourceTree = "<group>";
 		};
-		8E94B73754A753393D49FB74B3787275 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5FDF37FEE3B0EA27E459354B27B4B383 /* LayerTreeInspector */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		98896D2877CD6E831FE7FEE878D26C4D /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +231,31 @@
 				2E83612FD8D8F329833DF37E8CCB8C47 /* Pods-LayerTreeInspector_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9894BA6037F3AC206668383DC60EB2F4 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				35B1CBC759AE1288880538A15DCF6028 /* LayerTreeInspector.podspec */,
+				3D0AFC84D649CCD3EC591195452A79C4 /* LICENSE */,
+				549C60A54DF99EDED119DD75CADED390 /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		A95CA3C6B902003FD8931D43473F8872 /* LayerTreeInspector */ = {
+			isa = PBXGroup;
+			children = (
+				F60B31C55E4DFCB99E78E331C8469C81 /* Assist */,
+				1BE66CDBA2B392B073F1D5F9DA770E97 /* View */,
+				237ABAB3551046C8A785EA178FE85D64 /* Inspector */,
+				9894BA6037F3AC206668383DC60EB2F4 /* Pod */,
+				085625927F46328B848BE3367D38C41A /* Protocol */,
+				C76E091CACF97CB8CB229DCFB5540EC2 /* Resources */,
+				F80ED6EF56CF31A8398B6860FB87EECC /* Support Files */,
+			);
+			name = LayerTreeInspector;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -282,27 +266,29 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		C9B968E0245D17AB8431BB9069FC8F76 /* Support Files */ = {
+		C73639891D72BEC804EDEB1035C69E3D /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B84B32EC7EF91D0F15C0698AC69B8F54 /* LayerTreeInspector.modulemap */,
-				8F8184E24B1C93769C2CA939CAA84850 /* LayerTreeInspector.xcconfig */,
-				E47836A555582A0848564EFC2F2C471D /* LayerTreeInspector-dummy.m */,
-				49CC1AD652CE47516AA931A4F8ED8400 /* LayerTreeInspector-Info.plist */,
-				8B977A2CECA09AE22B51B21BDBC2A279 /* LayerTreeInspector-prefix.pch */,
-				D6F08D0A8663F4B6AA6DB4B8E89DE27B /* LayerTreeInspector-umbrella.h */,
+				A95CA3C6B902003FD8931D43473F8872 /* LayerTreeInspector */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/LayerTreeInspector";
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		C76E091CACF97CB8CB229DCFB5540EC2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B65AC7E5A0FB88EF78D05B1B2A69E893 /* Assets.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				8E94B73754A753393D49FB74B3787275 /* Development Pods */,
+				C73639891D72BEC804EDEB1035C69E3D /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				F817A6822D681CD10C2F5F6BE996D7E6 /* Products */,
+				EFC8C57F07278643EA62A16F89FF345D /* Products */,
 				98896D2877CD6E831FE7FEE878D26C4D /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -315,31 +301,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F1C7BE8481321414CDD1E9936D214706 /* LayerTreeAsset.bundle */ = {
+		EFC8C57F07278643EA62A16F89FF345D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B55ECB1ACB1BCB4DDDE17F1883F1609F /* LTI_arrowdownIcon@2x.png */,
-				486EB433486B379646132D3676CED82E /* LTI_arrowdownIcon@3x.png */,
-				B7CFEE31ADC13B1D646522A2E6CD3A17 /* LTI_arrowupIcon@2x.png */,
-				60D22F4EA1AA3A4AAEFA9BEDE46F0EC4 /* LTI_arrowupIcon@3x.png */,
-				62209C2D673955B7E248E67A5A0D2E50 /* LTI_deleteIcon@2x.png */,
-				1CA9DCC8FE798C064E4595F3AF6626D6 /* LTI_deleteIcon@3x.png */,
-				D2165CC0C628E0831EB037BD4C34164C /* LTI_editIcon@2x.png */,
-				FF3436F7446ED19227C6D6706B9531F8 /* LTI_editIcon@3x.png */,
-				7F1DA65A0B42E2C8FB7A89CD34C7D5BA /* LTI_eyeIcon@2x.png */,
-				0F026D918795262FA0EB9278B960A734 /* LTI_eyeIcon@3x.png */,
-				B5FBAC45067CB1F9E576BEB84E76CA73 /* LTI_refreshIcon@2x.png */,
-				BE763FBEA8A97CCAFCC83525BA139294 /* LTI_refreshIcon@3x.png */,
-				A09B985F6E19CB2CB9F6B332063E9131 /* LTI_sliderIcon@2x.png */,
-				71F96CAD7B710A4EC02572477E68A5D1 /* LTI_sliderIcon@3x.png */,
-			);
-			name = LayerTreeAsset.bundle;
-			path = LayerTreeInspector/Classes/LayerTreeAsset.bundle;
-			sourceTree = "<group>";
-		};
-		F817A6822D681CD10C2F5F6BE996D7E6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
+				586A0B56B06BE04D73A36A593083FD55 /* LayerTreeInspector.bundle */,
 				A08D75694284EB3548407FC32E359DCA /* LayerTreeInspector.framework */,
 				27C0FA5D37C48F07A1BF4086B59A445D /* Pods_LayerTreeInspector_Example.framework */,
 				0DE6CE3DC56B1ECEA7895280F07B0314 /* Pods_LayerTreeInspector_Tests.framework */,
@@ -347,34 +312,58 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F60B31C55E4DFCB99E78E331C8469C81 /* Assist */ = {
+			isa = PBXGroup;
+			children = (
+				F92C880A9722857F94C1671AEEB175DC /* LayerTreeMacros.h */,
+				C9FEE0986EFE172F1EA4210B8F1BD1B9 /* LayerTreePodHelper.h */,
+				A7B1837CCFC6C498FB6923908026A460 /* LayerTreePodHelper.m */,
+			);
+			name = Assist;
+			path = LayerTreeInspector/Classes/Assist;
+			sourceTree = "<group>";
+		};
+		F80ED6EF56CF31A8398B6860FB87EECC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B40CFD60E4336CECCEDB914635A52F14 /* LayerTreeInspector.modulemap */,
+				A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */,
+				2EB69CF57679A39F0A7F5A107B41758D /* LayerTreeInspector-dummy.m */,
+				2C099EB7ACDB053366733FD0CD226781 /* LayerTreeInspector-Info.plist */,
+				9161FE3217B467770CF19A0EA89C9B77 /* LayerTreeInspector-prefix.pch */,
+				EEE480590DAD6DA1AD559FC0B6C9A12F /* LayerTreeInspector-umbrella.h */,
+				B17DEC2DA00BFFFD3776D06695958CC0 /* ResourceBundle-LayerTreeInspector-LayerTreeInspector-Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/LayerTreeInspector";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1CDFC9AED6B8BF5A23054817D2F7A624 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4763118EF5718C18C2AFEF6D06786935 /* LayerTree3DCell.h in Headers */,
+				8AF8893374201565A460A0E6698F707D /* LayerTreeBaseNode.h in Headers */,
+				85ABAAE20CF4AD57495F99EC47980FB6 /* LayerTreeDefaultCell.h in Headers */,
+				237AB3256ADEAA21488DE9A7BE7B205E /* LayerTreeImageView.h in Headers */,
+				F41E621316F8D8C6DB072A0E345226F2 /* LayerTreeInspectionView.h in Headers */,
+				6D7AACE332B138C64D48A60F18142908 /* LayerTreeInspector-umbrella.h in Headers */,
+				25DC5BBEBDAA9FBACD094BB38C0B5173 /* LayerTreeInspector.h in Headers */,
+				42B91BAAABF8F1769330674F756CFCEC /* LayerTreeMacros.h in Headers */,
+				A192059B68EC62E9AF27EC2AE36BCE6E /* LayerTreeNodeProtocol.h in Headers */,
+				93D7379210B8EEAAF7BD641B88EA7FDD /* LayerTreePodHelper.h in Headers */,
+				3E93E469934B49AC0A7085248B627041 /* LayerTreeWindow.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		960D2529E0C4D19B92D19392BDCAC4C3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2937223DDDC0831F0A3215B23DAE1D70 /* Pods-LayerTreeInspector_Tests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A23E16A7769445FD7C0C2741FE407F3B /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7FB0E383849A4F098E82CEA65CFD3199 /* LayerTree3DBaseNode.h in Headers */,
-				BB6D52590754D9F5DC286C9800AA4CFC /* LayerTree3DNodeModelProtocol.h in Headers */,
-				2ED937ABFB7CD9D7F4117B2118DEDAF7 /* LayerTreeAssistMacros.h in Headers */,
-				97EBC8CFB95E69D655099FB378026164 /* LayerTreeBaseNode.h in Headers */,
-				F071D3D18DC4EC0BB25BA3306492B7DD /* LayerTreeCustomWindow.h in Headers */,
-				C1EEA32CFE78B25758DEB0E2D8E17453 /* LayerTreeInspectionView.h in Headers */,
-				EDA9A4124AE34FF0CE6DA978D7DCD418 /* LayerTreeInspector-umbrella.h in Headers */,
-				B907B1559E200CC64D5D5BC44C6D5198 /* LayerTreeInspector.h in Headers */,
-				29BCD86330A7131AC04044201C5D2B6A /* LayerTreeInspectorProtocol.h in Headers */,
-				002150A8FC7BA88834B5F48AD9276067 /* LayerTreeNodeModelProtocol.h in Headers */,
-				F2D2BE1151EB628E9C8860D24C69B9BF /* LayerTreeSubImageView.h in Headers */,
-				36A41B9074D1A4A9DD84B54F78D64184 /* LayerTreeView3DDetailCell.h in Headers */,
-				5B232F94664636D57F94905032041F9F /* LayerTreeViewDetailCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +378,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1E0FF51DB30CE3BDC881C0CC20658DBB /* LayerTreeInspector-LayerTreeInspector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E6703A7BD73B652D140D48E8F6FF27D /* Build configuration list for PBXNativeTarget "LayerTreeInspector-LayerTreeInspector" */;
+			buildPhases = (
+				5263832848390A96142B7DA799EAD65F /* Sources */,
+				568AED7DDCBA75C2E68CC891FA1ECA51 /* Frameworks */,
+				ADC21F56E6EFFEC2292395FB979A8547 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LayerTreeInspector-LayerTreeInspector";
+			productName = "LayerTreeInspector-LayerTreeInspector";
+			productReference = 586A0B56B06BE04D73A36A593083FD55 /* LayerTreeInspector.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		39EDDF97DD0715E5DED8A68EFAD68848 /* Pods-LayerTreeInspector_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 480E882BCB6B6C5A201B6C7D691863F9 /* Build configuration list for PBXNativeTarget "Pods-LayerTreeInspector_Example" */;
@@ -410,16 +416,17 @@
 		};
 		6296AFBC5AE970B8229068D6F24F873B /* LayerTreeInspector */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F4F7959FC40FA163A51C4395BC0E0066 /* Build configuration list for PBXNativeTarget "LayerTreeInspector" */;
+			buildConfigurationList = BF3EE43DFD534C15775A782FF7080D12 /* Build configuration list for PBXNativeTarget "LayerTreeInspector" */;
 			buildPhases = (
-				A23E16A7769445FD7C0C2741FE407F3B /* Headers */,
-				1C3A1D6DCF4BF4AA8FF93798FECF2B39 /* Sources */,
-				70680982F7D7952FA6C4C30BE71E149F /* Frameworks */,
-				9A15604DABFE0C73624FA37B2F0779CD /* Resources */,
+				1CDFC9AED6B8BF5A23054817D2F7A624 /* Headers */,
+				F85DA546E4FEFDFDA0D9E40E12C6B110 /* Sources */,
+				C2657DC6D639744A1CD536F80D52C8BE /* Frameworks */,
+				53CA7352F9555821BB436470FB86AC5B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D62CCDF3E95BC0AD7DA81CD33D6FCB47 /* PBXTargetDependency */,
 			);
 			name = LayerTreeInspector;
 			productName = LayerTreeInspector;
@@ -463,11 +470,12 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = F817A6822D681CD10C2F5F6BE996D7E6 /* Products */;
+			productRefGroup = EFC8C57F07278643EA62A16F89FF345D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				6296AFBC5AE970B8229068D6F24F873B /* LayerTreeInspector */,
+				1E0FF51DB30CE3BDC881C0CC20658DBB /* LayerTreeInspector-LayerTreeInspector */,
 				39EDDF97DD0715E5DED8A68EFAD68848 /* Pods-LayerTreeInspector_Example */,
 				DF31703BCD892AD5E41784245C3B0E7E /* Pods-LayerTreeInspector_Tests */,
 			);
@@ -482,6 +490,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		53CA7352F9555821BB436470FB86AC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA11697D66BD9BCC5769E5BDA8EC472 /* LayerTreeInspector.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9740E27DA1616CF767505A4DA62F2460 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -489,10 +505,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A15604DABFE0C73624FA37B2F0779CD /* Resources */ = {
+		ADC21F56E6EFFEC2292395FB979A8547 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3686B8EF898EA2DFBD2356F6872FF4A1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,33 +524,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1C3A1D6DCF4BF4AA8FF93798FECF2B39 /* Sources */ = {
+		5263832848390A96142B7DA799EAD65F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AB3462B36A95C19D73214AF66311560 /* LayerTree3DBaseNode.m in Sources */,
-				563F17A14D7C228F4859060008EC626A /* LayerTreeBaseNode.m in Sources */,
-				C7DAF8ED1AC333D65C66B1A44A8613C5 /* LayerTreeCustomWindow.m in Sources */,
-				431822EEB679E1DA1DC157F5D5E1217A /* LayerTreeInspectionView.m in Sources */,
-				0D384325BBAE8E513AED5B81FA90A04A /* LayerTreeInspector-dummy.m in Sources */,
-				7D5A4DF5BC8D52A7A95FFD7705CFEC81 /* LayerTreeInspector.m in Sources */,
-				5043A223A3168710EC5A9F18A09EDF3A /* LayerTreeSubImageView.m in Sources */,
-				A887599B620DD1898937579E767A8366 /* LayerTreeView3DDetailCell.m in Sources */,
-				7069DB0C7CA58CE97E6279B637F96797 /* LayerTreeViewDetailCell.m in Sources */,
-				5D2445B22CFE0758E00CF6C4D1AAE9BF /* LTI_arrowdownIcon@2x.png in Sources */,
-				FD83C3611CF9188D835A0790FADB1040 /* LTI_arrowdownIcon@3x.png in Sources */,
-				B2C86137036238E0B414D1DA4897BFE0 /* LTI_arrowupIcon@2x.png in Sources */,
-				775DF1644194F441B0CA241A6F2F8ACB /* LTI_arrowupIcon@3x.png in Sources */,
-				6BC4CEE46A9F29AB264254E066B28E15 /* LTI_deleteIcon@2x.png in Sources */,
-				A2D1E40FC6F69270FAF80CF78F245A9B /* LTI_deleteIcon@3x.png in Sources */,
-				1E6D2C11B3EE851BD7038E85EA9ADEE3 /* LTI_editIcon@2x.png in Sources */,
-				81808874CD90884B16978A66E6416ED6 /* LTI_editIcon@3x.png in Sources */,
-				AFBF20C7A3EEC600DC6A73D863935E65 /* LTI_eyeIcon@2x.png in Sources */,
-				66DD9B5B6D830EEA65E9B035A7F2DAE9 /* LTI_eyeIcon@3x.png in Sources */,
-				DF66012F41E486D2CF8139FCA5150BD7 /* LTI_refreshIcon@2x.png in Sources */,
-				121CB2763BBDC81BBA187BCF2FEFF4D5 /* LTI_refreshIcon@3x.png in Sources */,
-				FD47AE48C99286058C3624D7091763C1 /* LTI_sliderIcon@2x.png in Sources */,
-				9D5AA62104FF60210CA6010A2003D2C4 /* LTI_sliderIcon@3x.png in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +536,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B2D750639E9C9F6241D76CA71573F8 /* Pods-LayerTreeInspector_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F85DA546E4FEFDFDA0D9E40E12C6B110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F27E1F0EE0F8D69C577B7DDFA5462565 /* LayerTree3DCell.m in Sources */,
+				5C7F5DD7280A4814F177AEC5B40B842B /* LayerTreeBaseNode.m in Sources */,
+				2CED0B5CECC2DEEE8DC35348DC82F7B6 /* LayerTreeDefaultCell.m in Sources */,
+				3BBE5458CAAC8C4753F79E4ED67BBC7C /* LayerTreeImageView.m in Sources */,
+				5D8CA93EA82A756EDB0A4160D386FA4D /* LayerTreeInspectionView.m in Sources */,
+				183911F631A2F629A1AED5B9A51FEAA3 /* LayerTreeInspector-dummy.m in Sources */,
+				5C033A07C5F44BF91763E2F1F52F2E50 /* LayerTreeInspector.m in Sources */,
+				F26A0952DCAD7841357383E04BB9B278 /* LayerTreePodHelper.m in Sources */,
+				935C67DD30AD20E3D48DFDF1D10CD8D7 /* LayerTreeWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,39 +570,15 @@
 			target = 6296AFBC5AE970B8229068D6F24F873B /* LayerTreeInspector */;
 			targetProxy = E2B36449CE512B962A69DAAB878B966F /* PBXContainerItemProxy */;
 		};
+		D62CCDF3E95BC0AD7DA81CD33D6FCB47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "LayerTreeInspector-LayerTreeInspector";
+			target = 1E0FF51DB30CE3BDC881C0CC20658DBB /* LayerTreeInspector-LayerTreeInspector */;
+			targetProxy = 46182910712EDA25E75F66AD4DA766C1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		4ACBD1C311ACB6C98F36DDF24FF82C1D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F8184E24B1C93769C2CA939CAA84850 /* LayerTreeInspector.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/LayerTreeInspector/LayerTreeInspector-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/LayerTreeInspector/LayerTreeInspector-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/LayerTreeInspector/LayerTreeInspector.modulemap";
-				PRODUCT_MODULE_NAME = LayerTreeInspector;
-				PRODUCT_NAME = LayerTreeInspector;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		60A3014512658210BB4692DEFF41FE31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39FC14EF7BD64CCF417FBAF03B358FD3 /* Pods-LayerTreeInspector_Example.debug.xcconfig */;
@@ -623,6 +609,71 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		63C544360DF92746266BC3AF39E2699B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/LayerTreeInspector/LayerTreeInspector-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LayerTreeInspector/LayerTreeInspector-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/LayerTreeInspector/LayerTreeInspector.modulemap";
+				PRODUCT_MODULE_NAME = LayerTreeInspector;
+				PRODUCT_NAME = LayerTreeInspector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6CC96619DA7D64CB057CA8342F3C560E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/LayerTreeInspector";
+				IBSC_MODULE = LayerTreeInspector;
+				INFOPLIST_FILE = "Target Support Files/LayerTreeInspector/ResourceBundle-LayerTreeInspector-LayerTreeInspector-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = LayerTreeInspector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		9084F7E546928B121B88E5F520E09E03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/LayerTreeInspector";
+				IBSC_MODULE = LayerTreeInspector;
+				INFOPLIST_FILE = "Target Support Files/LayerTreeInspector/ResourceBundle-LayerTreeInspector-LayerTreeInspector-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = LayerTreeInspector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -679,8 +730,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -851,9 +901,9 @@
 			};
 			name = Debug;
 		};
-		F7D85A5352C30FCAD154D5B63C7B46FF /* Release */ = {
+		E41080565D0A1F22288868B2557B3EB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F8184E24B1C93769C2CA939CAA84850 /* LayerTreeInspector.xcconfig */;
+			baseConfigurationReference = A710EA9A4AF25C3BF98A8D190E1265D9 /* LayerTreeInspector.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -876,11 +926,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -912,11 +961,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F4F7959FC40FA163A51C4395BC0E0066 /* Build configuration list for PBXNativeTarget "LayerTreeInspector" */ = {
+		7E6703A7BD73B652D140D48E8F6FF27D /* Build configuration list for PBXNativeTarget "LayerTreeInspector-LayerTreeInspector" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4ACBD1C311ACB6C98F36DDF24FF82C1D /* Debug */,
-				F7D85A5352C30FCAD154D5B63C7B46FF /* Release */,
+				9084F7E546928B121B88E5F520E09E03 /* Debug */,
+				6CC96619DA7D64CB057CA8342F3C560E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF3EE43DFD534C15775A782FF7080D12 /* Build configuration list for PBXNativeTarget "LayerTreeInspector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E41080565D0A1F22288868B2557B3EB1 /* Debug */,
+				63C544360DF92746266BC3AF39E2699B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

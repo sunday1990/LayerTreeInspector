@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LayerTreeInspectorProtocol.h"
 
-@interface LayerTreeInspector : NSObject<LayerTreeInspectorProtocol>
+@interface LayerTreeInspector : NSObject
 /**
- 展示DebugView
+ 在window创建后，调用该方法
  */
 + (void)showDebugView;
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LayerTreeNodeModelProtocol.h"
-@interface LayerTreeBaseNode : NSObject<LayerTreeNodeModelProtocol>
+#import "LayerTreeNodeProtocol.h"
+@interface LayerTreeBaseNode : NSObject<LayerTreeNodeProtocol>
 
 @end

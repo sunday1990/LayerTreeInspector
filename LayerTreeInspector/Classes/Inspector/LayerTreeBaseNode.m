@@ -12,7 +12,7 @@ CGFloat layerTreeHeight;
 CGFloat layerTreetempNodeLevel;
 
 #pragma mark 获取根节点
-static inline id<LayerTreeNodeModelProtocol>RecursiveGetRootNodeWithNode(id<LayerTreeNodeModelProtocol> node){
+static inline id<LayerTreeNodeProtocol>RecursiveGetRootNodeWithNode(id<LayerTreeNodeProtocol> node){
     if (node.fatherNode == node) {
         node.expand = YES;
         return node;
@@ -24,14 +24,14 @@ static inline id<LayerTreeNodeModelProtocol>RecursiveGetRootNodeWithNode(id<Laye
 }
 
 #pragma mark 根据根节点获取树的高度
-static inline void RecursiveCalculateTreeHeightWithRootNode(id<LayerTreeNodeModelProtocol> rootNode){
+static inline void RecursiveCalculateTreeHeightWithRootNode(id<LayerTreeNodeProtocol> rootNode){
     if (rootNode.subNodes.count == 0||!rootNode.isExpand) {
         return ;
     }
     if (!isnan(rootNode.subTreeHeight)) {
         layerTreeHeight += rootNode.subTreeHeight;
     }
-    for (id<LayerTreeNodeModelProtocol>obj in rootNode.subNodes) {
+    for (id<LayerTreeNodeProtocol>obj in rootNode.subNodes) {
         RecursiveCalculateTreeHeightWithRootNode(obj);
     }
 }
@@ -49,9 +49,9 @@ subTreeHeight = _subTreeHeight,
 expand = _expand,
 currentTreeHeight = _currentTreeHeight,
 nodeLevel = _nodeLevel,
-LayerTreeNodeView = _LayerTreeNodeView,
+treeNodeView = _treeNodeView,
 isHidden = _isHidden,
-LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
+treeNodeSuperView = _treeNodeSuperView;
 
 - (instancetype)init{
     if (self = [super init]) {
@@ -65,7 +65,7 @@ LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
 - (CGFloat)subTreeHeight{
     if (!_subTreeHeight) {
         CGFloat tempSubTreeHeight = 0;
-        for (id<LayerTreeNodeModelProtocol>  _Nonnull obj in self.subNodes) {
+        for (id<LayerTreeNodeProtocol>  _Nonnull obj in self.subNodes) {
             tempSubTreeHeight += obj.nodeHeight;
         }
         _subTreeHeight = tempSubTreeHeight;
@@ -76,7 +76,7 @@ LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
 - (CGFloat)currentTreeHeight{
     layerTreeHeight = _currentTreeHeight = 0;
     if (self.fatherNode) {
-        id<LayerTreeNodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
+        id<LayerTreeNodeProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
         if (rootNode == nil) {
             NSLog(@"未获取到rootNode");
         }else{
@@ -90,38 +90,38 @@ LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
 - (NSInteger)nodeLevel{
     if (!_nodeLevel || _nodeLevel == 0) {
         layerTreetempNodeLevel = 0;
-        id<LayerTreeNodeModelProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
+        id<LayerTreeNodeProtocol> rootNode = RecursiveGetRootNodeWithNode(self);
         rootNode.nodeLevel = 0;
         _nodeLevel = layerTreetempNodeLevel;
     }
     return _nodeLevel;
 }
 
-- (void)getTreeHeightAtFatherNode:(id<LayerTreeNodeModelProtocol>)fatherNode{
+- (void)getTreeHeightAtFatherNode:(id<LayerTreeNodeProtocol>)fatherNode{
     if (fatherNode.subNodes.count == 0||!fatherNode.isExpand) {//叶子节点
         return ;
     }
     if (!isnan(fatherNode.subTreeHeight)) {
         _currentTreeHeight += fatherNode.subTreeHeight;
     }
-    for (id<LayerTreeNodeModelProtocol>obj in fatherNode.subNodes) {
+    for (id<LayerTreeNodeProtocol>obj in fatherNode.subNodes) {
         [self getTreeHeightAtFatherNode:obj];
     }
 }
 
-- (void)addSubNode:(id<LayerTreeNodeModelProtocol>)node{
+- (void)addSubNode:(id<LayerTreeNodeProtocol>)node{
     node.fatherNode = self;
     [self.subNodes addObject:node];
 }
 
-- (void)addSubNodesFromArray:(NSArray<id<LayerTreeNodeModelProtocol>> *)nodes{
-    [nodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeModelProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)addSubNodesFromArray:(NSArray<id<LayerTreeNodeProtocol>> *)nodes{
+    [nodes enumerateObjectsUsingBlock:^(id<LayerTreeNodeProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.fatherNode = self;
     }];
     [self.subNodes addObjectsFromArray:nodes];
 }
 
-- (void)deleteSubNode:(id<LayerTreeNodeModelProtocol>)node{
+- (void)deleteSubNode:(id<LayerTreeNodeProtocol>)node{
     [self.subNodes removeObject:node];
 }
 
