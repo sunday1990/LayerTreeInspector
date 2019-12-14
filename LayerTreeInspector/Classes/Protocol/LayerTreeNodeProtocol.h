@@ -1,24 +1,24 @@
 //
-//  LayerTreeNodeModelProtocol.h
+//  LayerTreeNodeProtocol.h
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/5.
 //  Copyright © 2018年 ccSunday. All rights reserved.
 //
 
-#ifndef LayerTreeNodeModelProtocol_h
-#define LayerTreeNodeModelProtocol_h
+#ifndef LayerTreeNodeProtocol_h
+#define LayerTreeNodeProtocol_h
 #import <UIKit/UIKit.h>
-@protocol LayerTreeNodeModelProtocol
+@protocol LayerTreeNodeProtocol
 @required
 /**
  该节点元素对应的视图
  */
-@property (nonatomic ,weak) UIView *LayerTreeNodeView;
+@property (nonatomic ,weak) UIView *treeNodeView;
 /**
  该节点元素对应的父视图
  */
-@property (nonatomic ,weak) UIView *LayerTreeFatherNodeView;
+@property (nonatomic ,weak) UIView *treeNodeSuperView;
 /**
  该节点元素原始的hidden状态
  */
@@ -30,23 +30,23 @@
 /**
  该节点元素对应的所有子节点,添加子节点的时候，不要直接向数组中添加，而应该通过addNode的方式，这样会自动设置父节点
  */
-@property (nonatomic, strong) NSMutableArray<id<LayerTreeNodeModelProtocol>> *subNodes;
+@property (nonatomic, strong) NSMutableArray<id<LayerTreeNodeProtocol>> *subNodes;
 /**
  添加node节点
  
  @param node node节点
  */
-- (void)addSubNode:(id<LayerTreeNodeModelProtocol>)node;
+- (void)addSubNode:(id<LayerTreeNodeProtocol>)node;
 /**
  删除节点
  
  @param node node节点
  */
-- (void)deleteSubNode:(id<LayerTreeNodeModelProtocol>)node;
+- (void)deleteSubNode:(id<LayerTreeNodeProtocol>)node;
 /**
  父节点，注意根节点的父节点需要手动设置为自身
  */
-@property (nonatomic, weak) id<LayerTreeNodeModelProtocol> fatherNode;
+@property (nonatomic, weak) id<LayerTreeNodeProtocol> fatherNode;
 /**
  该节点相对于根节点处于第几级
  */
@@ -74,8 +74,8 @@
  
  @param nodes nodes数组
  */
-- (void)addSubNodesFromArray:(NSArray<id<LayerTreeNodeModelProtocol>> *)nodes;
+- (void)addSubNodesFromArray:(NSArray<id<LayerTreeNodeProtocol>> *)nodes;
 
 @end
 
-#endif /* LayerTreeNodeModelProtocol_h */
+#endif /* LayerTreeNodeProtocol_h */

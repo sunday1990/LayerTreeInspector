@@ -1,13 +1,14 @@
 //
-//  LayerTreeAssistMacros.h
+//  LayerTreeMacros.h
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/6.
 //  Copyright © 2018年 ccSunday. All rights reserved.
 //
 
-#ifndef LayerTreeAssistMacros_h
-#define LayerTreeAssistMacros_h
+#ifndef LayerTreeMacros_h
+#define LayerTreeMacros_h
+#import "LayerTreePodHelper.h"
 
 #define LTI_ScreenWidth [UIScreen mainScreen].bounds.size.width
 
@@ -17,6 +18,6 @@
 
 #define LTI_AffineTransformLevelPadding 20
 
-#define LTI_Image(imgName) [UIImage imageNamed:[NSString stringWithFormat:@"LayerTreeAsset.bundle/%@",imgName]]
+#define LTI_Image(imgName) [UIImage LayerTreeImageNamed:imgName]
 
-#endif /* LayerTreeAssistMacros_h */
+#endif /* LayerTreeMacros_h */
