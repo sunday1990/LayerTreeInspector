@@ -19,7 +19,10 @@
  该节点元素对应的父视图
  */
 @property (nonatomic ,weak) UIView *LayerTreeFatherNodeView;
-
+/**
+ 该节点元素原始的hidden状态
+ */
+@property (nonatomic, assign) BOOL isHidden;
 /**
  该节点元素自身的高度
  */

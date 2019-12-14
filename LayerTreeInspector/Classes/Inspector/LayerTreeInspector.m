@@ -31,7 +31,7 @@ static inline UIImage *RenderImageFromViewWithRect(UIView *view,CGRect frame){
     return renderedImage;
 }
 
-#pragma mark 根据节点视图和节点模型递归的将该节点视图所有的子节点加入到当前节点模型中
+#pragma mark 根据节点视图和节点模型递归的将该节点视图所有的子节点加入到当前节点模型中,深度优先。
 static inline void RecursiveInitializeSubNodesAtNodeWithNewAddView(LayerTreeBaseNode *_Nonnull node,UIView *_Nonnull view){
     if (view.subviews.count == 0) {
         return;
@@ -39,6 +39,7 @@ static inline void RecursiveInitializeSubNodesAtNodeWithNewAddView(LayerTreeBase
         [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             LayerTreeBaseNode *subNode = [[LayerTreeBaseNode alloc]init];
             subNode.LayerTreeNodeView = obj;
+            subNode.isHidden = obj.isHidden;
             subNode.LayerTreeFatherNodeView = view;
             [node addSubNode:subNode];
             RecursiveInitializeSubNodesAtNodeWithNewAddView(subNode, obj);
@@ -125,6 +126,10 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
     [LayerTreeInspectionView sharedDebugView];
 }
 
++ (void)resetKeywindow{
+    [LTI_rootWindow makeKeyAndVisible];
+}
+
 + (void)layerTreeFindRootNodeAtWindowWithCompletion:(void(^)(LayerTreeBaseNode *rootNode))completion{
     UIWindow *window = LTI_rootWindow;
     LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
@@ -162,13 +167,13 @@ static inline void RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelP
 + (void)layerTreeRecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding:(CGFloat)levelPadding{
     RecursiveTranslateAllSubviewsAtZAxisWith3DTranslatationLevelPadding(LTI_rootNode, levelPadding);
     for (LayerTreeBaseNode *subNode in LTI_rootNode.subNodes) {
-        subNode.LayerTreeNodeView.hidden = YES;
+        subNode.LayerTreeNodeView.hidden = YES;//强行隐藏
     }
 }
 
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
     for (LayerTreeBaseNode *subNode in LTI_rootNode.subNodes) {
-        subNode.LayerTreeNodeView.hidden = NO;
+        subNode.LayerTreeNodeView.hidden = subNode.isHidden;//复原hiden的状态
     }
     for (UIView *subView in LTI_rootWindow.subviews) {
         if ([subView isMemberOfClass:[LayerTreeSubImageView class]]) {

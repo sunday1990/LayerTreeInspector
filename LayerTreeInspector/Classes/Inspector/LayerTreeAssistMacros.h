@@ -8,7 +8,6 @@
 
 #ifndef LayerTreeAssistMacros_h
 #define LayerTreeAssistMacros_h
-#import "NSBundle+LayerTreeInspector.h"
 
 #define LTI_ScreenWidth [UIScreen mainScreen].bounds.size.width
 
@@ -18,8 +17,6 @@
 
 #define LTI_AffineTransformLevelPadding 20
 
-#define LTI_Image(imgName)   [NSBundle LT_imageWithName:imgName]
-
-//[NSBundle LT_imageWithName]
+#define LTI_Image(imgName) [UIImage imageNamed:[NSString stringWithFormat:@"LayerTreeAsset.bundle/%@",imgName]]
 
 #endif /* LayerTreeAssistMacros_h */

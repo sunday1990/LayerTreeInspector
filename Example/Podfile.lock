@@ -6,11 +6,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   LayerTreeInspector:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  LayerTreeInspector: 02ba495aa6e18abc435d313661e5f23dd522839c
+  LayerTreeInspector: 31aa5bb7c1e4f85c4df20e54e3683c1ffffca7dc
 
 PODFILE CHECKSUM: 6c9bfd61a6efff5185eb0a4be4e28363da8a0e08
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.8.4

@@ -32,6 +32,7 @@
  图层树从3D状态恢复到初始的平面状态
  */
 + (void)layerTreeRevertFrom3DTransformationToTheInitialPlanarStateWithCompletion:(void(^_Nullable)(BOOL isFinished))completion;
++ (void)resetKeywindow;
 @end
 
 #endif /* LayerTreeInspectorProtocol_h */

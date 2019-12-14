@@ -13,7 +13,6 @@
 #import "LayerTreeView3DDetailCell.h"
 #import "LayerTreeSubImageView.h"
 #import "LayerTreeAssistMacros.h"
-#import "NSBundle+LayerTreeInspector.h"
 
 typedef NS_ENUM(NSUInteger,LayerTreeStyle)
 {
@@ -198,9 +197,7 @@ static LayerTreeInspectionView *_instance;
             return;
         }
         LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[indexPath.row];
-//        [_LTI_headerView setImage:[UIImage imageNamed:@"LTI__backIcon"] forState:UIControlStateNormal];
-        [_LTI_headerView setImage:[NSBundle LT_imageWithName:@"LTI__backIcon"] forState:UIControlStateNormal];
-        
+        [_LTI_headerView setImage:[UIImage imageNamed:@"LTI__backIcon"] forState:UIControlStateNormal];
         if (node.subNodes.count>0) {
             LayerTreeBaseNode *firstSubNode = (LayerTreeBaseNode *)node.subNodes.firstObject;
             if (firstSubNode.LayerTreeNodeView) {
@@ -417,6 +414,8 @@ static LayerTreeInspectionView *_instance;
         self.LTI_tableview.alpha = 0;
     }completion:^(BOOL finished) {
         self.LTI_tableViewContainerWindow.hidden = YES;
+        //重置keywindow
+        [LayerTreeInspector resetKeywindow];
     }];
 }
 
@@ -531,9 +530,9 @@ static LayerTreeInspectionView *_instance;
 - (UIButton *)LTI_debugBtn{
     if (!_LTI_debugBtn) {
         _LTI_debugBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _LTI_debugBtn.frame = CGRectMake(LTI_ScreenWidth-12- 50, 30, 50, 50);
+        _LTI_debugBtn.frame = CGRectMake(LTI_ScreenWidth-12- 50, 100, 50, 50);
         _LTI_debugBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_LTI_debugBtn setTitle:@"Debug" forState:UIControlStateNormal];
+        [_LTI_debugBtn setTitle:@"Tree" forState:UIControlStateNormal];
         [_LTI_debugBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         _LTI_debugBtn.layer.cornerRadius = 10;
         _LTI_debugBtn.backgroundColor = LTI_BackGroundColor;
@@ -607,7 +606,7 @@ static LayerTreeInspectionView *_instance;
     if (!_LTI_changeTypeBtn) {
         _LTI_changeTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _LTI_changeTypeBtn.frame = CGRectMake(CGRectGetMinX(self.LTI_refreshBtn.frame)-56, 0, 44, 44);
-        [_LTI_changeTypeBtn setImage:LTI_Image(@"LTI_arrowdownIcon") forState:UIControlStateNormal];      
+        [_LTI_changeTypeBtn setImage:LTI_Image(@"LTI_arrowdownIcon") forState:UIControlStateNormal];
         [_LTI_changeTypeBtn setImage:LTI_Image(@"LTI_arrowupIcon") forState:UIControlStateSelected];
         _LTI_changeTypeBtn.backgroundColor = LTI_BackGroundColor;
         [_LTI_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];

@@ -50,6 +50,7 @@ expand = _expand,
 currentTreeHeight = _currentTreeHeight,
 nodeLevel = _nodeLevel,
 LayerTreeNodeView = _LayerTreeNodeView,
+isHidden = _isHidden,
 LayerTreeFatherNodeView = _LayerTreeFatherNodeView;
 
 - (instancetype)init{

@@ -22,7 +22,6 @@
 #import "LayerTreeInspector.h"
 #import "LayerTreeInspectorProtocol.h"
 #import "LayerTreeNodeModelProtocol.h"
-#import "NSBundle+LayerTreeInspector.h"
 
 FOUNDATION_EXPORT double LayerTreeInspectorVersionNumber;
 FOUNDATION_EXPORT const unsigned char LayerTreeInspectorVersionString[];

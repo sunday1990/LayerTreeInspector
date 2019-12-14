@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "LayerTree3DNodeModelProtocol.h"
 
-@interface LayerTree3DBaseNode : NSObject<LayerTree3DNodeProtocol>
+@interface LayerTree3DBaseNode : NSObject//<LayerTree3DNodeProtocol>
 
 @end
