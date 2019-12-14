@@ -196,8 +196,8 @@ static LayerTreeInspectionView *_instance;
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             return;
         }
-        LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[indexPath.row];
-        [_LTI_headerView setImage:[UIImage imageNamed:@"LTI__backIcon"] forState:UIControlStateNormal];
+        LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.LTI_currentNode.subNodes[indexPath.row];        
+        [_LTI_headerView setImage:LTI_Image(@"LTI__backIcon") forState:UIControlStateNormal];
         if (node.subNodes.count>0) {
             LayerTreeBaseNode *firstSubNode = (LayerTreeBaseNode *)node.subNodes.firstObject;
             if (firstSubNode.LayerTreeNodeView) {
@@ -393,7 +393,7 @@ static LayerTreeInspectionView *_instance;
 - (void)layerTreeBack:(UIButton *)btn{
     checkViewDetail = NO;
     if (self.LTI_selectNodes.count > 1) {
-        [_LTI_headerView setImage:[UIImage imageNamed:@"LTI__backIcon"] forState:UIControlStateNormal];
+        [_LTI_headerView setImage:LTI_Image(@"LTI__backIcon") forState:UIControlStateNormal];
         [self.LTI_selectNodes removeLastObject];
         self.LTI_currentNode = self.LTI_selectNodes.lastObject;
         [self.LTI_tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
