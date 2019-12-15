@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class LayerTreeBaseNode;
+@class LayerTreeNode;
 @interface LayerTreeImageView : UIImageView
-@property (nonatomic,strong) LayerTreeBaseNode *viewNode;
+@property (nonatomic,strong) LayerTreeNode *viewNode;
 @end

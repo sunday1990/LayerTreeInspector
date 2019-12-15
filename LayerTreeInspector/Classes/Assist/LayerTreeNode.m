@@ -1,12 +1,12 @@
 //
-//  LayerTreeBaseNode.m
+//  LayerTreeNode.m
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/5.
 //  Copyright © 2018年 ccSunday. All rights reserved.
 //
 
-#import "LayerTreeBaseNode.h"
+#import "LayerTreeNode.h"
 
 CGFloat layerTreeHeight;
 CGFloat layerTreetempNodeLevel;
@@ -36,7 +36,7 @@ static inline void RecursiveCalculateTreeHeightWithRootNode(id<LayerTreeNodeProt
     }
 }
 
-@implementation LayerTreeBaseNode
+@implementation LayerTreeNode
 
 @synthesize
 subNodes = _subNodes,

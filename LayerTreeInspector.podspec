@@ -23,7 +23,7 @@ This is a tool to inspect your view hierarchys on your iphone at realtime,Provid
 
   s.homepage         = 'https://github.com/sunday1990/LayerTreeInspector'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Eychos' => '“935143023@qq.com”' }
+  s.author           = { 'Eychos' => '935143023@qq.com' }
   s.source           = { :git => 'https://github.com/sunday1990/LayerTreeInspector.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'

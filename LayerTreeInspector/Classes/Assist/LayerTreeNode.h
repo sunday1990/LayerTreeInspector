@@ -1,5 +1,5 @@
 //
-//  LayerTreeBaseNode.h
+//  LayerTreeNode.h
 //  LayerTree
 //
 //  Created by ccSunday on 2018/2/5.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LayerTreeNodeProtocol.h"
-@interface LayerTreeBaseNode : NSObject<LayerTreeNodeProtocol>
+@interface LayerTreeNode : NSObject<LayerTreeNodeProtocol>
 
 @end

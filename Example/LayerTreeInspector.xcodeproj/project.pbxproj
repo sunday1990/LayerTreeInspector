@@ -300,7 +300,8 @@
 				ORGANIZATIONNAME = sunday1990;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = NAL2Z6BE95;
+						DevelopmentTeam = 5KW7B35PMH;
+						ProvisioningStyle = Manual;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -312,6 +313,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -544,13 +546,15 @@
 			baseConfigurationReference = 4237A8A9827B27E15D3BA676 /* Pods-LayerTreeInspector_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NAL2Z6BE95;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5KW7B35PMH;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LayerTreeInspector/LayerTreeInspector-Prefix.pch";
 				INFOPLIST_FILE = "LayerTreeInspector/LayerTreeInspector-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubaSDK.react;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = YubaSDK_react_20160422;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -565,7 +569,7 @@
 				GCC_PREFIX_HEADER = "LayerTreeInspector/LayerTreeInspector-Prefix.pch";
 				INFOPLIST_FILE = "LayerTreeInspector/LayerTreeInspector-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubaSDK.react;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LayerTreeInspector: 038627d2641e716afc05328ad2d844e1467a8443
+  LayerTreeInspector: e72382d250e8792343b6cfa277a4e74a7bb7d6ee
 
 PODFILE CHECKSUM: 6c9bfd61a6efff5185eb0a4be4e28363da8a0e08
 

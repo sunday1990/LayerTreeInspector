@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
     LayerTreeStyleGraphics = 2      //🌲形式
 };
 
-@class LayerTreeBaseNode;
+@class LayerTreeNode;
 @class LayerTreeImageView;
 
 @protocol LayerTreeInspectionViewDelegate
@@ -28,17 +28,17 @@ typedef NS_ENUM(NSUInteger,LayerTreeStyle)
  
  @param completion 获取后的回调
  */
-- (void)layerTreeShouldRefreshCurrentNodeAtTopviewWithCompletion:(void(^_Nullable)(LayerTreeBaseNode * _Nullable currentNode,NSArray<LayerTreeBaseNode *> * _Nullable node))completion;
+- (void)layerTreeShouldRefreshHierarchyWithCompletion:(void(^_Nullable)(LayerTreeNode * _Nullable currentNode,NSArray<LayerTreeNode *> * _Nullable node))completion;
 /**
-图层树进行3D变换
+ 开始进行3D变换
  @param levelPadding 每一层级需要平移的单位距离
  */
-- (void)layerTreeShould3DTransformWitPadding:(CGFloat)levelPadding;
+- (void)layerTreeShouldBegin3DTransformWitPadding:(CGFloat)levelPadding;
 /**
- 图层树从3D状态恢复到初始的平面状态
+ 从3D状态回归到初始的平面状态
 
  */
-- (void)layerTreeShouldResetToIniaialFrom3DTransform:(void(^_Nullable)(BOOL isFinished))completion;
+- (void)layerTreeShouldResetToIniaialFrom3DTransformWithCompletion:(void(^_Nullable)(BOOL isFinished))completion;
 
 @end
 

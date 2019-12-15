@@ -11,7 +11,7 @@
 #import "LayerTreeMacros.h"
 #import "LayerTreeInspectionView.h"
 #import "LayerTreeImageView.h"
-#import "LayerTreeBaseNode.h"
+#import "LayerTreeNode.h"
 
 CATransform3D _transForm;
 UIWindow *_rootWindow;
@@ -32,11 +32,11 @@ static inline UIImage *createScreenShotForView(UIView *view,CGRect frame){
 }
 
 #pragma mark 递归生成可视化的3D视图
-static inline void recursiveConstruct3DHierarchyTree(LayerTreeBaseNode *_Nonnull rootNode,CGFloat levelPadding){
+static inline void recursiveConstruct3DHierarchyTree(LayerTreeNode *_Nonnull rootNode,CGFloat levelPadding){
     if (rootNode.subNodes.count == 0||[rootNode.treeNodeView isMemberOfClass:[LayerTreeInspectionView class]]) {
         return;
     }else{
-        [rootNode.subNodes enumerateObjectsUsingBlock:^(LayerTreeBaseNode *subNode, NSUInteger idx, BOOL * _Nonnull stop) {
+        [rootNode.subNodes enumerateObjectsUsingBlock:^(LayerTreeNode *subNode, NSUInteger idx, BOOL * _Nonnull stop) {
             UIView *subview = (UIView *)subNode.treeNodeView;
             NSMutableArray *tempHiddenArray = [NSMutableArray array];
             //先隐藏所有的子view，然后再生成该view对应的图片，否则会重影
@@ -80,12 +80,12 @@ static inline void recursiveConstruct3DHierarchyTree(LayerTreeBaseNode *_Nonnull
 }
 
 #pragma mark 以window为根节点，递归构造一颗模型树
-static inline void recursiveConstructNodeTree(LayerTreeBaseNode *_Nonnull rootNode,UIView *_Nonnull rootView){
+static inline void recursiveConstructNodeTree(LayerTreeNode *_Nonnull rootNode,UIView *_Nonnull rootView){
     if (rootView.subviews.count == 0) {
         return;
     }else{
         [rootView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            LayerTreeBaseNode *subNode = [[LayerTreeBaseNode alloc]init];
+            LayerTreeNode *subNode = [[LayerTreeNode alloc]init];
             subNode.treeNodeView = obj;//记录当前视图
             subNode.isHidden = obj.isHidden;//记录当前视图的hidden状态
             subNode.treeNodeSuperView = rootView;//记录父视图
@@ -96,12 +96,12 @@ static inline void recursiveConstructNodeTree(LayerTreeBaseNode *_Nonnull rootNo
 }
 
 #pragma mark 查找view所对应的的Node
-static inline LayerTreeBaseNode *_Nullable RecursiveFindNode(UIView *view,LayerTreeBaseNode *rootNode){
+static inline LayerTreeNode *_Nullable RecursiveFindNode(UIView *view,LayerTreeNode *rootNode){
     if (rootNode.treeNodeView == view) {
         return rootNode;
     }else{
         if (rootNode.subNodes.count > 0) {
-            for (LayerTreeBaseNode *layerNode in rootNode.subNodes) {
+            for (LayerTreeNode *layerNode in rootNode.subNodes) {
                 return RecursiveFindNode(view, layerNode);
             }
         }else{
@@ -114,7 +114,7 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNode(UIView *view,LayerT
 @interface LayerTreeInspector()<LayerTreeInspectionViewDelegate>
 {
     @private
-    LayerTreeBaseNode *_rootNode;
+    LayerTreeNode *_rootNode;
 }
 @end
 
@@ -152,22 +152,22 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNode(UIView *view,LayerT
  刷新树
  注：现在每次刷新都会重新生成一颗以window为根节点的模型树
 */
-- (void)layerTreeShouldRefreshCurrentNodeAtTopviewWithCompletion:(void(^)(LayerTreeBaseNode *currentNode,NSArray<LayerTreeBaseNode *> *frontNodes))completion{
+- (void)layerTreeShouldRefreshHierarchyWithCompletion:(void(^)(LayerTreeNode *currentNode,NSArray<LayerTreeNode *> *frontNodes))completion{
     //获取当前展示的视图控制器
     UIViewController *topViewController = [[LayerTreeInspector sharedInspector] topViewController];
     //重新创建一个根节点
-    LayerTreeBaseNode *rootNode = [[LayerTreeBaseNode alloc]init];
+    LayerTreeNode *rootNode = [[LayerTreeNode alloc]init];
     rootNode.treeNodeView = _rootWindow;
     _rootNode = rootNode;
     //重新构造树
     recursiveConstructNodeTree(_rootNode, _rootWindow);
     //查找当前控制器所对应的node
-    LayerTreeBaseNode *currentNode = RecursiveFindNode(topViewController.view, _rootNode);
+    LayerTreeNode *currentNode = RecursiveFindNode(topViewController.view, _rootNode);
     NSMutableArray *frontNodes = [NSMutableArray array];
     //获取所点击的视图在整个Hierarchy的位置
     while (currentNode.fatherNode != rootNode && currentNode != nil) {
         [frontNodes insertObject:currentNode atIndex:0];
-        currentNode = (LayerTreeBaseNode *)currentNode.fatherNode;
+        currentNode = (LayerTreeNode *)currentNode.fatherNode;
     }
     [frontNodes insertObject:rootNode atIndex:0];
     if (completion) {
@@ -181,17 +181,17 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNode(UIView *view,LayerT
 /**
 3D变换
 */
-- (void)layerTreeShould3DTransformWitPadding:(CGFloat)levelPadding{
+- (void)layerTreeShouldBegin3DTransformWitPadding:(CGFloat)levelPadding{
     recursiveConstruct3DHierarchyTree(_rootNode, levelPadding);
-    for (LayerTreeBaseNode *subNode in _rootNode.subNodes) {
+    for (LayerTreeNode *subNode in _rootNode.subNodes) {
         subNode.treeNodeView.hidden = YES;//强行隐藏
     }
 }
 /**
 从3D状态回到初始状态
 */
-- (void)layerTreeShouldResetToIniaialFrom3DTransform:(void(^_Nullable)(BOOL isFinished))completion{
-    for (LayerTreeBaseNode *subNode in _rootNode.subNodes) {
+- (void)layerTreeShouldResetToIniaialFrom3DTransformWithCompletion:(void(^_Nullable)(BOOL isFinished))completion{
+    for (LayerTreeNode *subNode in _rootNode.subNodes) {
         subNode.treeNodeView.hidden = subNode.isHidden;//复原hiden的状态
     }
     for (UIView *subView in _rootWindow.subviews) {
@@ -204,7 +204,7 @@ static inline LayerTreeBaseNode *_Nullable RecursiveFindNode(UIView *view,LayerT
     }
 }
 
-#pragma ----- EventResponse -----
+#pragma ----- Event -----
 - (void)tapInspectionView:(UITapGestureRecognizer *)ges{
     LayerTreeImageView *subImgView = (LayerTreeImageView *)ges.view;
     [[LayerTreeInspectionView sharedInspectionView]updateSelectNodeView:subImgView];

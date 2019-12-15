@@ -12,28 +12,28 @@
 #import "LayerTree3DCell.h"
 #import "LayerTreeImageView.h"
 #import "LayerTreeMacros.h"
-#import "LayerTreeBaseNode.h"
+#import "LayerTreeNode.h"
 
 @interface LayerTreeInspectionView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 //代理
 @property (nonatomic, weak) id<LayerTreeInspectionViewDelegate>delegate;
-//part0
+//debug 按钮
 @property (nonatomic, strong) LayerTreeWindow *debugBtnContainerWindow;
 @property (nonatomic, strong) UIButton *debugBtn;
-//part1
+//底部的debug 窗口
 @property (nonatomic, strong) LayerTreeWindow *tableViewContainerWindow;
 @property (nonatomic, strong) UITableView *tableview;
-@property (nonatomic, strong) UIButton *resetButton;
-@property (nonatomic, strong) UIButton *headerView;
+@property (nonatomic, strong) UIButton *resetBtn;
+@property (nonatomic, strong) UIButton *leftNavBtn;
 @property (nonatomic, strong) UIButton *dismissBtn;
 @property (nonatomic, strong) UIButton *refreshBtn;
 @property (nonatomic, strong) UIButton *changeTypeBtn;
-@property (nonatomic, strong) UIView *typeView;
-//part3
-@property (nonatomic, strong) LayerTreeBaseNode *currentNode;
+@property (nonatomic, strong) UIView *typeSelectView;
+//数据
+@property (nonatomic, strong) LayerTreeNode *currentNode;
 @property (nonatomic, strong) NSMutableArray *selectNodes;
 @property (nonatomic, strong) LayerTreeViewDetailModel *viewDetailModel;
-@property (nonatomic, strong) LayerTreeBaseNode *view3DDetailModel;
+@property (nonatomic, strong) LayerTreeNode *view3DDetailModel;
 @property (nonatomic, assign) LayerTreeStyle treeStyle;
 
 @end
@@ -148,12 +148,14 @@ static inline float degreesToRadians(d){
             [cell updateWithModel:self.viewDetailModel];
             return cell;
         }else{
-            LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.currentNode.subNodes[indexPath.row];
+            LayerTreeNode *node = (LayerTreeNode *)self.currentNode.subNodes[indexPath.row];
             static NSString *CELL_ID = @"LayTreeSubViewID";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
                 cell.userInteractionEnabled = YES;
+                cell.backgroundColor = UIColor.whiteColor;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UIButton *rightArrow = [UIButton buttonWithType:UIButtonTypeCustom];
                 rightArrow.frame = CGRectMake(0, 0, 30, 30);
                 //editIcon
@@ -174,6 +176,7 @@ static inline float degreesToRadians(d){
             }
             cell.textLabel.font = [UIFont systemFontOfSize:12];
             cell.textLabel.numberOfLines = 0;
+            cell.textLabel.textColor = UIColor.darkTextColor;
             return cell;
         }
     }else{
@@ -193,10 +196,10 @@ static inline float degreesToRadians(d){
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             return;
         }
-        LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.currentNode.subNodes[indexPath.row];
-        [_headerView setImage:LTI_Image(@"_backIcon") forState:UIControlStateNormal];
+        LayerTreeNode *node = (LayerTreeNode *)self.currentNode.subNodes[indexPath.row];
+        [_leftNavBtn setImage:LTI_Image(@"_backIcon") forState:UIControlStateNormal];
         if (node.subNodes.count>0) {
-            LayerTreeBaseNode *firstSubNode = (LayerTreeBaseNode *)node.subNodes.firstObject;
+            LayerTreeNode *firstSubNode = (LayerTreeNode *)node.subNodes.firstObject;
             if (firstSubNode.treeNodeView) {
                 node.expand = YES;
                 checkViewDetail = NO;
@@ -208,7 +211,7 @@ static inline float degreesToRadians(d){
             }
         }else{
             if (node.treeNodeView) {
-                self.currentNode = (LayerTreeBaseNode *)node.fatherNode;
+                self.currentNode = (LayerTreeNode *)node.fatherNode;
                 [self.selectNodes addObject:self.currentNode];
                 LayerTreeViewDetailModel *model = [LayerTreeViewDetailModel modelWithView:node.treeNodeView];
                 checkViewDetail = YES;
@@ -225,16 +228,16 @@ static inline float degreesToRadians(d){
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (self.treeStyle == LayerTreeStyleDefault || self.treeStyle == LayerTreeStyleGraphics) {
-        LayerTreeBaseNode *lastNode = [self.selectNodes lastObject];
+        LayerTreeNode *lastNode = [self.selectNodes lastObject];
         if (self.selectNodes.count > 1) {
-            [self.headerView setTitle:NSStringFromClass(lastNode.treeNodeView.class)?[NSString stringWithFormat:@"< %@",NSStringFromClass(lastNode.treeNodeView.class)]:@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
+            [self.leftNavBtn setTitle:NSStringFromClass(lastNode.treeNodeView.class)?[NSString stringWithFormat:@"< %@",NSStringFromClass(lastNode.treeNodeView.class)]:@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
         }else{
-            [self.headerView setTitle:NSStringFromClass(lastNode.treeNodeView.class)?NSStringFromClass(lastNode.treeNodeView.class):@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
+            [self.leftNavBtn setTitle:NSStringFromClass(lastNode.treeNodeView.class)?NSStringFromClass(lastNode.treeNodeView.class):@"view已释放，请点此返回或刷新" forState:UIControlStateNormal];
         }
     }else{
-        [self.headerView setTitle:@"3D视角" forState:UIControlStateNormal];
+        [self.leftNavBtn setTitle:@"3D视角" forState:UIControlStateNormal];
     }
-    return self.headerView;
+    return self.leftNavBtn;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -259,23 +262,8 @@ static inline float degreesToRadians(d){
 }
 
 #pragma mark =========== EventResponse ===========
-//- (void)tapInspectionView:(UITapGestureRecognizer *)tap{
-//    if (tap.view == _currentSelect3DView) {
-//        return;
-//    }
-//    if (_currentSelect3DView) {
-//        _currentSelect3DView.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;;
-//    }
-//    LayerTreeImageView *subImgView = (LayerTreeImageView *)tap.view;
-//    _currentSelect3DView = subImgView;
-//    subImgView.layer.backgroundColor = LTI_BackGroundColor.CGColor;
-//    self.view3DDetailModel = subImgView.viewNode;
-//    [self.tableview reloadData];
-//}
-
 /**
-偷了个懒，以下的pan:、pinch:、anime来自YY大佬的 YYViewHierarchy3D
-
+ 手势
  @param gestureRecognizer gestureRecognizer
  */
 - (void)pan:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -314,7 +302,7 @@ static inline float degreesToRadians(d){
 - (void)checkCurrentSelectViewDetail:(UIButton *)btn{
     UITableViewCell *cell = (UITableViewCell *)btn.superview;
     NSInteger index = [self.tableview.visibleCells indexOfObject:cell];
-    LayerTreeBaseNode *node = (LayerTreeBaseNode *)self.currentNode.subNodes[index];
+    LayerTreeNode *node = (LayerTreeNode *)self.currentNode.subNodes[index];
     [self.selectNodes addObject:self.currentNode];
     LayerTreeViewDetailModel *model = [LayerTreeViewDetailModel modelWithView:node.treeNodeView];
     checkViewDetail = YES;
@@ -390,12 +378,12 @@ static inline float degreesToRadians(d){
 - (void)layerTreeBack:(UIButton *)btn{
     checkViewDetail = NO;
     if (self.selectNodes.count > 1) {
-        [_headerView setImage:LTI_Image(@"_backIcon") forState:UIControlStateNormal];
+        [_leftNavBtn setImage:LTI_Image(@"_backIcon") forState:UIControlStateNormal];
         [self.selectNodes removeLastObject];
         self.currentNode = self.selectNodes.lastObject;
         [self.tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
     }else{
-        [_headerView setImage:nil forState:UIControlStateNormal];
+        [_leftNavBtn setImage:nil forState:UIControlStateNormal];
         if (self.selectNodes.count == 1) {
             self.currentNode = self.selectNodes[0];
             [self.tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
@@ -433,16 +421,16 @@ static inline float degreesToRadians(d){
     self.tableViewContainerWindow.hidden = NO;
     self.tableview.alpha = 1;
     [self.selectNodes removeAllObjects];
-    if (self.tableViewContainerWindow.frame.origin.y<(self.headerView.frame.size.height+44)||self.tableViewContainerWindow.frame.origin.y > (LTI_ScreenHeight - self.headerView.frame.size.height-44)) {
+    if (self.tableViewContainerWindow.frame.origin.y<(self.leftNavBtn.frame.size.height+44)||self.tableViewContainerWindow.frame.origin.y > (LTI_ScreenHeight - self.leftNavBtn.frame.size.height-44)) {
         [UIView animateWithDuration:0.5 animations:^{
            self.tableViewContainerWindow.frame = CGRectMake(12, LTI_ScreenHeight - 44*7, LTI_ScreenWidth-24,44*6);
         }];
     }
     if (LayerTreeStyleDefault == self.treeStyle) {
         id delegate = self.delegate;
-        if (delegate && [delegate respondsToSelector:@selector(layerTreeShouldRefreshCurrentNodeAtTopviewWithCompletion:)]) {
+        if (delegate && [delegate respondsToSelector:@selector(layerTreeShouldRefreshHierarchyWithCompletion:)]) {
             __weak typeof(self)weakself = self;
-            [self.delegate layerTreeShouldRefreshCurrentNodeAtTopviewWithCompletion:^(LayerTreeBaseNode * _Nullable currentNode, NSArray<LayerTreeBaseNode *> * _Nullable node) {
+            [self.delegate layerTreeShouldRefreshHierarchyWithCompletion:^(LayerTreeNode * _Nullable currentNode, NSArray<LayerTreeNode *> * _Nullable node) {
                 weakself.currentNode = currentNode;
                 [weakself.selectNodes addObjectsFromArray:node];
                 [weakself.tableview reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)] withRowAnimation:UITableViewRowAnimationFade];
@@ -451,23 +439,23 @@ static inline float degreesToRadians(d){
     }
 }
 
-- (void)showSelectTypeView:(UIButton *)btn{
+- (void)showSelecttypeSelectView:(UIButton *)btn{
     btn.selected = !btn.selected;
     if (btn.selected) {
         [UIView animateWithDuration:0.2 animations:^{
-            self.typeView.frame = CGRectMake(self.typeView.frame.origin.x, self.typeView.frame.origin.y, self.typeView.frame.size.width, 44*3);
+            self.typeSelectView.frame = CGRectMake(self.typeSelectView.frame.origin.x, self.typeSelectView.frame.origin.y, self.typeSelectView.frame.size.width, 44*3);
         }completion:^(BOOL finished) {
             [self.tableview scrollsToTop];
         }];
     }else{
         [UIView animateWithDuration:0.2 animations:^{
-            self.typeView.frame = CGRectMake(self.typeView.frame.origin.x, self.typeView.frame.origin.y, self.typeView.frame.size.width, 0);
+            self.typeSelectView.frame = CGRectMake(self.typeSelectView.frame.origin.x, self.typeSelectView.frame.origin.y, self.typeSelectView.frame.size.width, 0);
         }];
     }
 }
 
 - (void)changeStyle:(UIButton *)btn{
-    [self showSelectTypeView:self.changeTypeBtn];
+    [self showSelecttypeSelectView:self.changeTypeBtn];
     if (btn.tag == 100) {
         self.refreshBtn.userInteractionEnabled = YES;
         if (self.treeStyle == LayerTreeStyle3DTransForm) {
@@ -483,7 +471,7 @@ static inline float degreesToRadians(d){
     }else if (btn.tag == 101) {
         self.treeStyle = LayerTreeStyle3DTransForm;
         self.refreshBtn.userInteractionEnabled = NO;
-        self.resetButton.hidden = NO;
+        self.resetBtn.hidden = NO;
         _panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
         _pinGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinch:)];
         _pinGesture.delegate = self;
@@ -492,8 +480,8 @@ static inline float degreesToRadians(d){
         [rootWindow addGestureRecognizer:_panGesture];
         _initialTransForm = rootWindow.layer.sublayerTransform;
         id delegate = self.delegate;
-        if (delegate && [delegate respondsToSelector:@selector(layerTreeShould3DTransformWitPadding:)]) {
-            [delegate layerTreeShould3DTransformWitPadding:LTI_AffineTransformLevelPadding];
+        if (delegate && [delegate respondsToSelector:@selector(layerTreeShouldBegin3DTransformWitPadding:)]) {
+            [delegate layerTreeShouldBegin3DTransformWitPadding:LTI_AffineTransformLevelPadding];
         }
     }else if (btn.tag == 102){
         self.refreshBtn.userInteractionEnabled = YES;
@@ -513,14 +501,14 @@ static inline float degreesToRadians(d){
 
 - (void)resetLayerTree:(UIButton *)btn{
     NSLog(@"start revert 3D to plannar");
-    _resetButton.hidden = YES;
+    _resetBtn.hidden = YES;
     [self getWindow].layer.sublayerTransform = CATransform3DIdentity;
     [[self getWindow] removeGestureRecognizer:_pinGesture];
     [[self getWindow] removeGestureRecognizer:_panGesture];
     id delegate = self.delegate;
-    if (delegate && [delegate respondsToSelector:@selector(layerTreeShouldResetToIniaialFrom3DTransform:)]) {
+    if (delegate && [delegate respondsToSelector:@selector(layerTreeShouldResetToIniaialFrom3DTransformWithCompletion:)]) {
         __weak typeof(self)weakself = self;
-        [delegate layerTreeShouldResetToIniaialFrom3DTransform:^(BOOL isFinished) {
+        [delegate layerTreeShouldResetToIniaialFrom3DTransformWithCompletion:^(BOOL isFinished) {
             if (isFinished) {
                NSLog(@"finish revert 3D to plannar");
                 rotateX = rotateY = dist = 0;
@@ -570,28 +558,28 @@ static inline float degreesToRadians(d){
     return _tableview;
 }
 
-- (UIButton *)headerView{
-    if (!_headerView) {
-        _headerView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _headerView.frame = CGRectMake(0, 0, self.tableview.frame.size.width, 44);
-        _headerView.titleLabel.font = [UIFont systemFontOfSize:12];
-        _headerView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        _headerView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-        [_headerView setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-        _headerView.backgroundColor = LTI_BackGroundColor;
-        [_headerView addTarget:self action:@selector(layerTreeBack:) forControlEvents:UIControlEventTouchUpInside];
-        [_headerView addSubview:self.dismissBtn];
-        [_headerView addSubview:self.refreshBtn];
-        [_headerView addSubview:self.changeTypeBtn];
-        [_headerView addSubview:self.resetButton];
+- (UIButton *)leftNavBtn{
+    if (!_leftNavBtn) {
+        _leftNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftNavBtn.frame = CGRectMake(0, 0, self.tableview.frame.size.width, 44);
+        _leftNavBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _leftNavBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _leftNavBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        [_leftNavBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        _leftNavBtn.backgroundColor = LTI_BackGroundColor;
+        [_leftNavBtn addTarget:self action:@selector(layerTreeBack:) forControlEvents:UIControlEventTouchUpInside];
+        [_leftNavBtn addSubview:self.dismissBtn];
+        [_leftNavBtn addSubview:self.refreshBtn];
+        [_leftNavBtn addSubview:self.changeTypeBtn];
+        [_leftNavBtn addSubview:self.resetBtn];
     }
-    return _headerView;
+    return _leftNavBtn;
 }
 
 - (UIButton *)dismissBtn{
     if (!_dismissBtn) {
         _dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _dismissBtn.frame = CGRectMake(_headerView.frame.size.width-50, 0, 44, 44);
+        _dismissBtn.frame = CGRectMake(_leftNavBtn.frame.size.width-50, 0, 44, 44);
         [_dismissBtn setImage:LTI_Image(@"deleteIcon") forState:UIControlStateNormal];
         _dismissBtn.backgroundColor = LTI_BackGroundColor;
         [_dismissBtn addTarget:self action:@selector(dismissDebugView) forControlEvents:UIControlEventTouchUpInside];
@@ -602,7 +590,7 @@ static inline float degreesToRadians(d){
 - (UIButton *)refreshBtn{
     if (!_refreshBtn) {
         _refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _refreshBtn.frame = CGRectMake(_headerView.frame.size.width-50-56, 44/2-30/2, 30, 30);
+        _refreshBtn.frame = CGRectMake(_leftNavBtn.frame.size.width-50-56, 44/2-30/2, 30, 30);
         [_refreshBtn setImage:LTI_Image(@"refreshIcon") forState:UIControlStateNormal];
         _refreshBtn.backgroundColor = LTI_BackGroundColor;
         _refreshBtn.showsTouchWhenHighlighted = YES;
@@ -618,33 +606,33 @@ static inline float degreesToRadians(d){
         [_changeTypeBtn setImage:LTI_Image(@"arrowdownIcon") forState:UIControlStateNormal];
         [_changeTypeBtn setImage:LTI_Image(@"arrowupIcon") forState:UIControlStateSelected];
         _changeTypeBtn.backgroundColor = LTI_BackGroundColor;
-        [_changeTypeBtn addTarget:self action:@selector(showSelectTypeView:) forControlEvents:UIControlEventTouchUpInside];
+        [_changeTypeBtn addTarget:self action:@selector(showSelecttypeSelectView:) forControlEvents:UIControlEventTouchUpInside];
         _changeTypeBtn.showsTouchWhenHighlighted = YES;
     }
     return _changeTypeBtn;
 }
 
-- (UIButton *)resetButton{
-    if (!_resetButton) {
-        _resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _resetButton.frame = CGRectMake(CGRectGetMinX(self.changeTypeBtn.frame)-56, 0, 44, 44);
-        _resetButton.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_resetButton setTitle:@"复原" forState:UIControlStateNormal];
-        [_resetButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-        _resetButton.showsTouchWhenHighlighted = YES;
-        _resetButton.layer.cornerRadius = 10;
-        _resetButton.hidden = YES;
-        _resetButton.backgroundColor = LTI_BackGroundColor;
-        [_resetButton addTarget:self action:@selector(resetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)resetBtn{
+    if (!_resetBtn) {
+        _resetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resetBtn.frame = CGRectMake(CGRectGetMinX(self.changeTypeBtn.frame)-56, 0, 44, 44);
+        _resetBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_resetBtn setTitle:@"复原" forState:UIControlStateNormal];
+        [_resetBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        _resetBtn.showsTouchWhenHighlighted = YES;
+        _resetBtn.layer.cornerRadius = 10;
+        _resetBtn.hidden = YES;
+        _resetBtn.backgroundColor = LTI_BackGroundColor;
+        [_resetBtn addTarget:self action:@selector(resetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _resetButton;
+    return _resetBtn;
 }
 
-- (UIView *)typeView{
-    if (!_typeView) {
-        _typeView = [[UIView alloc]initWithFrame:CGRectMake(self.tableViewContainerWindow.frame.size.width - 60-80-88, 44, 80+88, 0)];
-        _typeView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
-        _typeView.layer.masksToBounds = YES;
+- (UIView *)typeSelectView{
+    if (!_typeSelectView) {
+        _typeSelectView = [[UIView alloc]initWithFrame:CGRectMake(self.tableViewContainerWindow.frame.size.width - 60-80-88, 44, 80+88, 0)];
+        _typeSelectView.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
+        _typeSelectView.layer.masksToBounds = YES;
         NSArray *title = @[
                            @"DefaultBreadStyle",
                            @"3DTransFormStyle",
@@ -653,17 +641,17 @@ static inline float degreesToRadians(d){
         for (int i = 0; i<3; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = 100+i;
-            btn.frame = CGRectMake(0, 44*i, _typeView.frame.size.width, 44);
+            btn.frame = CGRectMake(0, 44*i, _typeSelectView.frame.size.width, 44);
             [btn setTitle:title[i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
             btn.backgroundColor = [UIColor colorWithRed:0.89 green:0.96 blue:0.95 alpha:1];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
             [btn addTarget:self action:@selector(changeStyle:) forControlEvents:UIControlEventTouchUpInside];
-            [_typeView addSubview:btn];
+            [_typeSelectView addSubview:btn];
         }
-        [_tableViewContainerWindow addSubview:self.typeView];
+        [_tableViewContainerWindow addSubview:self.typeSelectView];
     }
-    return _typeView;
+    return _typeSelectView;
 }
 
 - (NSMutableArray *)selectNodes{

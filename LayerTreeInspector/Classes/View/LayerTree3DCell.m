@@ -7,7 +7,7 @@
 //
 
 #import "LayerTree3DCell.h"
-#import "LayerTreeBaseNode.h"
+#import "LayerTreeNode.h"
 
 @interface LayerTree3DCell ()
 {
@@ -34,6 +34,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _hierarchys = [NSMutableArray array];
+        self.backgroundColor = UIColor.whiteColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self setupSubviews];
     }
@@ -45,18 +46,18 @@
     [self.contentView addSubview:self.detailLabel];
 }
 
-- (void)updateWithNode:(LayerTreeBaseNode *)node{
+- (void)updateWithNode:(LayerTreeNode *)node{
     [_hierarchys removeAllObjects];
     self.hierarchiesLb.text = [@"Hierarchy:UIWindow->" stringByAppendingString:[self getHierarchyAtNode:node]];
     self.detailLabel.text = [NSString stringWithFormat:@"View:%@",node.treeNodeView==nil?@"":node.treeNodeView];
 }
 
-- (NSString *)getHierarchyAtNode:(LayerTreeBaseNode *)node{
+- (NSString *)getHierarchyAtNode:(LayerTreeNode *)node{
     if (node.fatherNode == nil) {
         return  [_hierarchys componentsJoinedByString:@"->"];
     }else{
         [_hierarchys insertObject:NSStringFromClass(node.treeNodeView.class) atIndex:0];
-        return [self getHierarchyAtNode:(LayerTreeBaseNode *)node.fatherNode];
+        return [self getHierarchyAtNode:(LayerTreeNode *)node.fatherNode];
     }
 }
 
@@ -115,4 +116,4 @@
 
 @end
 
-\
+

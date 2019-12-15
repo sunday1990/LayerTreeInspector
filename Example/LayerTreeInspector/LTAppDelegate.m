@@ -9,7 +9,7 @@
 #import "LTAppDelegate.h"
 #import "LTViewController.h"
 #import <LayerTreeInspector/LayerTreeInspector.h>
-#import <LayerTreeInspector/LayerTreeBaseNode.h>
+
 @implementation LTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

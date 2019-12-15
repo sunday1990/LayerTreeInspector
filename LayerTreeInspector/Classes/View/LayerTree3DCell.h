@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class LayerTreeBaseNode;
+@class LayerTreeNode;
 @interface LayerTree3DCell : UITableViewCell
-- (void)updateWithNode:(LayerTreeBaseNode *)node;
+- (void)updateWithNode:(LayerTreeNode *)node;
 @end

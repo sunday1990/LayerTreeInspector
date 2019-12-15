@@ -10,7 +10,7 @@
 
 @interface LayerTreeInspector : NSObject
 /**
- 在window创建后，调用该方法
+ 在window创建好后，调用该方法
  */
 + (void)showDebugView;
 
